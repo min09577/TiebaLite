@@ -35,8 +35,8 @@ wire {
 }
 
 android {
-    buildToolsVersion = "35.0.0"
-    compileSdk = 35
+    buildToolsVersion = "34.0.0"
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.huanchengfly.tieba.post"
         minSdk = 21
@@ -87,7 +87,7 @@ android {
         }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.11"
+        kotlinCompilerExtensionVersion = "1.5.8"
     }
     compileOptions {
         targetCompatibility = JavaVersion.VERSION_11

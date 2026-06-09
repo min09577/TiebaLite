@@ -33,10 +33,10 @@ repositories:
   jit-pack:
 
 versions:
-  accompanist: 0.34.2
-  appcenter: 5.0.5
-  hilt: 2.50
-  kotlin: 1.9.24
+  accompanist: 0.34.0
+  appcenter: 5.0.4
+  hilt: 2.46.1
+  kotlin: 1.9.22
   sketch: 3.3.0
   wire: 4.9.3
 
@@ -55,7 +55,7 @@ plugins:
   com.autonomousapps.dependency-analysis:
     version: 1.29.0
   com.android.application:
-    version: 8.3.2
+    version: 8.2.2
   org.jetbrains.kotlin.android:
     alias: kotlin-android
     version-ref: kotlin
@@ -64,7 +64,7 @@ plugins:
     version-ref: kotlin
   com.google.devtools.ksp:
     alias: kotlin-ksp
-    version: 1.9.24-1.0.20
+    version: 1.9.22-1.0.17
   org.jetbrains.kotlin.plugin.serialization:
     alias: kotlin-serialization
     version-ref: kotlin
@@ -94,7 +94,7 @@ libraries:
   androidx.compose:
     compose-bom:
       alias: compose-bom
-      version: 2024.02.00
+      version: 2024.01.00
   androidx.compose.ui:
     ui-test-junit4:
       alias: compose-ui-test-junit4
@@ -140,7 +140,7 @@ libraries:
   com.airbnb.android:
     lottie:
       alias: airbnb-lottie
-      version: 6.4.0
+      version: 6.3.0
     lottie-compose:
       alias: airbnb-lottie-compose
       version-ref: airbnb-lottie
@@ -153,28 +153,28 @@ libraries:
       version: 0.3.7
     kotlinx-coroutines-core:
       alias: kotlinx-coroutines-core
-      version: 1.8.0
+      version: 1.7.3
     kotlinx-coroutines-android:
       alias: kotlinx-coroutines-android
       version-ref: kotlinx-coroutines-core
   androidx.media3:
     media3-exoplayer:
       alias: androidx-media3-exoplayer
-      version: 1.2.2
+      version: 1.2.1
     media3-ui:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
   io.github.raamcosta.compose-destinations:
     animations-core:
       alias: compose-destinations-core
-      version: 1.10.2
+      version: 1.10.0
     ksp:
       alias: compose-destinations-ksp
       version-ref: compose-destinations-core
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose
-      version: 2.7.7
+      version: 2.7.6
   com.google.dagger:
     hilt-android:
       alias: hilt-android
@@ -185,10 +185,10 @@ libraries:
   androidx.hilt:
     hilt-navigation-compose:
       alias: androidx-hilt-navigation-compose
-      version: 1.2.0
+      version: 1.1.0
     hilt-compiler:
       alias: androidx-hilt-compiler
-      version: 1.2.0
+      version: 1.1.0
   com.google.accompanist:
     accompanist-drawablepainter:
       alias: accompanist-drawablepainter
@@ -242,7 +242,7 @@ libraries:
   com.google.android.material:
     material:
       alias: google-material
-      version: 1.12.0
+      version: 1.11.0
   androidx.constraintlayout:
     constraintlayout-compose:
       alias: androidx-constraintlayout-compose
@@ -253,7 +253,7 @@ libraries:
   androidx.activity:
     activity-ktx:
       alias: androidx-activity
-      version: 1.8.3
+      version: 1.8.2
     activity-compose:
       alias: androidx-activity-compose
       version-ref: androidx-activity
@@ -274,7 +274,7 @@ libraries:
   androidx.lifecycle:
     lifecycle-runtime-ktx:
       alias: androidx-lifecycle-runtime
-      version: 2.7.1
+      version: 2.7.0
     lifecycle-viewmodel-ktx:
       alias: androidx-lifecycle-viewmodel
       version-ref: androidx-lifecycle-runtime
@@ -284,15 +284,15 @@ libraries:
   androidx.appcompat:
     appcompat:
       alias: androidx-appcompat
-      version: 1.7.0
+      version: 1.6.1
   androidx.annotation:
     annotation:
       alias: androidx-annotation
-      version: 1.8.0
+      version: 1.7.1
   androidx.core:
     core-ktx:
       alias: androidx-core
-      version: 1.13.0
+      version: 1.12.0
     core-splashscreen:
       alias: androidx-core-splashscreen
       version: 1.0.1
@@ -323,7 +323,7 @@ libraries:
   com.github.bumptech.glide:
     glide:
       alias: glide-core
-      version: 4.16.1
+      version: 4.16.0
     okhttp3-integration:
       alias: glide-okhttp3-integration
       version-ref: glide-core
@@ -333,7 +333,7 @@ libraries:
   com.squareup.okhttp3:
     okhttp:
       alias: okhttp3-core
-      version: 4.12.1
+      version: 4.12.0
   com.squareup.retrofit2:
     retrofit:
       alias: retrofit2-core

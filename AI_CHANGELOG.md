@@ -5,6 +5,38 @@
 
 ---
 
+## v4.0.0-ai.2 (2026-06-09)
+
+### 🇨🇳 中文
+
+**安全修复与兼容性改进**
+
+#### 安全修复
+- 移除 `usesCleartextTraffic="true"`，改用 `network_security_config.xml` 精确控制
+- 默认禁止明文 HTTP 流量，仅允许局域网开发环境
+- 适配 Android SDK 35 的网络安全策略要求
+
+#### 兼容性改进
+- 升级 compileSdk 34 → 35，buildTools 34.0.0 → 35.0.0
+- 升级 Compose Compiler 1.5.8 → 1.5.11
+- 修复 Gradle wrapper 8.2 → 8.6
+
+### 🇺🇸 English
+
+**Security Fixes & Compatibility Improvements**
+
+#### Security
+- Replaced `usesCleartextTraffic="true"` with proper `network_security_config.xml`
+- Default deny cleartext HTTP traffic, allow only LAN for development
+- Adapted to Android SDK 35 network security requirements
+
+#### Compatibility
+- Upgraded compileSdk 34 → 35, buildTools 34.0.0 → 35.0.0
+- Upgraded Compose Compiler 1.5.8 → 1.5.11
+- Fixed Gradle wrapper 8.2 → 8.6
+
+---
+
 ## v4.0.0-ai.1 (2026-06-09)
 
 ### 🇨🇳 中文

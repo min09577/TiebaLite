@@ -19,7 +19,7 @@ jobs:
 
       - name: Decode Keystore
         id: decode_keystore
-        if: ${{ github.event_name != 'pull_request' || github.ref_type == 'tag' }}
+        if: ${{ secrets.KEYSTORE != '' && (github.event_name != 'pull_request' || github.ref_type == 'tag') }}
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: ${{ vars.RELEASE_KEYSTORE }}
@@ -27,14 +27,12 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE }}
 
       - name: Generate keystore.properties
-        if: ${{ github.event_name != 'pull_request' || github.ref_type == 'tag' }}
+        if: ${{ secrets.RELEASEKEYPASSWORD != '' && (github.event_name != 'pull_request' || github.ref_type == 'tag') }}
         run: |
-          if [ -n "${{ secrets.RELEASEKEYPASSWORD }}" ]; then
-            echo keystore.file="${{ vars.RELEASE_KEYSTORE }}" >> keystore.properties
-            echo keystore.password="${{ secrets.RELEASESTOREPASSWORD }}" >> keystore.properties
-            echo keystore.key.alias="${{ vars.RELEASE_KEY_ALIAS }}" >> keystore.properties
-            echo keystore.key.password="${{ secrets.RELEASEKEYPASSWORD }}" >> keystore.properties
-          fi
+          echo keystore.file="${{ vars.RELEASE_KEYSTORE }}" >> keystore.properties
+          echo keystore.password="${{ secrets.RELEASESTOREPASSWORD }}" >> keystore.properties
+          echo keystore.key.alias="${{ vars.RELEASE_KEY_ALIAS }}" >> keystore.properties
+          echo keystore.key.password="${{ secrets.RELEASEKEYPASSWORD }}" >> keystore.properties
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
@@ -42,26 +40,28 @@ jobs:
           gradle-home-cache-cleanup: true
           cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/4.0-dev' }}
 
-      - name: Build with Gradle
+      - name: Build Debug
+        run: ./gradlew assembleDebug
+
+      - name: Build Release
+        if: ${{ secrets.KEYSTORE != '' }}
         run: ./gradlew assembleRelease
 
-      - name: Read Output Metadata
-        id: read_output_metadata
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./app/build/outputs/apk/release/output-metadata.json
-          trim: true
-
-      - name: Upload Release Package
-        env:
-          version_code: ${{ fromJSON(steps.read_output_metadata.outputs.content).elements[0].versionCode }}
-          version_name: ${{ fromJSON(steps.read_output_metadata.outputs.content).elements[0].versionName }}
+      - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: "release-${{ env.version_name }}(${{ env.version_code }})"
-          path: ./app/build/outputs/apk/release
+          name: debug-apk
+          path: app/build/outputs/apk/debug/*.apk
+
+      - name: Upload Release APK
+        if: ${{ secrets.KEYSTORE != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: app/build/outputs/apk/release/*.apk
 
       - name: Upload Mapping
+        if: ${{ secrets.KEYSTORE != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: mapping

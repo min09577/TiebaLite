@@ -35,7 +35,7 @@ repositories:
 versions:
   accompanist: 0.34.0
   appcenter: 5.0.4
-  hilt: 2.46.1
+  hilt: 2.56.2
   kotlin: 1.9.22
   sketch: 3.3.0
   wire: 4.9.3
@@ -344,7 +344,7 @@ libraries:
   com.google.code.gson:
     gson:
       alias: google-gson
-      version: 2.10.1
+      version: 2.14.0
   org.litepal.android:
     kotlin:
       version: 3.0.0

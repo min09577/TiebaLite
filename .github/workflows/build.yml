@@ -5,6 +5,8 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      HAS_KEYSTORE: ${{ secrets.KEYSTORE != '' }}
 
     steps:
       - name: Checkout
@@ -19,7 +21,7 @@ jobs:
 
       - name: Decode Keystore
         id: decode_keystore
-        if: ${{ secrets.KEYSTORE != '' && (github.event_name != 'pull_request' || github.ref_type == 'tag') }}
+        if: env.HAS_KEYSTORE == 'true'
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: ${{ vars.RELEASE_KEYSTORE }}
@@ -27,7 +29,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE }}
 
       - name: Generate keystore.properties
-        if: ${{ secrets.RELEASEKEYPASSWORD != '' && (github.event_name != 'pull_request' || github.ref_type == 'tag') }}
+        if: env.HAS_KEYSTORE == 'true'
         run: |
           echo keystore.file="${{ vars.RELEASE_KEYSTORE }}" >> keystore.properties
           echo keystore.password="${{ secrets.RELEASESTOREPASSWORD }}" >> keystore.properties
@@ -40,28 +42,28 @@ jobs:
           gradle-home-cache-cleanup: true
           cache-read-only: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/4.0-dev' }}
 
-      - name: Build Debug
+      - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Build Release
-        if: ${{ secrets.KEYSTORE != '' }}
+      - name: Build Release APK
+        if: env.HAS_KEYSTORE == 'true'
         run: ./gradlew assembleRelease
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
+          name: "TiebaLite-debug"
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Upload Release APK
-        if: ${{ secrets.KEYSTORE != '' }}
+        if: env.HAS_KEYSTORE == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: release-apk
+          name: "TiebaLite-release"
           path: app/build/outputs/apk/release/*.apk
 
       - name: Upload Mapping
-        if: ${{ secrets.KEYSTORE != '' }}
+        if: env.HAS_KEYSTORE == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: mapping

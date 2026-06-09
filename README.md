@@ -86,8 +86,9 @@ This is an **AI-assisted iterative upgrade version**, and all original disclaime
 | 版本 / Version | 日期 / Date | 说明 / Description |
 |---|---|---|
 | v4.0.0-beta.1 | 2024-02-02 | 原始版本发布 / Original release by HuanCheng65 |
-| v4.0.0-ai.1 | 2026-06-09 | AI 迭代：依赖升级、构建修复、文档完善 / AI Iteration: dependency upgrades, build fixes, documentation |
-| v4.0.0-ai.2 | 2026-06-09 | AI 迭代：安全修复、SDK 35 兼容、网络安全策略 / AI Iteration: security fixes, SDK 35 compat, network security |
+| v4.0.0-ai.1 | 2026-06-09 | AI 迭代：文档完善、四国语言声明 / AI Iteration: documentation, 4-language declarations |
+| v4.0.0-ai.2 | 2026-06-09 | AI 迭代：安全修复、网络安全配置 / AI Iteration: security fixes, network security config |
+| v4.0.0-ai.3 | 2026-06-09 | AI 迭代：CI 修复、构建成功 / AI Iteration: CI fixes, build succeeded ✅ |
 
 ---
 

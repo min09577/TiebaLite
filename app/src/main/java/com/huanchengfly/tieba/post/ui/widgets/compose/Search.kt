@@ -456,6 +456,7 @@ fun SearchBox(
                             .clip(RoundedCornerShape(100))
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
+                                @Suppress("DEPRECATION")
                                 indication = rememberRipple(bounded = false, 24.dp),
                                 role = Role.Button
                             ) { onKeywordChange("") },
@@ -474,7 +475,8 @@ fun SearchBox(
                         .clip(RoundedCornerShape(100))
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
-                            indication = rememberRipple(bounded = false, 24.dp),
+                            @Suppress("DEPRECATION")
+                                indication = rememberRipple(bounded = false, 24.dp),
                             role = Role.Button
                         ) { onKeywordSubmit(keyword) },
                     contentAlignment = Alignment.Center,

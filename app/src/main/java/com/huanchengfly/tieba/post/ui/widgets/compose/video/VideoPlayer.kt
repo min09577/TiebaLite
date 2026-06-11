@@ -277,6 +277,7 @@ private fun FullScreenButton() {
         modifier = Modifier
             .padding(8.dp)
             .clickable(
+                @Suppress("DEPRECATION")
                 indication = rememberRipple(bounded = false),
                 interactionSource = remember { MutableInteractionSource() }
             ) {

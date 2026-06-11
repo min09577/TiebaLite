@@ -578,7 +578,8 @@ private fun SearchTopBar(
                     .clip(RoundedCornerShape(100))
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(bounded = false, 24.dp),
+                        @Suppress("DEPRECATION")
+                                indication = rememberRipple(bounded = false, 24.dp),
                         role = Role.Button,
                         onClick = onBack
                     ),

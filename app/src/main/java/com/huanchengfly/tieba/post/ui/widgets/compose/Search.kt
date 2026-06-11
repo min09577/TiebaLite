@@ -1,4 +1,3 @@
-@file:Suppress("DEPRECATION_ERROR")
 package com.huanchengfly.tieba.post.ui.widgets.compose
 
 import androidx.compose.animation.AnimatedVisibility
@@ -457,7 +456,7 @@ fun SearchBox(
                             .clip(RoundedCornerShape(100))
                             .clickable(
                                 interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(bounded = false, radius = 24.dp),
+                                indication = rememberRipple(bounded = false, 24.dp),
                                 role = Role.Button
                             ) { onKeywordChange("") },
                         contentAlignment = Alignment.Center,
@@ -475,7 +474,7 @@ fun SearchBox(
                         .clip(RoundedCornerShape(100))
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
-                            indication = rememberRipple(bounded = false, radius = 24.dp),
+                            indication = rememberRipple(bounded = false, 24.dp),
                             role = Role.Button
                         ) { onKeywordSubmit(keyword) },
                     contentAlignment = Alignment.Center,

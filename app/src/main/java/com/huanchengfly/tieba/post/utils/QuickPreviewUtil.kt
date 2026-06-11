@@ -90,7 +90,7 @@ object QuickPreviewUtil {
             .enqueue(object : Callback<ThreadContentBean> {
                 override fun onFailure(call: Call<ThreadContentBean>, t: Throwable) {
                     val code = if (t is TiebaException) t.code else -1
-                    callback.onFailure(code, t.message)
+                    callback.onFailure(code, t.message ?: "Unknown error")
                 }
 
                 override fun onResponse(
@@ -150,7 +150,7 @@ object QuickPreviewUtil {
         TiebaApi.getInstance().forumPage(link.forumName).enqueue(object : Callback<ForumPageBean> {
             override fun onFailure(call: Call<ForumPageBean>, t: Throwable) {
                 val code = if (t is TiebaException) t.code else -1
-                callback.onFailure(code, t.message)
+                callback.onFailure(code, t.message ?: "Unknown error")
             }
 
             override fun onResponse(call: Call<ForumPageBean>, response: Response<ForumPageBean>) {

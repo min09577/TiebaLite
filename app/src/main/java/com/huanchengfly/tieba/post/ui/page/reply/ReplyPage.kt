@@ -277,7 +277,7 @@ internal fun ReplyPageContent(
         LitePal.where("hash = ?", hash).findFirstAsync<Draft?>()
             .listen {
                 if (it != null) {
-                    setText(it.content)
+                    setText(it.content ?: "")
                 }
             }
     }

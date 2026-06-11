@@ -1,5 +1,5 @@
 package com.huanchengfly.tieba.post.interfaces
 
-interface OnGrantedCallback {
+fun interface OnGrantedCallback {
     fun onGranted(isForever: Boolean)
 }

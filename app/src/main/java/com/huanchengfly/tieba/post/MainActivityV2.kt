@@ -249,10 +249,12 @@ class MainActivityV2 : BaseComposeActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent) {
+    override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (!checkIntent(intent)) {
-            myNavController?.handleDeepLink(intent)
+        intent?.let {
+            if (!checkIntent(it)) {
+                myNavController?.handleDeepLink(it)
+            }
         }
     }
 

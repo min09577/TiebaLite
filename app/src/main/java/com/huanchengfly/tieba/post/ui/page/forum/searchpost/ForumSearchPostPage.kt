@@ -343,8 +343,7 @@ fun ForumSearchPostPage(
                                         .clip(RoundedCornerShape(100))
                                         .clickable(
                                             interactionSource = remember { MutableInteractionSource() },
-                                            @Suppress("DEPRECATION")
-                                indication = rememberRipple(bounded = false, 24.dp),
+                                            indication = rememberRipple(bounded = false, 24.dp),
                                             role = Role.Button,
                                             onClick = { navigator.navigateUp() }
                                         ),

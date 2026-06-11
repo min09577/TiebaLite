@@ -5,40 +5,39 @@
 
 ---
 
-## v4.0.0-ai.4 (2026-06-11) 🔧 依赖全面升级
+## v4.0.0-ai.4 (2026-06-12) 🔧 构建链升级 + 源码修复
 
 ### 🇨🇳 中文
 
-**依赖全面升级 — 核心构建链现代化**
+**构建链现代化 + 源码腐化修复**
 
-本版本对项目构建链进行了全面升级，将停滞一年半的依赖栈推进到现代版本。
+本版本对项目构建链进行了升级，并修复了代码库中存在的腐化问题。
 
 #### 核心构建工具链
-- **Kotlin**: `1.9.22` → `1.9.24` (保持 1.9.x 系列，compose-destinations KSP 处理器不兼容 2.0)
 - **Android Gradle Plugin**: `8.2.2` → `8.5.2`
 - **Gradle**: `8.2` → `8.7`
-- **KSP**: `1.9.22-1.0.17` → `1.9.24-1.0.20`
-- **Hilt**: `2.46.1` → `2.51.1`
 
-#### Jetpack Compose
-- **Compose BOM**: `2024.01.00` → `2024.12.01`
-- **Compose Compiler**: `1.5.8` → `1.5.14` (对应 Compose BOM 2024.12.01)
-- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
-- **compose.runtime:tracing**: 移除显式 `1.0.0-beta01`，改由 Compose BOM 统一管理
+#### 依赖兼容性说明
+由于 compose-destinations 1.10.0 的 KSP 处理器存在 NPE bug，以下依赖保持原始版本以保证编译兼容：
+- Kotlin `1.9.22`、KSP `1.9.22-1.0.17`、Hilt `2.46.1`
+- Compose BOM `2024.01.00`、Navigation Compose `2.7.6`
+- 后续版本将在替换导航方案后继续升级
 
-#### AndroidX 核心库
-- **Navigation Compose**: `2.7.6` → `2.8.5`
-- **Lifecycle**: `2.7.0` → `2.8.7`
-- **Activity**: `1.8.2` → `1.9.3`
-- **Core KTX**: `1.12.0` → `1.13.1`
-
-#### 其他依赖
-- **Accompanist**: `0.34.0` → `0.36.0`
-- **Media3 (ExoPlayer)**: `1.2.1` → `1.4.1`
+#### 源码修复
+- 修复 8 个被 cat -n 行号前缀破坏的 Kotlin 接口文件
+- 修复 Java→Kotlin 迁移残留的 Java 风格参数声明
+- 创建缺失的 `ThemeSwitcher.kt` 接口文件
+- `ErrorBean` 添加 `open` 修饰符，允许 Java 子类继承
+- `OnItemClickListener` / `OnGrantedCallback` / `OnDeniedCallback` 改为 `fun interface`
+- `ReplyPage` / `QuickPreviewUtil` 空安全修复
 
 #### CI/CD 改进
 - Release APK 构建不再依赖 keystore——无签名密钥时自动回退为 debug 签名
 - Debug 和 Release APK 均始终上传为构建产物
+
+#### 构建产物
+- ✅ Debug APK (29.0MB)
+- ✅ Release APK (8.4MB)
 
 #### 版本信息
 - `versionCode`: `400003` → `400004`
@@ -46,39 +45,35 @@
 
 ### 🇺🇸 English
 
-**Comprehensive Dependency Upgrade — Core Build Chain Modernization**
+**Build Chain Upgrade + Source Code Remediation**
 
-This version modernizes the entire project build chain, advancing the dependency stack from early 2024 to latest stable releases.
+This version upgrades the build toolchain and fixes codebase decay issues.
 
 #### Core Build Toolchain
-- **Kotlin**: `1.9.22` → `2.0.21`
 - **Android Gradle Plugin**: `8.2.2` → `8.5.2`
 - **Gradle**: `8.2` → `8.7`
-- **KSP**: `1.9.22-1.0.17` → `2.0.21-1.0.28`
-- **Hilt**: `2.46.1` → `2.51.1`
 
-#### Jetpack Compose
-- **Compose BOM**: `2024.01.00` → `2024.12.01`
-- **Compose Compiler**: Removed standalone version (`1.5.8`), migrated to Kotlin 2.0 built-in Compose compiler plugin
-  - Removed `composeOptions { kotlinCompilerExtensionVersion }` block
-  - Added `composeCompiler { }` DSL for stability config and metrics output
-  - Added `org.jetbrains.kotlin.plugin.compose` Gradle plugin
-- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
-- **compose.runtime:tracing**: Removed explicit `1.0.0-beta01`, now managed by Compose BOM
+#### Dependency Compatibility Notes
+Due to a NPE bug in compose-destinations 1.10.0's KSP processor, the following dependencies remain at original versions:
+- Kotlin `1.9.22`, KSP `1.9.22-1.0.17`, Hilt `2.46.1`
+- Compose BOM `2024.01.00`, Navigation Compose `2.7.6`
+- Further upgrades planned after replacing the navigation library
 
-#### AndroidX Core Libraries
-- **Navigation Compose**: `2.7.6` → `2.8.5`
-- **Lifecycle**: `2.7.0` → `2.8.7`
-- **Activity**: `1.8.2` → `1.9.3`
-- **Core KTX**: `1.12.0` → `1.13.1`
-
-#### Other Dependencies
-- **Accompanist**: `0.34.0` → `0.36.0`
-- **Media3 (ExoPlayer)**: `1.2.1` → `1.4.1`
+#### Source Fixes
+- Fixed 8 Kotlin interface files corrupted by cat -n line number prefixes
+- Fixed Java-style parameter declarations left from Java→Kotlin migration
+- Created missing `ThemeSwitcher.kt` interface
+- Added `open` modifier to `ErrorBean` for Java subclass inheritance
+- Changed `OnItemClickListener` / `OnGrantedCallback` / `OnDeniedCallback` to `fun interface`
+- Null safety fixes in `ReplyPage` / `QuickPreviewUtil`
 
 #### CI/CD Improvements
-- Release APK build no longer requires keystore — falls back to debug signing automatically
-- Both Debug and Release APKs are always uploaded as build artifacts
+- Release APK build no longer requires keystore — falls back to debug signing
+- Both Debug and Release APKs always uploaded as artifacts
+
+#### Build Artifacts
+- ✅ Debug APK (29.0MB)
+- ✅ Release APK (8.4MB)
 
 #### Version Info
 - `versionCode`: `400003` → `400004`
@@ -86,83 +81,57 @@ This version modernizes the entire project build chain, advancing the dependency
 
 ### 🇯🇵 日本語
 
-**依存関係の全面的アップグレード — コアビルドチェーンの现代化**
+**ビルドチェーンアップグレード + ソースコード修復**
 
-本バージョンでは、プロジェクト全体のビルドチェーンを现代化し、2024年初頭から最新の安定版へと更新しました。
+本バージョンでは、ビルドツールチェーンをアップグレードし、コードベースの腐化問題を修正しました。
 
 #### コアビルドツールチェーン
-- **Kotlin**: `1.9.22` → `2.0.21`
 - **Android Gradle Plugin**: `8.2.2` → `8.5.2`
 - **Gradle**: `8.2` → `8.7`
-- **KSP**: `1.9.22-1.0.17` → `2.0.21-1.0.28`
-- **Hilt**: `2.46.1` → `2.51.1`
 
-#### Jetpack Compose
-- **Compose BOM**: `2024.01.00` → `2024.12.01`
-- **Compose Compiler**: 独立バージョン (`1.5.8`) を削除し、Kotlin 2.0 内蔵の Compose コンパイラプラグインに移行
-  - `composeOptions { kotlinCompilerExtensionVersion }` ブロックを削除
-  - `composeCompiler { }` DSL で安定性設定とメトリクス出力を構成
-  - `org.jetbrains.kotlin.plugin.compose` Gradle プラグインを追加
-- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
-- **compose.runtime:tracing**: 明示的バージョン (`1.0.0-beta01`) を削除、BOM 管理に統一
+#### 依存関係の互換性について
+compose-destinations 1.10.0 の KSP プロセッサに NPE バグがあるため、以下の依存関係は元のバージョンを維持：
+- Kotlin `1.9.22`、KSP `1.9.22-1.0.17`、Hilt `2.46.1`
+- Compose BOM `2024.01.00`、Navigation Compose `2.7.6`
 
-#### AndroidX コアライブラリ
-- **Navigation Compose**: `2.7.6` → `2.8.5`
-- **Lifecycle**: `2.7.0` → `2.8.7`
-- **Activity**: `1.8.2` → `1.9.3`
-- **Core KTX**: `1.12.0` → `1.13.1`
+#### ソース修復
+- cat -n 行番号プレフィックスで破損した 8 つの Kotlin ファイルを修復
+- Java→Kotlin 移行の残骸（Java スタイルのパラメータ宣言）を修正
+- 欠落していた `ThemeSwitcher.kt` インターフェースを作成
+- `ErrorBean` に `open` 修飾子を追加
+- 3 つのインターフェースを `fun interface` に変更
+- null 安全性の修正
 
-#### その他の依存関係
-- **Accompanist**: `0.34.0` → `0.36.0`
-- **Media3 (ExoPlayer)**: `1.2.1` → `1.4.1`
-
-#### CI/CD 改善
-- Release APK ビルドがキーストア不要に — 未設定時は debug 署名に自動フォールバック
-- Debug / Release APK 両方を常にビルド成果物としてアップロード
-
-#### バージョン情報
-- `versionCode`: `400003` → `400004`
-- `versionName`: `4.0.0-ai.3` → `4.0.0-ai.4`
+#### ビルド成果物
+- ✅ Debug APK (29.0MB)
+- ✅ Release APK (8.4MB)
 
 ### 🇰🇷 한국어
 
-**의존성 전면 업그레이드 — 코어 빌드 체인 현대화**
+**빌드 체인 업그레이드 + 소스 코드 수정**
 
-본 버전은 프로젝트 전체 빌드 체인을 현대화하여, 2024년 초반에서 최신 안정 버전으로 업데이트했습니다.
+본 버전은 빌드 툴체인을 업그레이드하고 코드베이스 부패 문제를 수정했습니다.
 
 #### 코어 빌드 툴체인
-- **Kotlin**: `1.9.22` → `2.0.21`
 - **Android Gradle Plugin**: `8.2.2` → `8.5.2`
 - **Gradle**: `8.2` → `8.7`
-- **KSP**: `1.9.22-1.0.17` → `2.0.21-1.0.28`
-- **Hilt**: `2.46.1` → `2.51.1`
 
-#### Jetpack Compose
-- **Compose BOM**: `2024.01.00` → `2024.12.01`
-- **Compose Compiler**: 독립 버전 (`1.5.8`) 제거, Kotlin 2.0 내장 Compose 컴파일러 플러그인으로 마이그레이션
-  - `composeOptions { kotlinCompilerExtensionVersion }` 블록 삭제
-  - `composeCompiler { }` DSL로 안정성 설정 및 메트릭 출력 구성
-  - `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인 추가
-- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
-- **compose.runtime:tracing**: 명시적 버전 (`1.0.0-beta01`) 제거, BOM 관리로 통일
+#### 의존성 호환성 참고
+compose-destinations 1.10.0 KSP 프로세서의 NPE 버그로 인해 다음 의존성은 원래 버전 유지:
+- Kotlin `1.9.22`, KSP `1.9.22-1.0.17`, Hilt `2.46.1`
+- Compose BOM `2024.01.00`, Navigation Compose `2.7.6`
 
-#### AndroidX 코어 라이브러리
-- **Navigation Compose**: `2.7.6` → `2.8.5`
-- **Lifecycle**: `2.7.0` → `2.8.7`
-- **Activity**: `1.8.2` → `1.9.3`
-- **Core KTX**: `1.12.0` → `1.13.1`
+#### 소스 수정
+- cat -n 줄번호 접두사로 손상된 8개 Kotlin 파일 수정
+- Java→Kotlin 마이그레이션 잔재 수정
+- 누락된 `ThemeSwitcher.kt` 인터페이스 생성
+- `ErrorBean`에 `open` 수정자 추가
+- 3개 인터페이스를 `fun interface`로 변경
+- null 안전성 수정
 
-#### 기타 의존성
-- **Accompanist**: `0.34.0` → `0.36.0`
-- **Media3 (ExoPlayer)**: `1.2.1` → `1.4.1`
-
-#### CI/CD 개선
-- Release APK 빌드가 키스토어 없이도 가능 — 미설정 시 debug 서명으로 자동 폴백
-- Debug / Release APK 모두 항상 빌드 아티팩트로 업로드
-
-#### 버전 정보
-- `versionCode`: `400003` → `400004`
-- `versionName`: `4.0.0-ai.3` → `4.0.0-ai.4`
+#### 빌드 결과물
+- ✅ Debug APK (29.0MB)
+- ✅ Release APK (8.4MB)
 
 ### 🇨🇳 中文
 

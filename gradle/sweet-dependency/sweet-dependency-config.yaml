@@ -383,7 +383,7 @@ libraries:
   androidx.compose.runtime:
     runtime-tracing:
       alias: compose-runtime-tracing
-      version: <no-spec>
+      version: 1.0.0-beta01
   junit:
     junit:
       version: 4.13.2

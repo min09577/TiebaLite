@@ -35,7 +35,7 @@ repositories:
 versions:
   accompanist: 0.36.0
   appcenter: 5.0.4
-  hilt: 2.51.1
+  hilt: 2.46.1
   kotlin: 1.9.22
   sketch: 3.3.0
   wire: 4.9.3
@@ -174,7 +174,7 @@ libraries:
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose
-      version: 2.8.5
+      version: 2.7.6
   com.google.dagger:
     hilt-android:
       alias: hilt-android

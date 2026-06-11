@@ -26,7 +26,7 @@
   - 删除 `composeOptions { kotlinCompilerExtensionVersion }` 配置
   - 新增 `composeCompiler { }` DSL 块配置稳定性文件和输出目录
   - 新增 `org.jetbrains.kotlin.plugin.compose` Gradle 插件
-- **Compose Destinations**: `1.10.0` → `1.11.0`
+- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
 - **compose.runtime:tracing**: 移除显式 `1.0.0-beta01`，改由 Compose BOM 统一管理
 
 #### AndroidX 核心库
@@ -66,7 +66,7 @@ This version modernizes the entire project build chain, advancing the dependency
   - Removed `composeOptions { kotlinCompilerExtensionVersion }` block
   - Added `composeCompiler { }` DSL for stability config and metrics output
   - Added `org.jetbrains.kotlin.plugin.compose` Gradle plugin
-- **Compose Destinations**: `1.10.0` → `1.11.0`
+- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
 - **compose.runtime:tracing**: Removed explicit `1.0.0-beta01`, now managed by Compose BOM
 
 #### AndroidX Core Libraries
@@ -106,7 +106,7 @@ This version modernizes the entire project build chain, advancing the dependency
   - `composeOptions { kotlinCompilerExtensionVersion }` ブロックを削除
   - `composeCompiler { }` DSL で安定性設定とメトリクス出力を構成
   - `org.jetbrains.kotlin.plugin.compose` Gradle プラグインを追加
-- **Compose Destinations**: `1.10.0` → `1.11.0`
+- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
 - **compose.runtime:tracing**: 明示的バージョン (`1.0.0-beta01`) を削除、BOM 管理に統一
 
 #### AndroidX コアライブラリ
@@ -146,7 +146,7 @@ This version modernizes the entire project build chain, advancing the dependency
   - `composeOptions { kotlinCompilerExtensionVersion }` 블록 삭제
   - `composeCompiler { }` DSL로 안정성 설정 및 메트릭 출력 구성
   - `org.jetbrains.kotlin.plugin.compose` Gradle 플러그인 추가
-- **Compose Destinations**: `1.10.0` → `1.11.0`
+- **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
 - **compose.runtime:tracing**: 명시적 버전 (`1.0.0-beta01`) 제거, BOM 관리로 통일
 
 #### AndroidX 코어 라이브러리

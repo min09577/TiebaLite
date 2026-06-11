@@ -170,7 +170,7 @@ libraries:
   io.github.raamcosta.compose-destinations:
     animations-core:
       alias: compose-destinations-core
-      version: 1.11.0
+      version: 1.10.0
     ksp:
       alias: compose-destinations-ksp
       version-ref: compose-destinations-core

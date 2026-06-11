@@ -235,6 +235,7 @@ libraries:
       version: <no-spec>
     material-icons-core:
       alias: compose-material-icons-core
+      version: <no-spec>
     material-icons-extended:
       alias: compose-material-icons-extended
       version: <no-spec>

@@ -239,7 +239,6 @@ libraries:
     material3:
       alias: compose-material3
       version: <no-spec>
-      version: <no-spec>
     material-icons-extended:
       alias: compose-material-icons-extended
       version: <no-spec>

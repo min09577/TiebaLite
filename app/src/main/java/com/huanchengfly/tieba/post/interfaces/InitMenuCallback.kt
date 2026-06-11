@@ -1,10 +1,7 @@
+package com.huanchengfly.tieba.post.interfaces
 
-
-package com.huanchengfly.tieba.post.interfaces;
-
-import android.view.Menu;
+import android.view.Menu
 
 interface InitMenuCallback {
-    fun init(Menu menu)
+    fun init(menu: Menu)
 }
-

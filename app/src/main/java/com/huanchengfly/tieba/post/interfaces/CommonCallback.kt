@@ -1,9 +1,6 @@
-
-
-package com.huanchengfly.tieba.post.interfaces;
+package com.huanchengfly.tieba.post.interfaces
 
 interface CommonCallback<T> {
-    fun onSuccess(T data)
-
-    fun onFailure(int code, String error)
+    fun onSuccess(data: T)
+    fun onFailure(code: Int, error: String)
 }

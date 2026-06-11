@@ -1,8 +1,5 @@
-
-
-package com.huanchengfly.tieba.post.interfaces;
+package com.huanchengfly.tieba.post.interfaces
 
 interface OnDeniedCallback {
-    fun onDenied(boolean isForever)
+    fun onDenied(isForever: Boolean)
 }
-

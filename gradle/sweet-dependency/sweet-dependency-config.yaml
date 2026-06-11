@@ -33,7 +33,7 @@ repositories:
   jit-pack:
 
 versions:
-  accompanist: 0.36.0
+  accompanist: 0.34.0
   appcenter: 5.0.4
   hilt: 2.46.1
   kotlin: 1.9.22
@@ -160,7 +160,7 @@ libraries:
   androidx.media3:
     media3-exoplayer:
       alias: androidx-media3-exoplayer
-      version: 1.4.1
+      version: 1.2.1
     media3-ui:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
@@ -253,7 +253,7 @@ libraries:
   androidx.activity:
     activity-ktx:
       alias: androidx-activity
-      version: 1.9.3
+      version: 1.8.2
     activity-compose:
       alias: androidx-activity-compose
       version-ref: androidx-activity
@@ -274,7 +274,7 @@ libraries:
   androidx.lifecycle:
     lifecycle-runtime-ktx:
       alias: androidx-lifecycle-runtime
-      version: 2.8.7
+      version: 2.7.0
     lifecycle-viewmodel-ktx:
       alias: androidx-lifecycle-viewmodel
       version-ref: androidx-lifecycle-runtime
@@ -292,7 +292,7 @@ libraries:
   androidx.core:
     core-ktx:
       alias: androidx-core
-      version: 1.13.1
+      version: 1.12.0
     core-splashscreen:
       alias: androidx-core-splashscreen
       version: 1.0.1

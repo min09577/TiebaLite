@@ -36,7 +36,7 @@ versions:
   accompanist: 0.36.0
   appcenter: 5.0.4
   hilt: 2.51.1
-  kotlin: 2.0.21
+  kotlin: 1.9.24
   sketch: 3.3.0
   wire: 4.9.3
 
@@ -64,7 +64,7 @@ plugins:
     version-ref: kotlin
   com.google.devtools.ksp:
     alias: kotlin-ksp
-    version: 2.0.21-1.0.28
+    version: 1.9.24-1.0.20
   org.jetbrains.kotlin.plugin.serialization:
     alias: kotlin-serialization
     version-ref: kotlin
@@ -76,9 +76,6 @@ plugins:
     version-ref: hilt
   com.squareup.wire:
     version-ref: wire
-  org.jetbrains.kotlin.plugin.compose:
-    alias: kotlin-compose
-    version-ref: kotlin
 
 # Configure libraries that need to be used
 # For example:

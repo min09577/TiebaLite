@@ -3,7 +3,6 @@ import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 plugins {
     autowire(libs.plugins.com.android.application)
     autowire(libs.plugins.kotlin.android)
-    autowire(libs.plugins.kotlin.compose)
     autowire(libs.plugins.kotlin.kapt)
     autowire(libs.plugins.kotlin.serialization)
     autowire(libs.plugins.kotlin.parcelize)
@@ -91,13 +90,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
         sourceCompatibility = JavaVersion.VERSION_11
     }
-    composeCompiler {
-        reportsDestination = layout.buildDirectory.dir("compose_metrics")
-        metricsDestination = layout.buildDirectory.dir("compose_metrics")
-        stabilityConfigurationFile = rootProject.layout.projectDirectory.file("compose_stability_configuration.txt")
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
     }
     kotlinOptions {
         jvmTarget = "11"
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=" + project.buildDir.absolutePath + "/compose_metrics"
+        )
+        freeCompilerArgs += listOf(
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=" + project.buildDir.absolutePath + "/compose_metrics"
+        )
+        freeCompilerArgs += listOf(
+            "-P", "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=" +
+                    project.rootDir.absolutePath + "/compose_stability_configuration.txt"
+        )
     }
     packaging {
         resources {

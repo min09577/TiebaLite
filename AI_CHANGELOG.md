@@ -14,18 +14,15 @@
 本版本对项目构建链进行了全面升级，将停滞一年半的依赖栈推进到现代版本。
 
 #### 核心构建工具链
-- **Kotlin**: `1.9.22` → `2.0.21`
+- **Kotlin**: `1.9.22` → `1.9.24` (保持 1.9.x 系列，compose-destinations KSP 处理器不兼容 2.0)
 - **Android Gradle Plugin**: `8.2.2` → `8.5.2`
 - **Gradle**: `8.2` → `8.7`
-- **KSP**: `1.9.22-1.0.17` → `2.0.21-1.0.28`
+- **KSP**: `1.9.22-1.0.17` → `1.9.24-1.0.20`
 - **Hilt**: `2.46.1` → `2.51.1`
 
 #### Jetpack Compose
 - **Compose BOM**: `2024.01.00` → `2024.12.01`
-- **Compose Compiler**: 移除独立版本 (`1.5.8`)，迁移至 Kotlin 2.0 内置 Compose 编译器插件
-  - 删除 `composeOptions { kotlinCompilerExtensionVersion }` 配置
-  - 新增 `composeCompiler { }` DSL 块配置稳定性文件和输出目录
-  - 新增 `org.jetbrains.kotlin.plugin.compose` Gradle 插件
+- **Compose Compiler**: `1.5.8` → `1.5.14` (对应 Compose BOM 2024.12.01)
 - **Compose Destinations**: `1.10.0` (保持，已是 1.x 最新稳定版)
 - **compose.runtime:tracing**: 移除显式 `1.0.0-beta01`，改由 Compose BOM 统一管理
 

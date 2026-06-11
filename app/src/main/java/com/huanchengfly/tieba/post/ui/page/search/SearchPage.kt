@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package com.huanchengfly.tieba.post.ui.page.search
 
 import androidx.compose.animation.animateContentSize
@@ -38,7 +39,7 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.ExpandLess
 import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.ripple
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
@@ -578,7 +579,7 @@ private fun SearchTopBar(
                     .clip(RoundedCornerShape(100))
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
-                        indication = ripple(bounded = false, radius = 24.dp),
+                        indication = rememberRipple(bounded = false, radius = 24.dp),
                         role = Role.Button,
                         onClick = onBack
                     ),

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION_ERROR")
 package com.huanchengfly.tieba.post.ui.widgets.compose.video
 
 import android.util.Log
@@ -25,7 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Fullscreen
 import androidx.compose.material.icons.rounded.FullscreenExit
 import androidx.compose.material.icons.rounded.PlayArrow
-import androidx.compose.material3.ripple
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
@@ -277,7 +278,7 @@ private fun FullScreenButton() {
         modifier = Modifier
             .padding(8.dp)
             .clickable(
-                indication = ripple(bounded = false),
+                indication = rememberRipple(bounded = false),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
                 videoPlayerController.toggleFullScreen()

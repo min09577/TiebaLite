@@ -235,10 +235,6 @@ libraries:
       version: <no-spec>
     material-icons-core:
       alias: compose-material-icons-core
-  androidx.compose.material3:
-    material3:
-      alias: compose-material3
-      version: <no-spec>
     material-icons-extended:
       alias: compose-material-icons-extended
       version: <no-spec>

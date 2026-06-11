@@ -184,7 +184,6 @@ dependencies {
     implementation(compose.material.icons.extended)
     implementation(compose.ui.util)
 //    implementation "androidx.compose.material3:material3"
-    implementation("androidx.compose.material3:material3")
 
     // Android Studio Preview support
     implementation(compose.ui.tooling.preview)

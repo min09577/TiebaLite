@@ -50,7 +50,6 @@ jobs:
         run: ./gradlew assembleDebug
 
       - name: Build Release APK
-        if: env.HAS_KEYSTORE == 'true'
         run: ./gradlew assembleRelease
 
       - name: Upload Debug APK
@@ -61,7 +60,7 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Upload Release APK
-        if: env.HAS_KEYSTORE == 'true'
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: "TiebaLite-release"

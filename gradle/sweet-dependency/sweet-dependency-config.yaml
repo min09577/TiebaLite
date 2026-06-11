@@ -33,10 +33,10 @@ repositories:
   jit-pack:
 
 versions:
-  accompanist: 0.34.0
+  accompanist: 0.36.0
   appcenter: 5.0.4
-  hilt: 2.46.1
-  kotlin: 1.9.22
+  hilt: 2.51.1
+  kotlin: 2.0.21
   sketch: 3.3.0
   wire: 4.9.3
 
@@ -55,7 +55,7 @@ plugins:
   com.autonomousapps.dependency-analysis:
     version: 1.29.0
   com.android.application:
-    version: 8.2.2
+    version: 8.5.2
   org.jetbrains.kotlin.android:
     alias: kotlin-android
     version-ref: kotlin
@@ -64,7 +64,7 @@ plugins:
     version-ref: kotlin
   com.google.devtools.ksp:
     alias: kotlin-ksp
-    version: 1.9.22-1.0.17
+    version: 2.0.21-1.0.28
   org.jetbrains.kotlin.plugin.serialization:
     alias: kotlin-serialization
     version-ref: kotlin
@@ -76,6 +76,9 @@ plugins:
     version-ref: hilt
   com.squareup.wire:
     version-ref: wire
+  org.jetbrains.kotlin.plugin.compose:
+    alias: kotlin-compose
+    version-ref: kotlin
 
 # Configure libraries that need to be used
 # For example:
@@ -94,7 +97,7 @@ libraries:
   androidx.compose:
     compose-bom:
       alias: compose-bom
-      version: 2024.01.00
+      version: 2024.12.01
   androidx.compose.ui:
     ui-test-junit4:
       alias: compose-ui-test-junit4
@@ -160,21 +163,21 @@ libraries:
   androidx.media3:
     media3-exoplayer:
       alias: androidx-media3-exoplayer
-      version: 1.2.1
+      version: 1.4.1
     media3-ui:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
   io.github.raamcosta.compose-destinations:
     animations-core:
       alias: compose-destinations-core
-      version: 1.10.0
+      version: 1.11.0
     ksp:
       alias: compose-destinations-ksp
       version-ref: compose-destinations-core
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose
-      version: 2.7.6
+      version: 2.8.5
   com.google.dagger:
     hilt-android:
       alias: hilt-android
@@ -253,7 +256,7 @@ libraries:
   androidx.activity:
     activity-ktx:
       alias: androidx-activity
-      version: 1.8.2
+      version: 1.9.3
     activity-compose:
       alias: androidx-activity-compose
       version-ref: androidx-activity
@@ -274,7 +277,7 @@ libraries:
   androidx.lifecycle:
     lifecycle-runtime-ktx:
       alias: androidx-lifecycle-runtime
-      version: 2.7.0
+      version: 2.8.7
     lifecycle-viewmodel-ktx:
       alias: androidx-lifecycle-viewmodel
       version-ref: androidx-lifecycle-runtime
@@ -292,7 +295,7 @@ libraries:
   androidx.core:
     core-ktx:
       alias: androidx-core
-      version: 1.12.0
+      version: 1.13.1
     core-splashscreen:
       alias: androidx-core-splashscreen
       version: 1.0.1
@@ -383,7 +386,7 @@ libraries:
   androidx.compose.runtime:
     runtime-tracing:
       alias: compose-runtime-tracing
-      version: 1.0.0-beta01
+      version: <no-spec>
   junit:
     junit:
       version: 4.13.2

@@ -2,7 +2,6 @@ package com.huanchengfly.tieba.post.ui.widgets.compose
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.snapping.TargetedFlingBehavior
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
@@ -81,7 +80,7 @@ fun LazyLoadHorizontalPager(
     beyondViewportPageCount: Int = 0,
     pageSpacing: Dp = 0.dp,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
-    flingBehavior: TargetedFlingBehavior = PagerDefaults.flingBehavior(state = state),
+    flingBehavior = PagerDefaults.flingBehavior(state = state),
     userScrollEnabled: Boolean = true,
     reverseLayout: Boolean = false,
     key: ((index: Int) -> Any)? = null,

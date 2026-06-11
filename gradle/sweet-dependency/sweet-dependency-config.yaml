@@ -36,7 +36,7 @@ versions:
   accompanist: 0.36.0
   appcenter: 5.0.4
   hilt: 2.51.1
-  kotlin: 1.9.24
+  kotlin: 1.9.22
   sketch: 3.3.0
   wire: 4.9.3
 
@@ -64,7 +64,7 @@ plugins:
     version-ref: kotlin
   com.google.devtools.ksp:
     alias: kotlin-ksp
-    version: 1.9.24-1.0.20
+    version: 1.9.22-1.0.17
   org.jetbrains.kotlin.plugin.serialization:
     alias: kotlin-serialization
     version-ref: kotlin

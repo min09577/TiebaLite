@@ -57,8 +57,6 @@ import com.huanchengfly.tieba.post.components.dialogs.PermissionDialog
 import com.huanchengfly.tieba.post.models.PermissionBean
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.common.theme.utils.ThemeUtils
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.AccompanistWebChromeClient
 import com.huanchengfly.tieba.post.ui.widgets.compose.AccompanistWebViewClient
 import com.huanchengfly.tieba.post.ui.widgets.compose.BackNavigationIcon
@@ -78,8 +76,7 @@ import com.huanchengfly.tieba.post.utils.PermissionUtils.PermissionData
 import com.huanchengfly.tieba.post.utils.TiebaUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
 import com.huanchengfly.tieba.post.utils.compose.launchActivityForResult
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.filter
@@ -89,11 +86,10 @@ import java.lang.ref.WeakReference
 import java.util.UUID
 
 @SuppressLint("SetJavaScriptEnabled")
-@Destination
 @Composable
 fun WebViewPage(
     initialUrl: String,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -184,7 +180,7 @@ fun WebViewPage(
                         }
                     }
                 },
-                navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.navigateUp() }) },
+                navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.popBackStack() }) },
                 actions = {
                     val menuState = rememberMenuState()
                     ClickMenu(
@@ -282,7 +278,7 @@ fun isInternalHost(host: String): Boolean {
 }
 
 open class MyWebViewClient(
-    protected val nativeNavigator: DestinationsNavigator? = null,
+    protected val nativeNavigator: NavHostController? = null,
 ) : AccompanistWebViewClient() {
     val context: Context
         get() = state.webView?.context ?: App.INSTANCE

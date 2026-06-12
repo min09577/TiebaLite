@@ -53,14 +53,11 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.Sizes
 import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.ui.widgets.compose.states.StateScreen
 import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-
-@Destination
+import androidx.navigation.NavHostController
 @Composable
 fun ForumDetailPage(
     forumId: Long,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     viewModel: ForumDetailViewModel = pageViewModel(),
 ) {
     LazyLoad(loaded = viewModel.initialized) {
@@ -108,7 +105,7 @@ fun ForumDetailPage(
                     },
                     navigationIcon = {
                         BackNavigationIcon {
-                            navigator.navigateUp()
+                            navigator.popBackStack()
                         }
                     }
                 )

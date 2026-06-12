@@ -18,7 +18,6 @@ import com.huanchengfly.tieba.post.R
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.SearchPageDestination
 import com.huanchengfly.tieba.post.ui.page.main.notifications.list.NotificationsListPage
 import com.huanchengfly.tieba.post.ui.page.main.notifications.list.NotificationsType
 import com.huanchengfly.tieba.post.ui.widgets.compose.ActionItem
@@ -30,9 +29,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TabRow
 import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.ui.widgets.compose.Toolbar
 import com.huanchengfly.tieba.post.ui.widgets.compose.accountNavIconIfCompact
-import com.ramcosta.composedestinations.annotation.DeepLink
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -43,7 +40,7 @@ import kotlinx.coroutines.launch
 )
 @Composable
 fun NotificationsPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     initialTab: Int = 0,
 ) {
     val pages = listOf<Pair<String, (@Composable () -> Unit)>>(
@@ -66,7 +63,7 @@ fun NotificationsPage(
                     title = { Text(text = stringResource(id = R.string.title_notifications)) },
                     navigationIcon = {
                         BackNavigationIcon {
-                            navigator.navigateUp()
+                            navigator.popBackStack()
                         }
                     }
                 ) {

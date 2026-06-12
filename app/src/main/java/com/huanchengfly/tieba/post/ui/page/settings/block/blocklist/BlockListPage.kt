@@ -62,18 +62,16 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.ui.widgets.compose.rememberDialogState
 import com.huanchengfly.tieba.post.ui.widgets.compose.states.StateScreen
 import com.huanchengfly.tieba.post.utils.GsonUtil
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
-@Destination
 @Composable
 fun BlockListPage(
     viewModel: BlockListViewModel = pageViewModel<BlockListUiIntent, BlockListViewModel>(
         listOf(BlockListUiIntent.Load)
     ),
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     var addBlockCategory by remember { mutableStateOf(Block.CATEGORY_BLACK_LIST) }
     val dialogState = rememberDialogState()
@@ -123,7 +121,7 @@ fun BlockListPage(
                     )
                 },
                 navigationIcon = {
-                    BackNavigationIcon(onBackPressed = { navigator.navigateUp() })
+                    BackNavigationIcon(onBackPressed = { navigator.popBackStack() })
                 },
                 content = {
                     TabRow(

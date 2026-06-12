@@ -52,9 +52,6 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
 import com.huanchengfly.tieba.post.ui.common.windowsizeclass.WindowWidthSizeClass
 import com.huanchengfly.tieba.post.ui.models.ThreadItemData
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumRuleDetailPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
 import com.huanchengfly.tieba.post.ui.page.forum.getSortType
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockTip
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockableContent
@@ -417,7 +414,7 @@ fun ForumThreadListPage(
                     },
                     forumRuleTitle = forumRuleTitle,
                     onOpenForumRule = {
-                        navigator.navigate(ForumRuleDetailPageDestination(forumId))
+                        navigator.navigate("Routes.FORUM_RULE/$forumId")
                     },
                     onOriginThreadClicked = {
                         navigator.navigate(

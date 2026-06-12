@@ -29,13 +29,6 @@ import com.huanchengfly.tieba.post.ui.common.prefs.widgets.TextPref
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.AccountManagePageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.BlockSettingsPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.CustomSettingsPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.HabitSettingsPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.LoginPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.MoreSettingsPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.OKSignSettingsPageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.Avatar
 import com.huanchengfly.tieba.post.ui.widgets.compose.AvatarIcon
 import com.huanchengfly.tieba.post.ui.widgets.compose.BackNavigationIcon
@@ -43,8 +36,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.Sizes
 import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.utils.AccountUtil.LocalAccount
 import com.huanchengfly.tieba.post.utils.StringUtil
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 
 @Composable
 internal fun LeadingIcon(
@@ -103,10 +95,9 @@ fun NowAccountItem(
 }
 
 @OptIn(ExperimentalMaterialApi::class)
-@Destination
 @Composable
 fun SettingsPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     ProvideNavigator(navigator = navigator) {
         Scaffold(
@@ -120,7 +111,7 @@ fun SettingsPage(
                         )
                     },
                     navigationIcon = {
-                        BackNavigationIcon(onBackPressed = { navigator.navigateUp() })
+                        BackNavigationIcon(onBackPressed = { navigator.popBackStack() })
                     }
                 )
             },

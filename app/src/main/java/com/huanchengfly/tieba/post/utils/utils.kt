@@ -33,10 +33,8 @@ import com.huanchengfly.tieba.post.getBoolean
 import com.huanchengfly.tieba.post.toastShort
 import com.huanchengfly.tieba.post.ui.common.theme.utils.ColorStateListUtils
 import com.huanchengfly.tieba.post.ui.common.theme.utils.ThemeUtils
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.WebViewPageDestination
 import com.huanchengfly.tieba.post.utils.Util.createSnackbar
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 
 @JvmOverloads
 fun getItemBackgroundDrawable(
@@ -150,7 +148,7 @@ fun getIntermixedColorBackground(
 
 fun launchUrl(
     context: Context,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     url: String,
 ) {
     val uri = Uri.parse(url)
@@ -188,9 +186,7 @@ fun launchUrl(
         if (host == "tieba.baidu.com" && path.startsWith("/p/")) {
             val threadId = path.substring(3).toLongOrNull()
             if (threadId != null) {
-                navigator.navigate(
-                    ThreadPageDestination(threadId)
-                )
+                navigator.navigate("thread/$threadId")
             }
             return
         }
@@ -199,9 +195,7 @@ fun launchUrl(
                 "ufosdk.baidu.com"
             ) || host.contains("m.help.baidu.com")
         if (isTiebaLink || context.appPreferences.useWebView) {
-            navigator.navigate(
-                WebViewPageDestination(url)
-            )
+            navigator.navigate("webview/$url")
         } else {
             if (context.appPreferences.useCustomTabs) {
                 val intentBuilder = CustomTabsIntent.Builder()

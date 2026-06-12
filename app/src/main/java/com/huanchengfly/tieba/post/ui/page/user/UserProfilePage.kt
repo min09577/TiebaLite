@@ -107,8 +107,7 @@ import com.huanchengfly.tieba.post.utils.BlockManager
 import com.huanchengfly.tieba.post.utils.StringUtil
 import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
 import com.huanchengfly.tieba.post.utils.TiebaUtil
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
@@ -116,12 +115,10 @@ import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
-
-@Destination
 @Composable
 fun UserProfilePage(
     uid: Long,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     viewModel: UserProfileViewModel = pageViewModel(),
 ) {
     val account = LocalAccount.current
@@ -174,7 +171,7 @@ fun UserProfilePage(
                     showActionBtn = account != null,
                     disableButton = disableButton,
                     isSelf = isSelf,
-                    onBack = { navigator.navigateUp() },
+                    onBack = { navigator.popBackStack() },
                     onFollow = {
                         viewModel.send(
                             UserProfileUiIntent.Follow(

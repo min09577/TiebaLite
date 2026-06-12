@@ -33,16 +33,12 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.ui.widgets.compose.UserHeader
 import com.huanchengfly.tieba.post.ui.widgets.compose.states.StateScreen
 import com.huanchengfly.tieba.post.utils.StringUtil
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.persistentListOf
-
-
-@Destination
 @Composable
 fun ForumRuleDetailPage(
     forumId: Long,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     viewModel: ForumRuleDetailViewModel = pageViewModel(),
 ) {
     LazyLoad(loaded = viewModel.initialized) {
@@ -96,7 +92,7 @@ fun ForumRuleDetailPage(
                         title = { Text(text = stringResource(id = R.string.title_forum_rule)) },
                         navigationIcon = {
                             BackNavigationIcon {
-                                navigator.navigateUp()
+                                navigator.popBackStack()
                             }
                         }
                     )

@@ -60,9 +60,6 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
 import com.huanchengfly.tieba.post.ui.models.ThreadItemData
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockTip
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockableContent
 import com.huanchengfly.tieba.post.ui.widgets.compose.Container
@@ -232,7 +229,7 @@ fun PersonalizedPage(
                         )
                     },
                     onRefresh = { viewModel.send(PersonalizedUiIntent.Refresh) },
-                    onOpenForum = { navigator.navigate(ForumPageDestination(it)) },
+                    onOpenForum = { navigator.navigate("forum/$it") },
                     onClickUser = { navigator.navigate(UserProfilePageDestination(it.id)) }
                 )
             }

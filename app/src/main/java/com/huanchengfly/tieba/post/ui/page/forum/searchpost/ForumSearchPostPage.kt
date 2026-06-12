@@ -65,10 +65,6 @@ import com.huanchengfly.tieba.post.models.database.SearchPostHistory
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.SubPostsPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.Button
 import com.huanchengfly.tieba.post.ui.widgets.compose.ClickMenu
 import com.huanchengfly.tieba.post.ui.widgets.compose.ErrorScreen
@@ -81,8 +77,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TopAppBarContainer
 import com.huanchengfly.tieba.post.ui.widgets.compose.picker.ListSinglePicker
 import com.huanchengfly.tieba.post.ui.widgets.compose.rememberMenuState
 import com.huanchengfly.tieba.post.ui.widgets.compose.states.StateScreen
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -199,12 +194,11 @@ private fun SearchHistoryList(
 }
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
-@Destination
 @Composable
 fun ForumSearchPostPage(
     forumName: String,
     forumId: Long,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     viewModel: ForumSearchPostViewModel = pageViewModel<ForumSearchPostUiIntent, ForumSearchPostViewModel>(
         listOf(ForumSearchPostUiIntent.Init)
     ),
@@ -345,7 +339,7 @@ fun ForumSearchPostPage(
                                             interactionSource = remember { MutableInteractionSource() },
                                             indication = rememberRipple(bounded = false, 24.dp),
                                             role = Role.Button,
-                                            onClick = { navigator.navigateUp() }
+                                            onClick = { navigator.popBackStack() }
                                         ),
                                     contentAlignment = Alignment.Center,
                                 ) {

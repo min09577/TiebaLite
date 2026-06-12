@@ -19,8 +19,7 @@ import com.huanchengfly.tieba.post.pendingIntentFlagMutable
 import com.huanchengfly.tieba.post.receivers.AutoSignAlarm
 import com.huanchengfly.tieba.post.services.OKSignService
 import com.huanchengfly.tieba.post.toastShort
-import com.huanchengfly.tieba.post.ui.page.destinations.WebViewPageDestination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import java.util.Calendar
 
 object TiebaUtil {
@@ -118,7 +117,7 @@ object TiebaUtil {
 
     suspend fun reportPost(
         context: Context,
-        navigator: DestinationsNavigator,
+        navigator: NavHostController,
         postId: String,
     ) {
         val dialog = LoadingDialog(context).apply { show() }

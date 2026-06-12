@@ -53,8 +53,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.NetworkImage
 import com.huanchengfly.tieba.post.ui.widgets.compose.Sizes
 import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 
 @Composable
 private fun TopicImage(
@@ -155,13 +154,12 @@ private fun TopicBody(
 }
 
 @OptIn(ExperimentalMaterialApi::class)
-@Destination
 @Composable
 fun HotTopicListPage(
     viewModel: HotTopicListViewModel = pageViewModel<HotTopicListUiIntent, HotTopicListViewModel>(
         listOf(HotTopicListUiIntent.Load)
     ),
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val isRefreshing by viewModel.uiState.collectPartialAsState(
         prop1 = HotTopicListUiState::isRefreshing,
@@ -182,7 +180,7 @@ fun HotTopicListPage(
                     )
                 },
                 navigationIcon = {
-                    BackNavigationIcon(onBackPressed = { navigator.navigateUp() })
+                    BackNavigationIcon(onBackPressed = { navigator.popBackStack() })
                 }
             )
         },

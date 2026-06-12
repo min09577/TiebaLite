@@ -87,13 +87,10 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.rememberDialogState
 import com.huanchengfly.tieba.post.utils.ThemeUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
 import com.huanchengfly.tieba.post.utils.extension.toHexString
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-
-@Destination
+import androidx.navigation.NavHostController
 @Composable
 fun AppThemePage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val context = LocalContext.current
     val themeValues = stringArrayResource(id = R.array.theme_values)
@@ -309,7 +306,7 @@ fun AppThemePage(
                     )
                 },
                 navigationIcon = {
-                    BackNavigationIcon(onBackPressed = { navigator.navigateUp() })
+                    BackNavigationIcon(onBackPressed = { navigator.popBackStack() })
                 }
             )
         },

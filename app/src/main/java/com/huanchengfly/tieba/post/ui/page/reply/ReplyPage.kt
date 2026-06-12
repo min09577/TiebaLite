@@ -94,7 +94,6 @@ import com.huanchengfly.tieba.post.pxToDpFloat
 import com.huanchengfly.tieba.post.toMD5
 import com.huanchengfly.tieba.post.toastShort
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
-import com.huanchengfly.tieba.post.ui.page.destinations.ReplyPageDestination
 import com.huanchengfly.tieba.post.ui.page.reply.ReplyPanelType.EMOJI
 import com.huanchengfly.tieba.post.ui.page.reply.ReplyPanelType.IMAGE
 import com.huanchengfly.tieba.post.ui.page.reply.ReplyPanelType.NONE
@@ -116,9 +115,7 @@ import com.huanchengfly.tieba.post.utils.StringUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
 import com.huanchengfly.tieba.post.utils.hideKeyboard
 import com.huanchengfly.tieba.post.utils.showKeyboard
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.ramcosta.composedestinations.spec.DestinationStyleBottomSheet
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.FlowPreview
@@ -740,7 +737,7 @@ internal fun ReplyPageContent(
 @Destination(style = DestinationStyleBottomSheet::class)
 @Composable
 fun ReplyPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     forumId: Long,
     forumName: String,
     threadId: Long,
@@ -754,7 +751,7 @@ fun ReplyPage(
 ) {
     ReplyPageContent(
         viewModel = viewModel,
-        onBack = { navigator.navigateUp() },
+        onBack = { navigator.popBackStack() },
         forumId = forumId,
         forumName = forumName,
         threadId = threadId,

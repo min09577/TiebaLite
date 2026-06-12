@@ -42,8 +42,6 @@ import com.huanchengfly.tieba.post.arch.BaseComposeActivity.Companion.LocalWindo
 import com.huanchengfly.tieba.post.models.PhotoViewData
 import com.huanchengfly.tieba.post.ui.common.windowsizeclass.WindowWidthSizeClass
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.WebViewPageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.EmoticonText
 import com.huanchengfly.tieba.post.ui.widgets.compose.NetworkImage
 import com.huanchengfly.tieba.post.ui.widgets.compose.VoicePlayer
@@ -211,9 +209,7 @@ data class VideoContentRender(
                     contentDescription = stringResource(id = R.string.desc_video),
                     modifier = picModifier
                         .clickable {
-                            navigator.navigate(
-                                WebViewPageDestination(webUrl)
-                            )
+                            navigator.navigate("webview/$webUrl")
                         },
                     contentScale = ContentScale.Crop
                 )
@@ -322,7 +318,7 @@ fun PbContentText(
 
                             "user" -> {
                                 val uid = annotation.item.toLong()
-                                navigator.navigate(UserProfilePageDestination(uid))
+                                navigator.navigate("user/$uid")
                             }
                         }
                     }

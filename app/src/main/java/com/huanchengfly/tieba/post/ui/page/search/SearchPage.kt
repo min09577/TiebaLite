@@ -73,7 +73,6 @@ import com.huanchengfly.tieba.post.models.database.SearchHistory
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.common.theme.compose.TiebaLiteTheme
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.SearchPageDestination
 import com.huanchengfly.tieba.post.ui.page.search.forum.SearchForumPage
 import com.huanchengfly.tieba.post.ui.page.search.thread.SearchThreadPage
 import com.huanchengfly.tieba.post.ui.page.search.thread.SearchThreadSortType
@@ -90,9 +89,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TabClickMenu
 import com.huanchengfly.tieba.post.ui.widgets.compose.TabRow
 import com.huanchengfly.tieba.post.ui.widgets.compose.TopAppBarContainer
 import com.huanchengfly.tieba.post.ui.widgets.compose.picker.ListSinglePicker
-import com.ramcosta.composedestinations.annotation.DeepLink
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.ImmutableMap
 import kotlinx.collections.immutable.persistentListOf
@@ -121,7 +118,7 @@ data class SearchPageItem(
 )
 @Composable
 fun SearchPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     viewModel: SearchViewModel = pageViewModel<SearchUiIntent, SearchViewModel>(
         listOf(SearchUiIntent.Init)
     ),
@@ -252,7 +249,7 @@ fun SearchPage(
                             },
                             onBack = {
                                 if (isKeywordEmpty) {
-                                    navigator.navigateUp()
+                                    navigator.popBackStack()
                                 } else {
                                     viewModel.send(SearchUiIntent.SubmitKeyword(""))
                                 }

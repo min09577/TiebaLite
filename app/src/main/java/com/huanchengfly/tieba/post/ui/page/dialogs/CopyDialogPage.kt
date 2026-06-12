@@ -31,9 +31,7 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.widgets.compose.Button
 import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.utils.TiebaUtil
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.ramcosta.composedestinations.spec.DestinationStyle
+import androidx.navigation.NavHostController
 
 object CopyTextDialogStyle : DestinationStyle.Dialog {
     override val properties: DialogProperties
@@ -49,7 +47,7 @@ object CopyTextDialogStyle : DestinationStyle.Dialog {
 @Composable
 fun CopyTextDialogPage(
     text: String,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val context = LocalContext.current
 
@@ -65,7 +63,7 @@ fun CopyTextDialogPage(
                 TiebaUtil.copyText(context, it)
             },
             onCancel = {
-                navigator.navigateUp()
+                navigator.popBackStack()
             }
         )
     }

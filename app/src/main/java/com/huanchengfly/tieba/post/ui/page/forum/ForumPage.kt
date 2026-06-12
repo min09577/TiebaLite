@@ -98,8 +98,6 @@ import com.huanchengfly.tieba.post.toastShort
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumDetailPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumSearchPostPageDestination
 import com.huanchengfly.tieba.post.ui.page.forum.threadlist.ForumThreadListPage
 import com.huanchengfly.tieba.post.ui.page.forum.threadlist.ForumThreadListUiEvent
 import com.huanchengfly.tieba.post.ui.widgets.compose.Avatar
@@ -128,9 +126,7 @@ import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
 import com.huanchengfly.tieba.post.utils.TiebaUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
 import com.huanchengfly.tieba.post.utils.requestPinShortcut
-import com.ramcosta.composedestinations.annotation.DeepLink
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -365,7 +361,7 @@ private suspend fun sendToDesktop(
 fun ForumPage(
     forumName: String,
     viewModel: ForumViewModel = pageViewModel(),
-    navigator: DestinationsNavigator
+    navigator: NavHostController
 ) {
     val context = LocalContext.current
     LazyLoad(loaded = viewModel.initialized) {
@@ -984,7 +980,7 @@ private fun ForumToolbar(
                 )
             )
         },
-        navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.navigateUp() }) },
+        navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.popBackStack() }) },
         actions = {
             if (forumId != null) {
                 IconButton(

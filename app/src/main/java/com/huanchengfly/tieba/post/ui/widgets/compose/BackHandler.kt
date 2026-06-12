@@ -4,19 +4,18 @@ import android.annotation.SuppressLint
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import com.huanchengfly.tieba.post.LocalDestination
-import com.ramcosta.composedestinations.spec.DestinationSpec
 
 @SuppressLint("RestrictedApi")
 @Composable
 fun MyBackHandler(
     enabled: Boolean,
-    currentScreen: DestinationSpec<*>? = null,
+    currentScreenRoute: String? = null,
     onBack: () -> Unit,
 ) {
     val currentDestination = LocalDestination.current
 
     val shouldEnable =
-        enabled && (currentScreen == null || currentDestination?.baseRoute == currentScreen.baseRoute)
+        enabled && (currentScreenRoute == null || currentDestination?.route == currentScreenRoute)
 
     BackHandler(enabled = shouldEnable, onBack = onBack)
 }

@@ -57,8 +57,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.rememberWebViewNavigator
 import com.huanchengfly.tieba.post.utils.AccountUtil
 import com.huanchengfly.tieba.post.utils.AccountUtil.parseCookie
 import com.huanchengfly.tieba.post.utils.ClientUtils
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -73,10 +72,9 @@ const val LOGIN_URL =
     "https://wappass.baidu.com/passport?login&u=https%3A%2F%2Ftieba.baidu.com%2Findex%2Ftbwise%2Fmine"
 
 @SuppressLint("SetJavaScriptEnabled")
-@Destination
 @Composable
 fun LoginPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -167,7 +165,7 @@ fun LoginPage(
                         }
                     }
                 },
-                navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.navigateUp() }) },
+                navigationIcon = { BackNavigationIcon(onBackPressed = { navigator.popBackStack() }) },
                 actions = {
                     val menuState = rememberMenuState()
                     ClickMenu(
@@ -236,7 +234,7 @@ fun LoginPage(
 }
 
 class LoginWebViewClient(
-    nativeNavigator: DestinationsNavigator? = null,
+    nativeNavigator: NavHostController? = null,
     val coroutineScope: CoroutineScope,
     val snackbarHostState: SnackbarHostState,
 ) : MyWebViewClient(nativeNavigator) {

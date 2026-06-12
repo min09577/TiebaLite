@@ -45,15 +45,13 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.TitleCentredToolbar
 import com.huanchengfly.tieba.post.utils.isIgnoringBatteryOptimizations
 import com.huanchengfly.tieba.post.utils.powerManager
 import com.huanchengfly.tieba.post.utils.requestIgnoreBatteryOptimizations
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
-@Destination
 @Composable
 fun OKSignSettingsPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
 ) {
     val coroutineScope = rememberCoroutineScope()
     MyScaffold(
@@ -62,7 +60,7 @@ fun OKSignSettingsPage(
             TitleCentredToolbar(
                 title = stringResource(id = R.string.title_oksign),
                 navigationIcon = {
-                    BackNavigationIcon(onBackPressed = { navigator.navigateUp() })
+                    BackNavigationIcon(onBackPressed = { navigator.popBackStack() })
                 }
             )
         },

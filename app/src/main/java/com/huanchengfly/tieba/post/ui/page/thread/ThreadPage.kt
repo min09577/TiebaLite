@@ -127,12 +127,6 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
 import com.huanchengfly.tieba.post.ui.common.theme.compose.threadBottomBar
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.CopyTextDialogPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ReplyPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.SubPostsSheetPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
 import com.huanchengfly.tieba.post.ui.widgets.compose.Avatar
 import com.huanchengfly.tieba.post.ui.widgets.compose.BackNavigationIcon
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockTip
@@ -171,9 +165,7 @@ import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
 import com.huanchengfly.tieba.post.utils.TiebaUtil
 import com.huanchengfly.tieba.post.utils.Util.getIconColorByLevel
 import com.huanchengfly.tieba.post.utils.appPreferences
-import com.ramcosta.composedestinations.annotation.DeepLink
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.catch
@@ -482,7 +474,7 @@ private fun ThreadLoadMoreIndicator(
 @Composable
 fun ThreadPage(
     threadId: Long,
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     forumId: Long? = null,
     postId: Long = 0,
     seeLz: Boolean = false,
@@ -736,7 +728,7 @@ fun ThreadPage(
         dialogState = updateCollectMarkDialogState,
         onConfirm = {
             coroutineScope.launch {
-                navigator.navigateUp()
+                navigator.popBackStack()
                 if (lastVisibilityPostId != 0L) {
                     TiebaApi.getInstance()
                         .addStoreFlow(threadId, lastVisibilityPostId)
@@ -753,7 +745,7 @@ fun ThreadPage(
             }
         },
         onCancel = {
-            navigator.navigateUp()
+            navigator.popBackStack()
         }
     ) {
         Text(text = stringResource(R.string.message_update_collect_mark, readFloorBeforeBack))
@@ -766,7 +758,7 @@ fun ThreadPage(
         if (readFloorBeforeBack != 0) {
             updateCollectMarkDialogState.show()
         } else {
-            navigator.navigateUp()
+            navigator.popBackStack()
         }
     }
 
@@ -981,9 +973,7 @@ fun ThreadPage(
                 }
             },
             onMenuCopyClick = {
-                navigator.navigate(
-                    CopyTextDialogPageDestination(it)
-                )
+                navigator.navigate("Routes.COPY_DIALOG/$it")
             },
             onMenuFavoriteClick = {
                 val isPostCollected =
@@ -1107,14 +1097,10 @@ fun ThreadPage(
                 topBar = {
                     TopBar(
                         forum = forum,
-                        onBack = { navigator.navigateUp() },
+                        onBack = { navigator.popBackStack() },
                         onForumClick = {
                             val forumName = forum?.get { name }
-                            if (forumName != null) navigator.navigate(
-                                ForumPageDestination(
-                                    forumName
-                                )
-                            )
+                            if (forumName != null) navigator.navigate("forum/$forumName")
                         }
                     )
                 },
@@ -1361,9 +1347,7 @@ fun ThreadPage(
                                                         )
                                                     },
                                                     onMenuCopyClick = {
-                                                        navigator.navigate(
-                                                            CopyTextDialogPageDestination(it)
-                                                        )
+                                                        navigator.navigate("Routes.COPY_DIALOG/$it")
                                                     },
                                                     onMenuFavoriteClick = {
                                                         viewModel.send(

@@ -55,9 +55,6 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
 import com.huanchengfly.tieba.post.ui.common.theme.compose.threadBottomBar
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.ProvideNavigator
-import com.huanchengfly.tieba.post.ui.page.destinations.CopyTextDialogPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.UserProfilePageDestination
 import com.huanchengfly.tieba.post.ui.page.reply.ReplyArgs
 import com.huanchengfly.tieba.post.ui.page.reply.ReplyDialog
 import com.huanchengfly.tieba.post.ui.page.thread.PostAgreeBtn
@@ -85,17 +82,13 @@ import com.huanchengfly.tieba.post.utils.DateTimeUtils
 import com.huanchengfly.tieba.post.utils.StringUtil
 import com.huanchengfly.tieba.post.utils.TiebaUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.ramcosta.composedestinations.spec.DestinationStyleBottomSheet
+import androidx.navigation.NavHostController
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
-@Destination
 @Composable
 fun SubPostsPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     threadId: Long,
     forumId: Long = 0L,
     postId: Long = 0L,
@@ -111,7 +104,7 @@ fun SubPostsPage(
             postId = postId,
             subPostId = subPostId,
             loadFromSubPost = loadFromSubPost,
-            onNavigateUp = { navigator.navigateUp() }
+            onNavigateUp = { navigator.popBackStack() }
         )
     }
 }
@@ -121,7 +114,7 @@ fun SubPostsPage(
 )
 @Composable
 fun SubPostsSheetPage(
-    navigator: DestinationsNavigator,
+    navigator: NavHostController,
     threadId: Long,
     forumId: Long = 0L,
     postId: Long = 0L,
@@ -138,7 +131,7 @@ fun SubPostsSheetPage(
             subPostId = subPostId,
             loadFromSubPost = loadFromSubPost,
             isSheet = true,
-            onNavigateUp = { navigator.navigateUp() }
+            onNavigateUp = { navigator.popBackStack() }
         )
     }
 }
@@ -452,9 +445,7 @@ internal fun SubPostsContent(
                                         )
                                     },
                                     onMenuCopyClick = {
-                                        navigator.navigate(
-                                            CopyTextDialogPageDestination(it)
-                                        )
+                                        navigator.navigate("Routes.COPY_DIALOG/$it")
                                     },
                                 ) {
                                     deleteSubPost = null
@@ -519,9 +510,7 @@ internal fun SubPostsContent(
                                 )
                             },
                             onMenuCopyClick = {
-                                navigator.navigate(
-                                    CopyTextDialogPageDestination(it)
-                                )
+                                navigator.navigate("Routes.COPY_DIALOG/$it")
 //                                TiebaUtil.copyText(context, it)
                             },
                             onMenuDeleteClick = {

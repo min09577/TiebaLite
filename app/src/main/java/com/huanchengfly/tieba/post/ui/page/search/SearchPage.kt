@@ -1,5 +1,5 @@
-package com.huanchengfly.tieba.post.ui.page.search
 @file:Suppress("DEPRECATION")
+package com.huanchengfly.tieba.post.ui.page.search
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

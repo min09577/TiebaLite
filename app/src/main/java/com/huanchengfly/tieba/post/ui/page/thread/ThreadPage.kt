@@ -1072,12 +1072,7 @@ fun ThreadPage(
                     BottomBar(
                         user = user,
                         onClickReply = {
-                            navigator.navigate((
-                                    forumId = curForumId ?: 0,
-                                    forumName = forum?.get { name }.orEmpty(),
-                                    threadId = threadId,
-                                )
-                            )
+                            navigator.navigate("reply/$threadId?forumId=${curForumId ?: 0}&forumName=${forum?.get { name }.orEmpty()}")
                         },
                         onAgree = {
                             val firstPostId =
@@ -1296,13 +1291,7 @@ fun ThreadPage(
                                                         navigator.navigate("user/${it.id}")
                                                     },
                                                     onReplyClick = {
-                                                        navigator.navigate((
-                                                                forumId = curForumId ?: 0,
-                                                                forumName = forum?.get { name }
-                                                                    .orEmpty(),
-                                                                threadId = threadId,
-                                                            )
-                                                        )
+                                                        navigator.navigate("reply/$threadId?forumId=${curForumId ?: 0}&forumName=${forum?.get { name }.orEmpty()}")
                                                     },
                                                     onMenuCopyClick = {
                                                         navigator.navigate("Routes.COPY_DIALOG/$it")

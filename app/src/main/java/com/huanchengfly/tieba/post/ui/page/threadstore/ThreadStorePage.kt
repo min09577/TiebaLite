@@ -181,8 +181,6 @@ fun ThreadStorePage(
                                 },
                                 onClick = {
                                     navigator.navigate("thread/${info.threadId.toLong()}")
-                                        )
-                                    )
                                 },
                                 onDelete = {
                                     viewModel.send(

@@ -23,6 +23,8 @@ repositories:
   google:
   maven-central:
   jit-pack:
+  maven-verve:
+    url: https://verve.jfrog.io/artifactory/verve-gradle-release/
 
 versions:
   accompanist: 0.36.0

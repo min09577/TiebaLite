@@ -16,9 +16,3 @@ plugins {
 tasks.register<Delete>("clean") {
     delete(rootProject.buildDir)
 }
-
-allprojects {
-    repositories {
-        maven { url = uri("https://verve.jfrog.io/artifactory/verve-gradle-release/") }
-    }
-}

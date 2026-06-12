@@ -277,7 +277,7 @@ private fun FullScreenButton() {
         modifier = Modifier
             .padding(8.dp)
             .clickable(
-                indication = rememberRipple(bounded = false),
+                indication = @Suppress("DEPRECATION") rememberRipple(bounded = false),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
                 videoPlayerController.toggleFullScreen()

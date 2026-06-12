@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.huanchengfly.tieba.post.ui.page.forum.searchpost
 
 import androidx.compose.animation.animateContentSize
@@ -337,7 +338,7 @@ fun ForumSearchPostPage(
                                         .clip(RoundedCornerShape(100))
                                         .clickable(
                                             interactionSource = remember { MutableInteractionSource() },
-                                            indication = @Suppress("DEPRECATION") rememberRipple(bounded = false, 24.dp),
+                                            indication = rememberRipple(bounded = false, 24.dp),
                                             role = Role.Button,
                                             onClick = { navigator.popBackStack() }
                                         ),

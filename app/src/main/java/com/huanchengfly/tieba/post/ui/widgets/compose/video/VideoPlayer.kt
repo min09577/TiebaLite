@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 package com.huanchengfly.tieba.post.ui.widgets.compose.video
 
 import android.util.Log
@@ -277,7 +278,7 @@ private fun FullScreenButton() {
         modifier = Modifier
             .padding(8.dp)
             .clickable(
-                indication = @Suppress("DEPRECATION") rememberRipple(bounded = false),
+                indication = rememberRipple(bounded = false),
                 interactionSource = remember { MutableInteractionSource() }
             ) {
                 videoPlayerController.toggleFullScreen()

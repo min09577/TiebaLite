@@ -27,6 +27,7 @@ import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.navigation.NavHostController
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -64,7 +65,7 @@ import com.huanchengfly.tieba.post.utils.StringUtil.getShortNumString
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HotPage(
+fun HotPage(navigator: NavHostController,
     viewModel: HotViewModel = pageViewModel()
 ) {
     LazyLoad(loaded = viewModel.initialized) {

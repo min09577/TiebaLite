@@ -39,8 +39,6 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
-    ]
-)
 @Composable
 fun HistoryPage(
     navigator: NavHostController

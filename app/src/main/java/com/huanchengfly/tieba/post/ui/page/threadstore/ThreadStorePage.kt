@@ -71,8 +71,6 @@ import androidx.navigation.NavHostController
 private val UpdateTipTextStyle = TextStyle(fontWeight = FontWeight.Bold, fontSize = 10.sp)
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalTextApi::class)
-    ]
-)
 @Composable
 fun ThreadStorePage(
     navigator: NavHostController,

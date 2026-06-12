@@ -352,8 +352,6 @@ private suspend fun sendToDesktop(
 }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
-    ]
-)
 @Composable
 fun ForumPage(
     forumName: String,

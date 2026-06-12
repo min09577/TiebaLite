@@ -111,8 +111,6 @@ data class SearchPageItem(
 )
 
 @OptIn(ExperimentalFoundationApi::class, FlowPreview::class)
-    ]
-)
 @Composable
 fun SearchPage(
     navigator: NavHostController,

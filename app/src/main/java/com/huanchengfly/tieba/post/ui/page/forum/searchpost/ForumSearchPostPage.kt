@@ -1,5 +1,4 @@
 package com.huanchengfly.tieba.post.ui.page.forum.searchpost
-
 @file:Suppress("DEPRECATION")
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState

@@ -164,8 +164,6 @@ libraries:
     media3-ui:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
-  io.github.raamcosta.compose-destinations:
-    # Removed — replaced with manual NavHost navigation
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose

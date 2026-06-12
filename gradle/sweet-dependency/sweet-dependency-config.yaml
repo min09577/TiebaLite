@@ -165,12 +165,7 @@ libraries:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
   io.github.raamcosta.compose-destinations:
-    animations-core:
-      alias: compose-destinations-core
-      version: 1.10.0
-    ksp:
-      alias: compose-destinations-ksp
-      version-ref: compose-destinations-core
+    # Removed — replaced with manual NavHost navigation
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose

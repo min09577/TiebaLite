@@ -147,9 +147,6 @@ dependencies {
     implementation(androidx.media3.exoplayer)
     implementation(androidx.media3.ui)
 
-    implementation(compose.destinations.core)
-    ksp(compose.destinations.ksp)
-
     implementation(androidx.navigation.compose)
 
     api(wire.runtime)

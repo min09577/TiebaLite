@@ -58,7 +58,12 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import androidx.navigation.plusAssign
 import androidx.window.layout.FoldingFeature
 import androidx.window.layout.WindowInfoTracker
@@ -79,9 +84,37 @@ import com.huanchengfly.tieba.post.components.ClipBoardLinkDetector
 import com.huanchengfly.tieba.post.components.ClipBoardThreadLink
 import com.huanchengfly.tieba.post.services.NotifyJobService
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
-import com.huanchengfly.tieba.post.ui.page.NavGraphs
-import com.huanchengfly.tieba.post.ui.page.destinations.ForumPageDestination
-import com.huanchengfly.tieba.post.ui.page.destinations.ThreadPageDestination
+import com.huanchengfly.tieba.post.ui.page.Routes
+import com.huanchengfly.tieba.post.ui.page.dialogs.CopyTextDialogPage
+import com.huanchengfly.tieba.post.ui.page.forum.ForumPage
+import com.huanchengfly.tieba.post.ui.page.forum.detail.ForumDetailPage
+import com.huanchengfly.tieba.post.ui.page.forum.rule.ForumRuleDetailPage
+import com.huanchengfly.tieba.post.ui.page.forum.searchpost.ForumSearchPostPage
+import com.huanchengfly.tieba.post.ui.page.history.HistoryPage
+import com.huanchengfly.tieba.post.ui.page.hottopic.list.HotTopicListPage
+import com.huanchengfly.tieba.post.ui.page.login.LoginPage
+import com.huanchengfly.tieba.post.ui.page.main.MainPage
+import com.huanchengfly.tieba.post.ui.page.main.explore.hot.HotPage
+import com.huanchengfly.tieba.post.ui.page.main.notifications.NotificationsPage
+import com.huanchengfly.tieba.post.ui.page.MonetTestPage
+import com.huanchengfly.tieba.post.ui.page.reply.ReplyPage
+import com.huanchengfly.tieba.post.ui.page.search.SearchPage
+import com.huanchengfly.tieba.post.ui.page.settings.SettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.about.AboutPage
+import com.huanchengfly.tieba.post.ui.page.settings.account.AccountManagePage
+import com.huanchengfly.tieba.post.ui.page.settings.block.BlockSettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.block.blocklist.BlockListPage
+import com.huanchengfly.tieba.post.ui.page.settings.custom.CustomSettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.habit.HabitSettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.more.MoreSettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.oksign.OKSignSettingsPage
+import com.huanchengfly.tieba.post.ui.page.settings.theme.AppThemePage
+import com.huanchengfly.tieba.post.ui.page.subposts.SubPostsPage
+import com.huanchengfly.tieba.post.ui.page.subposts.SubPostsSheetPage
+import com.huanchengfly.tieba.post.ui.page.thread.ThreadPage
+import com.huanchengfly.tieba.post.ui.page.threadstore.ThreadStorePage
+import com.huanchengfly.tieba.post.ui.page.user.UserProfilePage
+import com.huanchengfly.tieba.post.ui.page.webview.WebViewPage
 import com.huanchengfly.tieba.post.ui.utils.DevicePosture
 import com.huanchengfly.tieba.post.ui.utils.isBookPosture
 import com.huanchengfly.tieba.post.ui.utils.isSeparating
@@ -109,14 +142,6 @@ import com.huanchengfly.tieba.post.utils.registerPickMediasLauncher
 import com.huanchengfly.tieba.post.utils.requestIgnoreBatteryOptimizations
 import com.huanchengfly.tieba.post.utils.requestPermission
 import com.microsoft.appcenter.analytics.Analytics
-import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.animations.defaults.RootNavGraphDefaultAnimations
-import com.ramcosta.composedestinations.animations.rememberAnimatedNavHostEngine
-import com.ramcosta.composedestinations.navigation.navigate
-import com.ramcosta.composedestinations.spec.DestinationSpec
-import com.ramcosta.composedestinations.spec.Direction
-import com.ramcosta.composedestinations.utils.currentDestinationAsState
-import com.ramcosta.composedestinations.utils.currentDestinationFlow
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -139,7 +164,7 @@ val LocalDevicePosture =
     staticCompositionLocalOf<State<DevicePosture>> { throw IllegalStateException("not allowed here!") }
 val LocalNavController =
     staticCompositionLocalOf<NavHostController> { throw IllegalStateException("not allowed here!") }
-val LocalDestination = compositionLocalOf<DestinationSpec<*>?> { null }
+val LocalDestination = compositionLocalOf<androidx.navigation.NavDestination?> { null }
 
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterialNavigationApi::class)
 @Composable
@@ -200,32 +225,32 @@ class MainActivityV2 : BaseComposeActivity() {
             )
     }
 
-    private var direction: Direction? = null
+    private var pendingRoute: String? = null
     private var waitingNavCollectorToNavigate = AtomicBoolean(false)
     private var myNavController: NavHostController? = null
         set(value) {
             field = value
-            if (value != null && waitingNavCollectorToNavigate.get() && direction != null) {
+            if (value != null && waitingNavCollectorToNavigate.get()) {
                 launch {
-                    value.currentDestinationFlow
+                    value.currentBackStackEntryFlow
                         .take(1)
                         .collect {
-                            if (waitingNavCollectorToNavigate.get() && direction != null) {
-                                value.navigate(direction!!)
+                            if (waitingNavCollectorToNavigate.get() && pendingRoute != null) {
+                                value.navigate(pendingRoute!!)
+                                pendingRoute = null
                                 waitingNavCollectorToNavigate.set(false)
-                                direction = null
                             }
                         }
                 }
             }
         }
 
-    private fun navigate(direction: Direction) {
+    private fun navigate(route: String) {
         if (myNavController == null) {
             waitingNavCollectorToNavigate.set(true)
-            this.direction = direction
+            pendingRoute = route
         } else {
-            myNavController?.navigate(direction)
+            myNavController?.navigate(route)
         }
     }
 
@@ -235,12 +260,12 @@ class MainActivityV2 : BaseComposeActivity() {
             when (uri.path.orEmpty().lowercase()) {
                 "/frs" -> {
                     val forumName = uri.getQueryParameter("kw") ?: return true
-                    navigate(ForumPageDestination(forumName))
+                    navigate("forum/$forumName")
                 }
 
                 "/pb" -> {
                     val threadId = uri.getQueryParameter("tid")?.toLongOrNull() ?: return true
-                    navigate(ThreadPageDestination(threadId))
+                    navigate("thread/$threadId")
                 }
             }
             true
@@ -332,11 +357,11 @@ class MainActivityV2 : BaseComposeActivity() {
     private fun openClipBoardLink(link: ClipBoardLink) {
         when (link) {
             is ClipBoardThreadLink -> {
-                myNavController?.navigate(Uri.parse("tblite://thread/${link.threadId}"))
+                myNavController?.navigate("thread/${link.threadId}")
             }
 
             is ClipBoardForumLink -> {
-                myNavController?.navigate(Uri.parse("tblite://forum/${link.forumName}"))
+                myNavController?.navigate("forum/${link.forumName}")
             }
 
             else -> {
@@ -464,27 +489,23 @@ class MainActivityV2 : BaseComposeActivity() {
         TiebaLiteLocalProvider {
             TranslucentThemeBackground {
                 val navController = rememberNavController()
-                val engine = TiebaNavHostDefaults.rememberNavHostEngine()
                 val navigator = TiebaNavHostDefaults.rememberBottomSheetNavigator()
-                val currentDestination by navController.currentDestinationAsState()
 
                 navController.navigatorProvider += navigator
 
-                LaunchedEffect(currentDestination) {
-                    val curDest = currentDestination
-                    if (curDest != null) {
-                        Analytics.trackEvent(
-                            "PageChanged",
-                            mapOf(
-                                "page" to curDest.route,
+                LaunchedEffect(navController) {
+                    navController.currentBackStackEntryFlow.collect { entry ->
+                        entry?.destination?.route?.let { route ->
+                            Analytics.trackEvent(
+                                "PageChanged",
+                                mapOf("page" to route)
                             )
-                        )
+                        }
                     }
                 }
 
                 CompositionLocalProvider(
                     LocalNavController provides navController,
-                    LocalDestination provides currentDestination,
                 ) {
                     ModalBottomSheetLayout(
                         bottomSheetNavigator = navigator,
@@ -492,11 +513,192 @@ class MainActivityV2 : BaseComposeActivity() {
                         sheetBackgroundColor = ExtendedTheme.colors.windowBackground,
                         scrimColor = Color.Black.copy(alpha = 0.32f),
                     ) {
-                        DestinationsNavHost(
+                        NavHost(
                             navController = navController,
-                            navGraph = NavGraphs.root,
-                            engine = engine,
-                        )
+                            startDestination = Routes.MAIN,
+                            enterTransition = {
+                                slideIntoContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.Start,
+                                    animationSpec = spring(
+                                        stiffness = Spring.StiffnessMediumLow,
+                                        visibilityThreshold = IntOffset.VisibilityThreshold
+                                    ),
+                                    initialOffset = { it }
+                                )
+                            },
+                            exitTransition = {
+                                slideOutOfContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.End,
+                                    animationSpec = spring(
+                                        stiffness = Spring.StiffnessMediumLow,
+                                        visibilityThreshold = IntOffset.VisibilityThreshold
+                                    ),
+                                    targetOffset = { -it }
+                                )
+                            },
+                            popEnterTransition = {
+                                slideIntoContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.Start,
+                                    animationSpec = spring(
+                                        stiffness = Spring.StiffnessMediumLow,
+                                        visibilityThreshold = IntOffset.VisibilityThreshold
+                                    ),
+                                    initialOffset = { -it }
+                                )
+                            },
+                            popExitTransition = {
+                                slideOutOfContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.End,
+                                    animationSpec = spring(
+                                        stiffness = Spring.StiffnessMediumLow,
+                                        visibilityThreshold = IntOffset.VisibilityThreshold
+                                    ),
+                                    targetOffset = { it }
+                                )
+                            }
+                        ) {
+                            // === 根页面 ===
+                            composable(Routes.MAIN) { MainPage(navigator = navController) }
+
+                            // === 有 deeplink 的页面 ===
+                            composable(
+                                route = Routes.THREAD,
+                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType }),
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://thread/{threadId}" })
+                            ) { backStackEntry ->
+                                val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
+                                ThreadPage(navigator = navController, threadId = threadId)
+                            }
+
+                            composable(
+                                route = Routes.FORUM,
+                                arguments = listOf(navArgument(Routes.Args.FORUM_NAME) { type = NavType.StringType }),
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://forum/{forumName}" })
+                            ) { backStackEntry ->
+                                val forumName = backStackEntry.arguments?.getString(Routes.Args.FORUM_NAME) ?: ""
+                                ForumPage(forumName = forumName)
+                            }
+
+                            composable(
+                                route = Routes.NOTIFICATIONS,
+                                arguments = listOf(navArgument(Routes.Args.INITIAL_TAB) { type = NavType.IntType; defaultValue = 0 }),
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://notifications/{initialTab}" })
+                            ) { backStackEntry ->
+                                val initialTab = backStackEntry.arguments?.getInt(Routes.Args.INITIAL_TAB) ?: 0
+                                NotificationsPage(initialTab = initialTab)
+                            }
+
+                            composable(
+                                route = Routes.HISTORY,
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://history" })
+                            ) { HistoryPage() }
+
+                            composable(
+                                route = Routes.SEARCH,
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://search" })
+                            ) { SearchPage(navigator = navController) }
+
+                            composable(
+                                route = Routes.THREAD_STORE,
+                                deepLinks = listOf(navDeepLink { uriPattern = "tblite://favorite" })
+                            ) { ThreadStorePage(navigator = navController) }
+
+                            // === 详情页 ===
+                            composable(
+                                route = Routes.FORUM_DETAIL,
+                                arguments = listOf(navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                ForumDetailPage(forumId = forumId)
+                            }
+
+                            composable(
+                                route = Routes.FORUM_RULE,
+                                arguments = listOf(navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                ForumRuleDetailPage(forumId = forumId)
+                            }
+
+                            composable(
+                                route = Routes.FORUM_SEARCH_POST,
+                                arguments = listOf(
+                                    navArgument(Routes.Args.FORUM_NAME) { type = NavType.StringType },
+                                    navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType }
+                                )
+                            ) { backStackEntry ->
+                                val forumName = backStackEntry.arguments?.getString(Routes.Args.FORUM_NAME) ?: ""
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                ForumSearchPostPage(forumName = forumName, forumId = forumId)
+                            }
+
+                            composable(
+                                route = Routes.USER_PROFILE,
+                                arguments = listOf(navArgument(Routes.Args.UID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val uid = backStackEntry.arguments?.getLong(Routes.Args.UID) ?: 0L
+                                UserProfilePage(uid = uid)
+                            }
+
+                            // === 帖子子页面 ===
+                            composable(
+                                route = Routes.SUB_POSTS,
+                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
+                                SubPostsPage(threadId = threadId)
+                            }
+
+                            composable(
+                                route = Routes.SUB_POSTS_SHEET,
+                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
+                                SubPostsSheetPage(navigator = navController, threadId = threadId)
+                            }
+
+                            composable(
+                                route = Routes.REPLY,
+                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                            ) { backStackEntry ->
+                                val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
+                                ReplyPage(threadId = threadId)
+                            }
+
+                            // === 设置页 ===
+                            composable(Routes.SETTINGS) { SettingsPage(navigator = navController) }
+                            composable(Routes.BLOCK_SETTINGS) { BlockSettingsPage(navigator = navController) }
+                            composable(Routes.BLOCK_LIST) { BlockListPage() }
+                            composable(Routes.ABOUT) { AboutPage(navigator = navController) }
+                            composable(Routes.HABIT) { HabitSettingsPage(navigator = navController) }
+                            composable(Routes.MORE_SETTINGS) { MoreSettingsPage(navigator = navController) }
+                            composable(Routes.APP_THEME) { AppThemePage(navigator = navController) }
+                            composable(Routes.ACCOUNT) { AccountManagePage(navigator = navController) }
+                            composable(Routes.OKSIGN) { OKSignSettingsPage(navigator = navController) }
+                            composable(Routes.CUSTOM) { CustomSettingsPage(navigator = navController) }
+
+                            // === 其他 ===
+                            composable(
+                                route = Routes.WEBVIEW,
+                                arguments = listOf(navArgument(Routes.Args.INITIAL_URL) { type = NavType.StringType })
+                            ) { backStackEntry ->
+                                val initialUrl = backStackEntry.arguments?.getString(Routes.Args.INITIAL_URL) ?: ""
+                                WebViewPage(initialUrl = initialUrl)
+                            }
+
+                            composable(Routes.LOGIN) { LoginPage(navigator = navController) }
+                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage() }
+                            composable(Routes.HOT_PAGE) { HotPage() }
+                            composable(Routes.MONET_TEST) { MonetTestPage() }
+
+                            composable(
+                                route = Routes.COPY_DIALOG,
+                                arguments = listOf(navArgument(Routes.Args.TEXT) { type = NavType.StringType })
+                            ) { backStackEntry ->
+                                val text = backStackEntry.arguments?.getString(Routes.Args.TEXT) ?: ""
+                                CopyTextDialogPage(text = text)
+                            }
+                        }
                     }
                 }
 
@@ -560,47 +762,6 @@ class MainActivityV2 : BaseComposeActivity() {
 }
 
 private object TiebaNavHostDefaults {
-    private val AnimationSpec = spring(
-        stiffness = Spring.StiffnessMediumLow,
-        visibilityThreshold = IntOffset.VisibilityThreshold
-    )
-
-    @Composable
-    @OptIn(ExperimentalMaterialNavigationApi::class, ExperimentalAnimationApi::class)
-    fun rememberNavHostEngine() = rememberAnimatedNavHostEngine(
-        navHostContentAlignment = Alignment.TopStart,
-        rootDefaultAnimations = RootNavGraphDefaultAnimations(
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Start,
-                    animationSpec = AnimationSpec,
-                    initialOffset = { it }
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End,
-                    animationSpec = AnimationSpec,
-                    targetOffset = { -it }
-                )
-            },
-            popEnterTransition = {
-                slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Start,
-                    animationSpec = AnimationSpec,
-                    initialOffset = { -it }
-                )
-            },
-            popExitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End,
-                    animationSpec = AnimationSpec,
-                    targetOffset = { it }
-                )
-            },
-        ),
-    )
-
     @OptIn(ExperimentalMaterialNavigationApi::class)
     @Composable
     fun rememberBottomSheetNavigator(): BottomSheetNavigator = rememberBottomSheetNavigator(

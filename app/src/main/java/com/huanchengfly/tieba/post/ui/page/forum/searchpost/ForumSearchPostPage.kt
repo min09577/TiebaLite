@@ -36,7 +36,7 @@ import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -337,7 +337,7 @@ fun ForumSearchPostPage(
                                         .clip(RoundedCornerShape(100))
                                         .clickable(
                                             interactionSource = remember { MutableInteractionSource() },
-                                            indication = rememberRipple(bounded = false, 24.dp),
+                                            indication = ripple(bounded = false, radius = 24.dp),
                                             role = Role.Button,
                                             onClick = { navigator.popBackStack() }
                                         ),

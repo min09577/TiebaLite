@@ -662,7 +662,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                ReplyPage(threadId = threadId, navigator = navController)
+                                ReplyPage(threadId = threadId, forumId = 0L, forumName = "", navigator = navController)
                             }
 
                             // === 设置页 ===
@@ -687,8 +687,8 @@ class MainActivityV2 : BaseComposeActivity() {
                             }
 
                             composable(Routes.LOGIN) { LoginPage(navigator = navController) }
-                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage(navigator = navController) }
-                            composable(Routes.HOT_PAGE) { HotPage(navigator = navController) }
+                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage() }
+                            composable(Routes.HOT_PAGE) { HotPage() }
                             composable(Routes.MONET_TEST) { MonetTestPage(navigator = navController) }
 
                             composable(

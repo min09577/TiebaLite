@@ -195,6 +195,9 @@ libraries:
     accompanist-placeholder-material:
       alias: accompanist-placeholder-material
       version-ref: accompanist
+    accompanist-navigation-material:
+      alias: accompanist-navigation-material
+      version-ref: accompanist
   io.github.panpf.sketch3:
     sketch:
       alias: sketch-core

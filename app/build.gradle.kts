@@ -160,6 +160,7 @@ dependencies {
     implementation(accompanist.insets.ui)
     implementation(accompanist.systemuicontroller)
     implementation(accompanist.placeholder.material)
+    implementation(accompanist.navigation.material)
 
     implementation(sketch.core)
     implementation(sketch.compose)

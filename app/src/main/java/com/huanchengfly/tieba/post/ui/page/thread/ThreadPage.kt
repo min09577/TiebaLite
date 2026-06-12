@@ -926,42 +926,15 @@ fun ThreadPage(
                 )
             },
             onReplyClick = {
-                navigator.navigate((
-                        forumId = curForumId ?: 0,
-                        forumName = forum?.get { name } ?: "",
-                        threadId = threadId,
-                        postId = it.id,
-                        replyUserId = it.author?.id ?: it.author_id,
-                        replyUserName = it.author?.nameShow.takeIf { name -> !name.isNullOrEmpty() }
-                            ?: it.author?.name,
-                        replyUserPortrait = it.author?.portrait,
-                    )
-                )
+                navigator.navigate("reply/$threadId")
             },
             onSubPostReplyClick = { post, subPost ->
-                navigator.navigate((
-                        forumId = curForumId ?: 0,
-                        forumName = forum?.get { name } ?: "",
-                        threadId = threadId,
-                        postId = post.id,
-                        subPostId = subPost.id,
-                        replyUserId = subPost.author?.id ?: subPost.author_id,
-                        replyUserName = subPost.author?.nameShow.takeIf { name -> !name.isNullOrEmpty() }
-                            ?: subPost.author?.name,
-                        replyUserPortrait = subPost.author?.portrait,
-                    )
-                )
+                navigator.navigate("reply/$threadId?subPostId=${subPost.id}")
             },
             onOpenSubPosts = {
                 if (curForumId != null) {
-                    navigator.navigate((
-                            forumId = curForumId,
-                            threadId = threadId,
-                            postId = item.get { id },
-                            subPostId = it,
-                            loadFromSubPost = false
-                        )
-                    )
+                    navigator.navigate("subposts/$threadId?forumId=$curForumId&postId=${item.get { id }}&subPostId=$it")
+                }
                 }
             },
             onMenuCopyClick = {

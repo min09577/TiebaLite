@@ -135,7 +135,6 @@ fun SearchThreadPage(
                     lazyListState = lazyListState,
                     onItemClick = {
                         navigator.navigate("thread/${it.tid.toLong()}")
-                        )
                     },
                     onItemUserClick = {
                         navigator.navigate("user/${it.userId.toLong()}")

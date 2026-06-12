@@ -176,12 +176,7 @@ fun NotificationsListPage(
                                             .clip(RoundedCornerShape(6.dp))
                                             .clickable {
                                                 if ("1" == info.isFloor && info.quotePid != null) {
-                                                    navigator.navigate((
-                                                            threadId = info.threadId!!.toLong(),
-                                                            postId = info.quotePid.toLong(),
-                                                            loadFromSubPost = true,
-                                                        )
-                                                    )
+                                                    navigator.navigate("subposts/${info.threadId!!.toLong()}?postId=${info.quotePid.toLong()}")
                                                 } else {
                                                     navigator.navigate("thread/${info.threadId!!.toLong()}")
                                                 }

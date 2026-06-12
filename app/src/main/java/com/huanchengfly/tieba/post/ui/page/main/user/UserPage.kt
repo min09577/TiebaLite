@@ -1,6 +1,7 @@
 package com.huanchengfly.tieba.post.ui.page.main.user
 
 import android.graphics.Typeface
+import android.net.Uri
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

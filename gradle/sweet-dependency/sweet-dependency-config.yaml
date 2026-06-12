@@ -33,10 +33,11 @@ repositories:
   aliyun-maven-public-mirror:
 
 versions:
-  accompanist: 0.34.0
+  accompanist: 0.36.0
   appcenter: 5.0.4
-  hilt: 2.46.1
-  kotlin: 1.9.22
+  hilt: 2.51.1
+  kotlin: 2.0.21
+  ksp: 2.0.21-1.0.28
   sketch: 3.3.0
   wire: 4.9.3
 
@@ -64,12 +65,15 @@ plugins:
     version-ref: kotlin
   com.google.devtools.ksp:
     alias: kotlin-ksp
-    version: 1.9.22-1.0.17
+    version: 2.0.21-1.0.28
   org.jetbrains.kotlin.plugin.serialization:
     alias: kotlin-serialization
     version-ref: kotlin
   org.jetbrains.kotlin.plugin.parcelize:
     alias: kotlin-parcelize
+    version-ref: kotlin
+  org.jetbrains.kotlin.plugin.compose:
+    alias: kotlin-compose-compiler
     version-ref: kotlin
   com.google.dagger.hilt.android:
     alias: hilt-android
@@ -94,7 +98,7 @@ libraries:
   androidx.compose:
     compose-bom:
       alias: compose-bom
-      version: 2024.01.00
+      version: 2024.12.01
   androidx.compose.ui:
     ui-test-junit4:
       alias: compose-ui-test-junit4
@@ -160,14 +164,14 @@ libraries:
   androidx.media3:
     media3-exoplayer:
       alias: androidx-media3-exoplayer
-      version: 1.2.1
+      version: 1.4.1
     media3-ui:
       alias: androidx-media3-ui
       version-ref: androidx-media3-exoplayer
   androidx.navigation:
     navigation-compose:
       alias: androidx-navigation-compose
-      version: 2.7.6
+      version: 2.8.5
   com.google.dagger:
     hilt-android:
       alias: hilt-android
@@ -249,7 +253,7 @@ libraries:
   androidx.activity:
     activity-ktx:
       alias: androidx-activity
-      version: 1.8.2
+      version: 1.9.3
     activity-compose:
       alias: androidx-activity-compose
       version-ref: androidx-activity
@@ -270,7 +274,7 @@ libraries:
   androidx.lifecycle:
     lifecycle-runtime-ktx:
       alias: androidx-lifecycle-runtime
-      version: 2.7.0
+      version: 2.8.7
     lifecycle-viewmodel-ktx:
       alias: androidx-lifecycle-viewmodel
       version-ref: androidx-lifecycle-runtime
@@ -288,7 +292,7 @@ libraries:
   androidx.core:
     core-ktx:
       alias: androidx-core
-      version: 1.12.0
+      version: 1.13.1
     core-splashscreen:
       alias: androidx-core-splashscreen
       version: 1.0.1

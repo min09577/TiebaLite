@@ -6,6 +6,7 @@ plugins {
     autowire(libs.plugins.kotlin.ksp) apply false
     autowire(libs.plugins.kotlin.serialization) apply false
     autowire(libs.plugins.kotlin.parcelize) apply false
+    autowire(libs.plugins.kotlin.compose.compiler) apply false
     autowire(libs.plugins.hilt.android) apply false
     autowire(libs.plugins.com.squareup.wire) apply false
 

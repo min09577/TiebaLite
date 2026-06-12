@@ -6,6 +6,7 @@ plugins {
     autowire(libs.plugins.kotlin.kapt)
     autowire(libs.plugins.kotlin.serialization)
     autowire(libs.plugins.kotlin.parcelize)
+    autowire(libs.plugins.kotlin.compose.compiler)
     autowire(libs.plugins.hilt.android)
     autowire(libs.plugins.kotlin.ksp)
     autowire(libs.plugins.com.squareup.wire)
@@ -89,9 +90,6 @@ android {
     compileOptions {
         targetCompatibility = JavaVersion.VERSION_11
         sourceCompatibility = JavaVersion.VERSION_11
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
     }
     kotlinOptions {
         jvmTarget = "11"

@@ -119,15 +119,9 @@ fun NotificationsListPage(
                                 modifier = Modifier
                                     .clickable {
                                         if (info.isFloor == "1") {
-                                            navigator.navigate((
-                                                    threadId = info.threadId!!.toLong(),
-                                                    subPostId = info.postId!!.toLong(),
-                                                    loadFromSubPost = true
-                                                )
-                                            )
+                                            navigator.navigate("subposts/${info.threadId!!.toLong()}?subPostId=${info.postId!!.toLong()}")
                                         } else {
-                                            navigator.navigate("thread/threadId = info.threadId!!.toLong()")
-                                            )
+                                            navigator.navigate("thread/${info.threadId!!.toLong()}")
                                         }
                                     }
                                     .padding(horizontal = 16.dp, vertical = 12.dp),
@@ -149,7 +143,7 @@ fun NotificationsListPage(
                                             )
                                         },
                                         onClick = {
-                                            navigator.navigate("user/info.replyer.id!!.toLong("))
+                                            navigator.navigate("user/${info.replyer.id!!.toLong()}")
                                         },
                                         desc = {
                                             Text(
@@ -189,7 +183,7 @@ fun NotificationsListPage(
                                                         )
                                                     )
                                                 } else {
-                                                    navigator.navigate("thread/threadId = info.threadId!!.toLong()")
+                                                    navigator.navigate("thread/${info.threadId!!.toLong()}")
                                                 }
                                             }
                                             .background(

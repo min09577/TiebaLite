@@ -408,7 +408,7 @@ internal fun SubPostsContent(
                                     canDelete = { it.author_id == account?.uid?.toLongOrNull() },
                                     showSubPosts = false,
                                     onUserClick = {
-                                        navigator.navigate("user/it.id")
+                                        navigator.navigate("user/${it.id}")
                                     },
                                     onAgree = {
                                         val hasAgreed = it.get { agree?.hasAgree != 0 }
@@ -471,7 +471,7 @@ internal fun SubPostsContent(
                             canDelete = { it.author_id == account?.uid?.toLongOrNull() },
                             threadAuthorId = thread?.get { author?.id },
                             onUserClick = {
-                                navigator.navigate("user/it.id")
+                                navigator.navigate("user/${it.id}")
                             },
                             onAgree = {
                                 val hasAgreed = it.agree?.hasAgree != 0

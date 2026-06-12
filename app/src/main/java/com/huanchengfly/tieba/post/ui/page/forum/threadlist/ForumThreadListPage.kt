@@ -386,10 +386,10 @@ fun ForumThreadListPage(
                     state = lazyListState,
                     items = threadList,
                     onItemClicked = {
-                        navigator.navigate("thread/it.threadId")
+                        navigator.navigate("thread/${it.threadId}")
                     },
                     onItemReplyClicked = {
-                        navigator.navigate("thread/it.threadId")
+                        navigator.navigate("thread/${it.threadId}")
                     },
                     onAgree = {
                         viewModel.send(
@@ -407,7 +407,7 @@ fun ForumThreadListPage(
                     onOriginThreadClicked = {
                         navigator.navigate("thread/${it.tid.toLong()}")
                     }
-                ) { navigator.navigate("user/it.id") }
+                ) { navigator.navigate("user/${it.id}") }
             }
         }
 

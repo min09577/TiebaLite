@@ -138,10 +138,10 @@ fun SearchThreadPage(
                         )
                     },
                     onItemUserClick = {
-                        navigator.navigate("user/it.userId.toLong("))
+                        navigator.navigate("user/${it.userId.toLong()}")
                     },
                     onItemForumClick = {
-                        navigator.navigate("forum/it.forumName")
+                        navigator.navigate("forum/${it.forumName}")
                     },
                     searchKeyword = keyword,
                 )

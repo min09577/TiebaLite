@@ -403,30 +403,24 @@ fun ForumSearchPostPage(
                                     lazyListState = lazyListState,
                                     onItemClick = {
                                         if (it.postInfo != null) {
-                                            navigator.navigate((
-                                                    threadId = it.tid.toLong(),
-                                                    subPostId = it.cid.toLong(),
-                                                    loadFromSubPost = true
-                                                )
-                                            )
+                                            navigator.navigate("subposts/${it.tid.toLong()}?subPostId=${it.cid.toLong()}")
                                         } else if (it.mainPost != null) {
                                             navigator.navigate("thread/${it.tid.toLong()}")
                                         } else {
                                             navigator.navigate("thread/${it.tid.toLong()}")
-                                            )
                                         }
                                     },
                                     onItemUserClick = {
-                                        navigator.navigate("user/it.userId.toLong("))
+                                        navigator.navigate("user/${it.userId.toLong()}")
                                     },
                                     onItemForumClick = {
-                                        navigator.navigate("forum/it.forumName")
+                                        navigator.navigate("forum/${it.forumName}")
                                     },
                                     onQuotePostClick = {
-                                        navigator.navigate("thread/threadId = it.tid")
+                                        navigator.navigate("thread/${it.tid}")
                                     },
                                     onMainPostClick = {
-                                        navigator.navigate("thread/threadId = it.tid")
+                                        navigator.navigate("thread/${it.tid}")
                                     },
                                     hideForum = true,
                                     searchKeyword = currentKeyword,

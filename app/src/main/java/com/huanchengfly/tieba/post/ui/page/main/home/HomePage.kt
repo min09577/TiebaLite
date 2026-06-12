@@ -571,7 +571,7 @@ fun HomePage(
                                                         .clip(RoundedCornerShape(100))
                                                         .background(color = ExtendedTheme.colors.chip)
                                                         .clickable {
-                                                            navigator.navigate("forum/it.data")
+                                                            navigator.navigate("forum/${it.data}")
                                                         }
                                                         .padding(4.dp),
                                                     verticalAlignment = CenterVertically,
@@ -618,7 +618,7 @@ fun HomePage(
                                     item,
                                     listSingle,
                                     onClick = {
-                                        navigator.navigate("forum/it.forumName")
+                                        navigator.navigate("forum/${it.forumName}")
                                     },
                                     onUnfollow = {
                                         unfollowForum = it
@@ -651,7 +651,7 @@ fun HomePage(
                                 item,
                                 listSingle,
                                 onClick = {
-                                    navigator.navigate("forum/it.forumName")
+                                    navigator.navigate("forum/${it.forumName}")
                                 },
                                 onUnfollow = {
                                     unfollowForum = it

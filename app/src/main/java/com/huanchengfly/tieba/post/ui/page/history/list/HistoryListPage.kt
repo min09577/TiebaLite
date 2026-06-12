@@ -134,13 +134,13 @@ fun HistoryListPage(
                             onClick = {
                                 when (it.type) {
                                     HistoryUtil.TYPE_FORUM -> {
-                                        navigator.navigate("forum/it.data")
+                                        navigator.navigate("forum/${it.data}")
                                     }
 
                                     HistoryUtil.TYPE_THREAD -> {
                                         val extra =
                                             if (it.extras != null) it.extras.fromJson<ThreadHistoryInfoBean>() else null
-                                        navigator.navigate("thread/it.data.toLong()")
+                                        navigator.navigate("thread/${it.data.toLong()}")
                                     }
                                 }
                             }
@@ -170,13 +170,13 @@ fun HistoryListPage(
                             onClick = {
                                 when (it.type) {
                                     HistoryUtil.TYPE_FORUM -> {
-                                        navigator.navigate("forum/it.data")
+                                        navigator.navigate("forum/${it.data}")
                                     }
 
                                     HistoryUtil.TYPE_THREAD -> {
                                         val extra =
                                             if (it.extras != null) it.extras.fromJson<ThreadHistoryInfoBean>() else null
-                                        navigator.navigate("thread/it.data.toLong()")
+                                        navigator.navigate("thread/${it.data.toLong()}")
                                     }
                                 }
                             }

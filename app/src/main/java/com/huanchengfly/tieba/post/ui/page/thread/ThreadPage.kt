@@ -912,7 +912,7 @@ fun ThreadPage(
             immersiveMode = isImmersiveMode,
             isCollected = { it.id == thread?.get { collectMarkPid.toLongOrNull() } },
             onUserClick = {
-                navigator.navigate("user/it.id")
+                navigator.navigate("user/${it.id}")
             },
             onAgree = {
                 val postHasAgreed =
@@ -1321,7 +1321,7 @@ fun ThreadPage(
                                                     },
                                                     showSubPosts = false,
                                                     onUserClick = {
-                                                        navigator.navigate("user/it.id")
+                                                        navigator.navigate("user/${it.id}")
                                                     },
                                                     onReplyClick = {
                                                         navigator.navigate((
@@ -1360,7 +1360,7 @@ fun ThreadPage(
                                                                 .clip(RoundedCornerShape(6.dp))
                                                                 .background(ExtendedTheme.colors.floorCard)
                                                                 .clickable {
-                                                                    navigator.navigate("thread/threadId = it.get { tid.toLong() }")
+                                                                    navigator.navigate("thread/${it.get { tid.toLong() }}")
                                                                 }
                                                                 .padding(16.dp)
                                                         )

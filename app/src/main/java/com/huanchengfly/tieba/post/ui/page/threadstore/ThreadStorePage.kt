@@ -176,11 +176,11 @@ fun ThreadStorePage(
                                 info = info,
                                 onUserClick = {
                                     info.author.lzUid?.let {
-                                        navigator.navigate("user/it.toLong("))
+                                        navigator.navigate("user/${it.toLong()}")
                                     }
                                 },
                                 onClick = {
-                                    navigator.navigate("thread/threadId = info.threadId.toLong()")
+                                    navigator.navigate("thread/${info.threadId.toLong()}")
                                         )
                                     )
                                 },

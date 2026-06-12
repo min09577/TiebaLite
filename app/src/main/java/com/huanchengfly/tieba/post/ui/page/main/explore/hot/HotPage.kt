@@ -287,10 +287,10 @@ fun HotPage(
                             FeedCard(
                                 item = item,
                                 onClick = {
-                                    navigator.navigate("thread/threadId = it.id")
+                                    navigator.navigate("thread/${it.id}")
                                 },
                                 onClickReply = {
-                                    navigator.navigate("thread/threadId = it.id")
+                                    navigator.navigate("thread/${it.id}")
                                 },
                                 onAgree = {
                                     viewModel.send(
@@ -301,8 +301,8 @@ fun HotPage(
                                         )
                                     )
                                 },
-                                onClickForum = { navigator.navigate("forum/it.name") },
-                                onClickUser = { navigator.navigate("user/it.id") },
+                                onClickForum = { navigator.navigate("forum/${it.name}") },
+                                onClickUser = { navigator.navigate("user/${it.id}") },
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.End,

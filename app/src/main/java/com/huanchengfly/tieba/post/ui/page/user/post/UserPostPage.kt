@@ -244,7 +244,7 @@ fun UserPostPage(
                         )
                     },
                     onClickReply = {
-                        navigator.navigate("thread/it.thread_id")
+                        navigator.navigate("thread/${it.thread_id}")
                     },
                     onClickUser = {
                         navigator.navigate("user/$it")

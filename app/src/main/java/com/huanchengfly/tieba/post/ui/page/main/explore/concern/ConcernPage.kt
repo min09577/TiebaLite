@@ -96,10 +96,10 @@ fun ConcernPage(
                                 FeedCard(
                                     item = wrapImmutable(item.threadList!!),
                                     onClick = {
-                                        navigator.navigate("thread/it.threadId")
+                                        navigator.navigate("thread/${it.threadId}")
                                     },
                                     onClickReply = {
-                                        navigator.navigate("thread/it.threadId")
+                                        navigator.navigate("thread/${it.threadId}")
                                     },
                                     onAgree = {
                                         viewModel.send(
@@ -110,8 +110,8 @@ fun ConcernPage(
                                             )
                                         )
                                     },
-                                    onClickForum = { navigator.navigate("forum/it.name") },
-                                    onClickUser = { navigator.navigate("user/it.id") },
+                                    onClickForum = { navigator.navigate("forum/${it.name}") },
+                                    onClickUser = { navigator.navigate("user/${it.id}") },
                                 )
                                 if (index < data.size - 1) {
                                     VerticalDivider(

@@ -687,9 +687,9 @@ class MainActivityV2 : BaseComposeActivity() {
                             }
 
                             composable(Routes.LOGIN) { LoginPage(navigator = navController) }
-                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage() }
+                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage(navigator = navController) }
                             composable(Routes.HOT_PAGE) { HotPage() }
-                            composable(Routes.MONET_TEST) { MonetTestPage(navigator = navController) }
+                            composable(Routes.MONET_TEST) { MonetTestPage() }
 
                             composable(
                                 route = Routes.COPY_DIALOG,

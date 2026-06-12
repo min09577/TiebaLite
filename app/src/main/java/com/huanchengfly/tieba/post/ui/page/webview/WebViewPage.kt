@@ -306,22 +306,16 @@ open class MyWebViewClient(
                         newUri.getQueryParameter("kw") ?: newUri.getQueryParameter("word")
                     val threadId = newUri.getQueryParameter("kz")?.toLongOrNull()
                     if (threadId != null) {
-                        nativeNavigator?.navigate(
-                            navigator.navigate("thread/$threadId")
-                        )
+                        navigator.navigate("thread/$threadId")
                         true
                     } else if (forumName != null) {
-                        nativeNavigator?.navigate(
-                            navigator.navigate("forum/$forumName")
-                        )
+                        navigator.navigate("forum/$forumName")
                         true
                     } else false
                 } else if (path.startsWith("/p/")) {
                     val threadId = path.substring(3).toLongOrNull()
                     if (threadId != null) {
-                        nativeNavigator?.navigate(
-                            navigator.navigate("thread/$threadId")
-                        )
+                        navigator.navigate("thread/$threadId")
                         true
                     } else false
                 } else false

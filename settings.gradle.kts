@@ -43,3 +43,9 @@ sweetProperty {
 
 rootProject.name = "TiebaLite"
 include(":app")
+
+dependencyResolutionManagement {
+    repositories {
+        maven { url = uri("https://verve.jfrog.io/artifactory/verve-gradle-release/") }
+    }
+}

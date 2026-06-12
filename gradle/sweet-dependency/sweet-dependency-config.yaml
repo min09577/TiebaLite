@@ -10,7 +10,7 @@
 # 配置偏好设置
 preferences:
   autowire-on-sync-mode: UPDATE_OPTIONAL_DEPENDENCIES
-  repositories-mode: FAIL_ON_PROJECT_REPOS
+  repositories-mode: PREFER_PROJECT
 #  dependencies-namespace:
 #    libraries:
 #      enable: true

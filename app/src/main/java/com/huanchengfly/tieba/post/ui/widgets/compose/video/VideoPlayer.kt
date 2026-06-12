@@ -1,6 +1,6 @@
 package com.huanchengfly.tieba.post.ui.widgets.compose.video
-@file:Suppress("DEPRECATION")
 
+@file:Suppress("DEPRECATION")
 import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

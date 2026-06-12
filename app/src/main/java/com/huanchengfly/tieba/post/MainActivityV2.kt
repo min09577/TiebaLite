@@ -576,7 +576,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://forum/{forumName}" })
                             ) { backStackEntry ->
                                 val forumName = backStackEntry.arguments?.getString(Routes.Args.FORUM_NAME) ?: ""
-                                ForumPage(forumName = forumName)
+                                ForumPage(forumName = forumName, navigator = navController)
                             }
 
                             composable(
@@ -591,7 +591,7 @@ class MainActivityV2 : BaseComposeActivity() {
                             composable(
                                 route = Routes.HISTORY,
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://history" })
-                            ) { HistoryPage() }
+                            ) { HistoryPage(navigator = navController) }
 
                             composable(
                                 route = Routes.SEARCH,
@@ -609,7 +609,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
-                                ForumDetailPage(forumId = forumId)
+                                ForumDetailPage(forumId = forumId, navigator = navController)
                             }
 
                             composable(
@@ -617,7 +617,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
-                                ForumRuleDetailPage(forumId = forumId)
+                                ForumRuleDetailPage(forumId = forumId, navigator = navController)
                             }
 
                             composable(
@@ -629,7 +629,7 @@ class MainActivityV2 : BaseComposeActivity() {
                             ) { backStackEntry ->
                                 val forumName = backStackEntry.arguments?.getString(Routes.Args.FORUM_NAME) ?: ""
                                 val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
-                                ForumSearchPostPage(forumName = forumName, forumId = forumId)
+                                ForumSearchPostPage(forumName = forumName, forumId = forumId, navigator = navController)
                             }
 
                             composable(
@@ -637,7 +637,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.UID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val uid = backStackEntry.arguments?.getLong(Routes.Args.UID) ?: 0L
-                                UserProfilePage(uid = uid)
+                                UserProfilePage(uid = uid, navigator = navController)
                             }
 
                             // === 帖子子页面 ===
@@ -646,7 +646,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                SubPostsPage(threadId = threadId)
+                                SubPostsPage(threadId = threadId, navigator = navController)
                             }
 
                             composable(
@@ -662,13 +662,13 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                ReplyPage(threadId = threadId)
+                                ReplyPage(threadId = threadId, navigator = navController)
                             }
 
                             // === 设置页 ===
                             composable(Routes.SETTINGS) { SettingsPage(navigator = navController) }
                             composable(Routes.BLOCK_SETTINGS) { BlockSettingsPage(navigator = navController) }
-                            composable(Routes.BLOCK_LIST) { BlockListPage() }
+                            composable(Routes.BLOCK_LIST) { BlockListPage(navigator = navController) }
                             composable(Routes.ABOUT) { AboutPage(navigator = navController) }
                             composable(Routes.HABIT) { HabitSettingsPage(navigator = navController) }
                             composable(Routes.MORE_SETTINGS) { MoreSettingsPage(navigator = navController) }
@@ -683,20 +683,20 @@ class MainActivityV2 : BaseComposeActivity() {
                                 arguments = listOf(navArgument(Routes.Args.INITIAL_URL) { type = NavType.StringType })
                             ) { backStackEntry ->
                                 val initialUrl = backStackEntry.arguments?.getString(Routes.Args.INITIAL_URL) ?: ""
-                                WebViewPage(initialUrl = initialUrl)
+                                WebViewPage(initialUrl = initialUrl, navigator = navController)
                             }
 
                             composable(Routes.LOGIN) { LoginPage(navigator = navController) }
-                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage() }
-                            composable(Routes.HOT_PAGE) { HotPage() }
-                            composable(Routes.MONET_TEST) { MonetTestPage() }
+                            composable(Routes.HOT_TOPIC_LIST) { HotTopicListPage(navigator = navController) }
+                            composable(Routes.HOT_PAGE) { HotPage(navigator = navController) }
+                            composable(Routes.MONET_TEST) { MonetTestPage(navigator = navController) }
 
                             composable(
                                 route = Routes.COPY_DIALOG,
                                 arguments = listOf(navArgument(Routes.Args.TEXT) { type = NavType.StringType })
                             ) { backStackEntry ->
                                 val text = backStackEntry.arguments?.getString(Routes.Args.TEXT) ?: ""
-                                CopyTextDialogPage(text = text)
+                                CopyTextDialogPage(text = text, navigator = navController)
                             }
                         }
                     }

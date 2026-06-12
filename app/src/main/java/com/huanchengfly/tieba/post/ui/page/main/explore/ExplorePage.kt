@@ -130,7 +130,7 @@ fun ExplorePage() {
             ExplorePageItem(
                 "hot",
                 { TabText(text = stringResource(id = R.string.title_hot), selected = it) },
-                { HotPage() }
+                { HotPage(navigator = navigator) }
             ),
         ).toImmutableList()
     }

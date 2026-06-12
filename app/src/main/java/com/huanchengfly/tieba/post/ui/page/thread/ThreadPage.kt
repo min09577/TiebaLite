@@ -935,7 +935,6 @@ fun ThreadPage(
                 if (curForumId != null) {
                     navigator.navigate("subposts/$threadId?forumId=$curForumId&postId=${item.get { id }}&subPostId=$it")
                 }
-                }
             },
             onMenuCopyClick = {
                 navigator.navigate("Routes.COPY_DIALOG/$it")

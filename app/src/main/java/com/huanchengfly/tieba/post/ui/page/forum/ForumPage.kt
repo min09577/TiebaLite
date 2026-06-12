@@ -352,9 +352,6 @@ private suspend fun sendToDesktop(
 }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
-@Destination(
-    deepLinks = [
-        DeepLink(uriPattern = "tblite://forum/{forumName}")
     ]
 )
 @Composable

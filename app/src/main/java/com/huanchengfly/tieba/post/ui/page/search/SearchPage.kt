@@ -111,9 +111,6 @@ data class SearchPageItem(
 )
 
 @OptIn(ExperimentalFoundationApi::class, FlowPreview::class)
-@Destination(
-    deepLinks = [
-        DeepLink(uriPattern = "tblite://search")
     ]
 )
 @Composable

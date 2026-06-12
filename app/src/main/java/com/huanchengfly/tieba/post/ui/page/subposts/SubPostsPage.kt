@@ -109,9 +109,6 @@ fun SubPostsPage(
     }
 }
 
-@Destination(
-    style = DestinationStyleBottomSheet::class
-)
 @Composable
 fun SubPostsSheetPage(
     navigator: NavHostController,

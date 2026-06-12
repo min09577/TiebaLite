@@ -466,11 +466,6 @@ private fun ThreadLoadMoreIndicator(
 }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
-@Destination(
-    deepLinks = [
-        DeepLink(uriPattern = "tblite://thread/{threadId}"),
-    ]
-)
 @Composable
 fun ThreadPage(
     threadId: Long,

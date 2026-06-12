@@ -33,9 +33,6 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
-@Destination(
-    deepLinks = [
-        DeepLink(uriPattern = "tblite://notifications/{initialTab}")
     ]
 )
 @Composable

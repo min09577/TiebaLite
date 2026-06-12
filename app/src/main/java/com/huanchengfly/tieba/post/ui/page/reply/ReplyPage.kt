@@ -734,7 +734,6 @@ internal fun ReplyPageContent(
 }
 
 // TODO: 将软键盘状态相关逻辑抽离出来
-@Destination(style = DestinationStyleBottomSheet::class)
 @Composable
 fun ReplyPage(
     navigator: NavHostController,

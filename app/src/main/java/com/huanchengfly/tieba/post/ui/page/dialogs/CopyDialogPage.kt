@@ -41,9 +41,6 @@ object CopyTextDialogStyle : DestinationStyle.Dialog {
         )
 }
 
-@Destination(
-    style = CopyTextDialogStyle::class
-)
 @Composable
 fun CopyTextDialogPage(
     text: String,

@@ -96,22 +96,10 @@ fun ConcernPage(
                                 FeedCard(
                                     item = wrapImmutable(item.threadList!!),
                                     onClick = {
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                it.threadId,
-                                                it.forumId,
-                                                threadInfo = it
-                                            )
-                                        )
+                                        navigator.navigate("thread/it.threadId")
                                     },
                                     onClickReply = {
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                it.threadId,
-                                                it.forumId,
-                                                scrollToReply = true
-                                            )
-                                        )
+                                        navigator.navigate("thread/it.threadId")
                                     },
                                     onAgree = {
                                         viewModel.send(
@@ -122,8 +110,8 @@ fun ConcernPage(
                                             )
                                         )
                                     },
-                                    onClickForum = { navigator.navigate(ForumPageDestination(it.name)) },
-                                    onClickUser = { navigator.navigate(UserProfilePageDestination(it.id)) },
+                                    onClickForum = { navigator.navigate("forum/it.name") },
+                                    onClickUser = { navigator.navigate("user/it.id") },
                                 )
                                 if (index < data.size - 1) {
                                     VerticalDivider(

@@ -120,18 +120,14 @@ fun NotificationsListPage(
                                     .clickable {
                                         if (info.isFloor == "1") {
                                             navigator.navigate(
-                                                SubPostsPageDestination(
+                                                navigator.navigate("subposts/0") /* SubPostsPage(
                                                     threadId = info.threadId!!.toLong(),
                                                     subPostId = info.postId!!.toLong(),
                                                     loadFromSubPost = true
                                                 )
                                             )
                                         } else {
-                                            navigator.navigate(
-                                                ThreadPageDestination(
-                                                    threadId = info.threadId!!.toLong(),
-                                                    postId = info.postId!!.toLong()
-                                                )
+                                            navigator.navigate("thread/threadId = info.threadId!!.toLong()")
                                             )
                                         }
                                     }
@@ -154,7 +150,7 @@ fun NotificationsListPage(
                                             )
                                         },
                                         onClick = {
-                                            navigator.navigate(UserProfilePageDestination(info.replyer.id!!.toLong()))
+                                            navigator.navigate("user/info.replyer.id!!.toLong("))
                                         },
                                         desc = {
                                             Text(
@@ -188,18 +184,14 @@ fun NotificationsListPage(
                                             .clickable {
                                                 if ("1" == info.isFloor && info.quotePid != null) {
                                                     navigator.navigate(
-                                                        SubPostsPageDestination(
+                                                        navigator.navigate("subposts/0") /* SubPostsPage(
                                                             threadId = info.threadId!!.toLong(),
                                                             postId = info.quotePid.toLong(),
                                                             loadFromSubPost = true,
                                                         )
                                                     )
                                                 } else {
-                                                    navigator.navigate(
-                                                        ThreadPageDestination(
-                                                            threadId = info.threadId!!.toLong(),
-                                                        )
-                                                    )
+                                                    navigator.navigate("thread/threadId = info.threadId!!.toLong()")
                                                 }
                                             }
                                             .background(

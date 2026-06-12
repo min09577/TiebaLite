@@ -190,7 +190,7 @@ fun HotPage(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .clickable {
-                                                navigator.navigate(HotTopicListPageDestination)
+                                                navigator.navigate("hot_topic_list")
                                             }
                                             .padding(vertical = 8.dp)
                                     ) {
@@ -287,20 +287,10 @@ fun HotPage(
                             FeedCard(
                                 item = item,
                                 onClick = {
-                                    navigator.navigate(
-                                        ThreadPageDestination(
-                                            threadId = it.id,
-                                            threadInfo = it
-                                        )
-                                    )
+                                    navigator.navigate("thread/threadId = it.id")
                                 },
                                 onClickReply = {
-                                    navigator.navigate(
-                                        ThreadPageDestination(
-                                            threadId = it.id,
-                                            scrollToReply = true
-                                        )
-                                    )
+                                    navigator.navigate("thread/threadId = it.id")
                                 },
                                 onAgree = {
                                     viewModel.send(
@@ -311,8 +301,8 @@ fun HotPage(
                                         )
                                     )
                                 },
-                                onClickForum = { navigator.navigate(ForumPageDestination(it.name)) },
-                                onClickUser = { navigator.navigate(UserProfilePageDestination(it.id)) },
+                                onClickForum = { navigator.navigate("forum/it.name") },
+                                onClickUser = { navigator.navigate("user/it.id") },
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.End,

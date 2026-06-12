@@ -404,54 +404,30 @@ fun ForumSearchPostPage(
                                     onItemClick = {
                                         if (it.postInfo != null) {
                                             navigator.navigate(
-                                                SubPostsPageDestination(
+                                                navigator.navigate("subposts/0") /* SubPostsPage(
                                                     threadId = it.tid.toLong(),
                                                     subPostId = it.cid.toLong(),
                                                     loadFromSubPost = true
                                                 )
                                             )
                                         } else if (it.mainPost != null) {
-                                            navigator.navigate(
-                                                ThreadPageDestination(
-                                                    threadId = it.tid.toLong(),
-                                                    postId = it.pid.toLong(),
-                                                    scrollToReply = true,
-                                                )
-                                            )
+                                            navigator.navigate("thread/threadId = it.tid.toLong()")
                                         } else {
-                                            navigator.navigate(
-                                                ThreadPageDestination(
-                                                    threadId = it.tid.toLong()
-                                                )
+                                            navigator.navigate("thread/threadId = it.tid.toLong(")
                                             )
                                         }
                                     },
                                     onItemUserClick = {
-                                        navigator.navigate(UserProfilePageDestination(it.userId.toLong()))
+                                        navigator.navigate("user/it.userId.toLong("))
                                     },
                                     onItemForumClick = {
-                                        navigator.navigate(
-                                            ForumPageDestination(
-                                                it.forumName
-                                            )
-                                        )
+                                        navigator.navigate("forum/it.forumName")
                                     },
                                     onQuotePostClick = {
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                threadId = it.tid,
-                                                postId = it.pid,
-                                                scrollToReply = true
-                                            )
-                                        )
+                                        navigator.navigate("thread/threadId = it.tid")
                                     },
                                     onMainPostClick = {
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                threadId = it.tid,
-                                                scrollToReply = true
-                                            )
-                                        )
+                                        navigator.navigate("thread/threadId = it.tid")
                                     },
                                     hideForum = true,
                                     searchKeyword = currentKeyword,

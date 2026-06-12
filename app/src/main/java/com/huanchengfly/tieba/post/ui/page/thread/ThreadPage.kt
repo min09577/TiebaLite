@@ -664,7 +664,7 @@ fun ThreadPage(
 
     MyBackHandler(
         enabled = bottomSheetState.isVisible,
-        currentScreen = ThreadPageDestination
+        currentScreenRoute = "thread/{threadId}"
     ) {
         closeBottomSheet()
     }
@@ -747,7 +747,7 @@ fun ThreadPage(
     }
     MyBackHandler(
         enabled = isCollected && !bottomSheetState.isVisible,
-        currentScreen = ThreadPageDestination
+        currentScreenRoute = "thread/{threadId}"
     ) {
         readFloorBeforeBack = lastVisibilityPost?.get { floor } ?: 0
         if (readFloorBeforeBack != 0) {
@@ -912,7 +912,7 @@ fun ThreadPage(
             immersiveMode = isImmersiveMode,
             isCollected = { it.id == thread?.get { collectMarkPid.toLongOrNull() } },
             onUserClick = {
-                navigator.navigate(UserProfilePageDestination(it.id))
+                navigator.navigate("user/it.id")
             },
             onAgree = {
                 val postHasAgreed =
@@ -927,7 +927,7 @@ fun ThreadPage(
             },
             onReplyClick = {
                 navigator.navigate(
-                    ReplyPageDestination(
+                    navigator.navigate("reply/0") /* ReplyPage(
                         forumId = curForumId ?: 0,
                         forumName = forum?.get { name } ?: "",
                         threadId = threadId,
@@ -941,7 +941,7 @@ fun ThreadPage(
             },
             onSubPostReplyClick = { post, subPost ->
                 navigator.navigate(
-                    ReplyPageDestination(
+                    navigator.navigate("reply/0") /* ReplyPage(
                         forumId = curForumId ?: 0,
                         forumName = forum?.get { name } ?: "",
                         threadId = threadId,
@@ -957,7 +957,7 @@ fun ThreadPage(
             onOpenSubPosts = {
                 if (curForumId != null) {
                     navigator.navigate(
-                        SubPostsSheetPageDestination(
+                        navigator.navigate("subposts_sheet/0") /* SubPostsSheetPage(
                             forumId = curForumId,
                             threadId = threadId,
                             postId = item.get { id },
@@ -1104,7 +1104,7 @@ fun ThreadPage(
                         user = user,
                         onClickReply = {
                             navigator.navigate(
-                                ReplyPageDestination(
+                                navigator.navigate("reply/0") /* ReplyPage(
                                     forumId = curForumId ?: 0,
                                     forumName = forum?.get { name }.orEmpty(),
                                     threadId = threadId,
@@ -1325,15 +1325,11 @@ fun ThreadPage(
                                                     },
                                                     showSubPosts = false,
                                                     onUserClick = {
-                                                        navigator.navigate(
-                                                            UserProfilePageDestination(
-                                                                it.id
-                                                            )
-                                                        )
+                                                        navigator.navigate("user/it.id")
                                                     },
                                                     onReplyClick = {
                                                         navigator.navigate(
-                                                            ReplyPageDestination(
+                                                            navigator.navigate("reply/0") /* ReplyPage(
                                                                 forumId = curForumId ?: 0,
                                                                 forumName = forum?.get { name }
                                                                     .orEmpty(),
@@ -1369,12 +1365,7 @@ fun ThreadPage(
                                                                 .clip(RoundedCornerShape(6.dp))
                                                                 .background(ExtendedTheme.colors.floorCard)
                                                                 .clickable {
-                                                                    navigator.navigate(
-                                                                        ThreadPageDestination(
-                                                                            threadId = it.get { tid.toLong() },
-                                                                            forumId = it.get { fid },
-                                                                        )
-                                                                    )
+                                                                    navigator.navigate("thread/threadId = it.get { tid.toLong() }")
                                                                 }
                                                                 .padding(16.dp)
                                                         )

@@ -125,9 +125,7 @@ object TiebaUtil {
             .checkReportPostAsync(postId)
             .doIfSuccess {
                 dialog.dismiss()
-                navigator.navigate(
-                    WebViewPageDestination(it.data.url)
-                )
+                navigator.navigate("webview/it.data.url")
             }
             .doIfFailure {
                 dialog.dismiss()

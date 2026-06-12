@@ -484,7 +484,7 @@ fun HomePage(
         ) {
             Column {
                 SearchBox(modifier = Modifier.padding(bottom = 4.dp)) {
-                    navigator.navigate(SearchPageDestination)
+                    navigator.navigate("search")
                 }
                 StateScreen(
                     isEmpty = isEmpty,
@@ -571,11 +571,7 @@ fun HomePage(
                                                         .clip(RoundedCornerShape(100))
                                                         .background(color = ExtendedTheme.colors.chip)
                                                         .clickable {
-                                                            navigator.navigate(
-                                                                ForumPageDestination(
-                                                                    it.data
-                                                                )
-                                                            )
+                                                            navigator.navigate("forum/it.data")
                                                         }
                                                         .padding(4.dp),
                                                     verticalAlignment = CenterVertically,
@@ -622,7 +618,7 @@ fun HomePage(
                                     item,
                                     listSingle,
                                     onClick = {
-                                        navigator.navigate(ForumPageDestination(it.forumName))
+                                        navigator.navigate("forum/it.forumName")
                                     },
                                     onUnfollow = {
                                         unfollowForum = it
@@ -655,7 +651,7 @@ fun HomePage(
                                 item,
                                 listSingle,
                                 onClick = {
-                                    navigator.navigate(ForumPageDestination(it.forumName))
+                                    navigator.navigate("forum/it.forumName")
                                 },
                                 onUnfollow = {
                                     unfollowForum = it
@@ -779,7 +775,7 @@ fun EmptyScreen(
             if (!loggedIn) {
                 Button(
                     onClick = {
-                        navigator.navigate(LoginPageDestination)
+                        navigator.navigate("login")
                     },
                     modifier = Modifier
                         .fillMaxWidth()

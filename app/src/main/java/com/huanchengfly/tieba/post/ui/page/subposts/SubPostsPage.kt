@@ -309,13 +309,7 @@ internal fun SubPostsContent(
                     actions = {
                         if (!isSheet) {
                             IconButton(onClick = {
-                                navigator.navigate(
-                                    ThreadPageDestination(
-                                        forumId = forumId,
-                                        threadId = threadId,
-                                        postId = postId
-                                    )
-                                )
+                                navigator.navigate("thread/forumId = forumId")
                             }) {
                                 Icon(
                                     imageVector = Icons.Rounded.OpenInBrowser,
@@ -414,7 +408,7 @@ internal fun SubPostsContent(
                                     canDelete = { it.author_id == account?.uid?.toLongOrNull() },
                                     showSubPosts = false,
                                     onUserClick = {
-                                        navigator.navigate(UserProfilePageDestination(it.id))
+                                        navigator.navigate("user/it.id")
                                     },
                                     onAgree = {
                                         val hasAgreed = it.get { agree?.hasAgree != 0 }
@@ -477,7 +471,7 @@ internal fun SubPostsContent(
                             canDelete = { it.author_id == account?.uid?.toLongOrNull() },
                             threadAuthorId = thread?.get { author?.id },
                             onUserClick = {
-                                navigator.navigate(UserProfilePageDestination(it.id))
+                                navigator.navigate("user/it.id")
                             },
                             onAgree = {
                                 val hasAgreed = it.agree?.hasAgree != 0

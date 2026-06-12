@@ -228,21 +228,9 @@ fun UserPostPage(
                             navigator.navigate("thread/$threadId")
                         } else {
                             if (isSubPost) {
-                                navigator.navigate(
-                                    SubPostsPageDestination(
-                                        threadId = threadId,
-                                        subPostId = postId,
-                                        loadFromSubPost = true
-                                    )
-                                )
+                                navigator.navigate("subposts/0")
                             } else {
-                                navigator.navigate(
-                                    ThreadPageDestination(
-                                        threadId,
-                                        postId = postId,
-                                        scrollToReply = true
-                                    )
-                                )
+                                navigator.navigate("thread/threadId")
                             }
                         }
                     },
@@ -256,13 +244,7 @@ fun UserPostPage(
                         )
                     },
                     onClickReply = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                it.thread_id,
-                                it.forum_id,
-                                scrollToReply = true
-                            )
-                        )
+                        navigator.navigate("thread/it.thread_id")
                     },
                     onClickUser = {
                         navigator.navigate("user/$it")

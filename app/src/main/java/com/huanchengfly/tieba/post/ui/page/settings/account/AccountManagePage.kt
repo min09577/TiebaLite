@@ -126,7 +126,7 @@ fun AccountManagePage(
             prefsItem {
                 TextPref(
                     title = stringResource(id = R.string.title_new_account),
-                    onClick = { navigator.navigate(LoginPageDestination) },
+                    onClick = { navigator.navigate("login") },
                     leadingIcon = {
                         LeadingIcon {
                             AvatarIcon(

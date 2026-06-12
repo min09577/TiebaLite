@@ -70,7 +70,7 @@ fun BlockSettingsPage(
                             )
                         }
                     },
-                    onClick = { navigator.navigate(BlockListPageDestination) }
+                    onClick = { navigator.navigate("settings/block/list") }
                 )
             }
             prefsItem {

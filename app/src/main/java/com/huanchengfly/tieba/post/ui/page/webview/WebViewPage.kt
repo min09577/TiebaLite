@@ -307,12 +307,12 @@ open class MyWebViewClient(
                     val threadId = newUri.getQueryParameter("kz")?.toLongOrNull()
                     if (threadId != null) {
                         nativeNavigator?.navigate(
-                            ThreadPageDestination(threadId)
+                            navigator.navigate("thread/$threadId")
                         )
                         true
                     } else if (forumName != null) {
                         nativeNavigator?.navigate(
-                            ForumPageDestination(forumName)
+                            navigator.navigate("forum/$forumName")
                         )
                         true
                     } else false
@@ -320,7 +320,7 @@ open class MyWebViewClient(
                     val threadId = path.substring(3).toLongOrNull()
                     if (threadId != null) {
                         nativeNavigator?.navigate(
-                            ThreadPageDestination(threadId)
+                            navigator.navigate("thread/$threadId")
                         )
                         true
                     } else false

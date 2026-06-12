@@ -144,7 +144,7 @@ fun SearchForumPage(
                         SearchForumItem(
                             item = exactMatchForum!!,
                             onClick = {
-                                navigator.navigate(ForumPageDestination(exactMatchForum!!.forumName.orEmpty()))
+                                navigator.navigate("forum/exactMatchForum!!.forumName.orEmpty("))
                             }
                         )
                     }
@@ -167,7 +167,7 @@ fun SearchForumPage(
                         SearchForumItem(
                             item = it,
                             onClick = {
-                                navigator.navigate(ForumPageDestination(it.forumName.orEmpty()))
+                                navigator.navigate("forum/it.forumName.orEmpty("))
                             }
                         )
                     }

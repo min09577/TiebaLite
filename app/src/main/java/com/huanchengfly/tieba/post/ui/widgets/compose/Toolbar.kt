@@ -127,7 +127,7 @@ fun AccountNavIcon(
                 )
                 DropdownMenuItem(
                     onClick = {
-                        navigator.navigate(LoginPageDestination)
+                        navigator.navigate("login")
                     }
                 ) {
                     Icon(

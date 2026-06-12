@@ -980,7 +980,7 @@ private fun ForumToolbar(
             if (forumId != null) {
                 IconButton(
                     onClick = {
-                        navigator.navigate(ForumSearchPostPageDestination(forumName, forumId))
+                        navigator.navigate("forum_search_post/forumName, forumId")
                     }
                 ) {
                     Icon(

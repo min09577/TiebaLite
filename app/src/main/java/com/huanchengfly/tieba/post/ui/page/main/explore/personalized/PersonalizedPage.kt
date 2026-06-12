@@ -192,22 +192,10 @@ fun PersonalizedPage(
                     refreshPositionProvider = { refreshPosition },
                     hiddenThreadIdsProvider = { hiddenThreadIds },
                     onItemClick = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                it.id,
-                                it.forumId,
-                                threadInfo = it
-                            )
-                        )
+                        navigator.navigate("thread/it.id")
                     },
                     onItemReplyClick = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                it.id,
-                                it.forumId,
-                                scrollToReply = true
-                            )
-                        )
+                        navigator.navigate("thread/it.id")
                     },
                     onAgree = {
                         viewModel.send(
@@ -230,7 +218,7 @@ fun PersonalizedPage(
                     },
                     onRefresh = { viewModel.send(PersonalizedUiIntent.Refresh) },
                     onOpenForum = { navigator.navigate("forum/$it") },
-                    onClickUser = { navigator.navigate(UserProfilePageDestination(it.id)) }
+                    onClickUser = { navigator.navigate("user/it.id") }
                 )
             }
 

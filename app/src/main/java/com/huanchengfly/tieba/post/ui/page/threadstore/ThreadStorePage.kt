@@ -176,21 +176,11 @@ fun ThreadStorePage(
                                 info = info,
                                 onUserClick = {
                                     info.author.lzUid?.let {
-                                        navigator.navigate(UserProfilePageDestination(it.toLong()))
+                                        navigator.navigate("user/it.toLong("))
                                     }
                                 },
                                 onClick = {
-                                    navigator.navigate(
-                                        ThreadPageDestination(
-                                            threadId = info.threadId.toLong(),
-                                            postId = info.markPid.toLong(),
-                                            seeLz = context.appPreferences.collectThreadSeeLz,
-                                            sortType = if(context.appPreferences.collectThreadDescSort) ThreadSortType.SORT_TYPE_DESC else ThreadSortType.SORT_TYPE_DEFAULT,
-                                            from = ThreadPageFrom.FROM_STORE,
-                                            extra = ThreadPageFromStoreExtra(
-                                                maxPid = info.maxPid.toLong(),
-                                                maxFloor = info.postNo.toInt()
-                                            )
+                                    navigator.navigate("thread/threadId = info.threadId.toLong()")
                                         )
                                     )
                                 },

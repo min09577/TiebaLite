@@ -134,20 +134,13 @@ fun HistoryListPage(
                             onClick = {
                                 when (it.type) {
                                     HistoryUtil.TYPE_FORUM -> {
-                                        navigator.navigate(ForumPageDestination(it.data))
+                                        navigator.navigate("forum/it.data")
                                     }
 
                                     HistoryUtil.TYPE_THREAD -> {
                                         val extra =
                                             if (it.extras != null) it.extras.fromJson<ThreadHistoryInfoBean>() else null
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                it.data.toLong(),
-                                                postId = extra?.pid?.toLongOrNull() ?: 0L,
-                                                seeLz = extra?.isSeeLz ?: false,
-                                                from = ThreadPageFrom.FROM_HISTORY
-                                            )
-                                        )
+                                        navigator.navigate("thread/it.data.toLong()")
                                     }
                                 }
                             }
@@ -177,20 +170,13 @@ fun HistoryListPage(
                             onClick = {
                                 when (it.type) {
                                     HistoryUtil.TYPE_FORUM -> {
-                                        navigator.navigate(ForumPageDestination(it.data))
+                                        navigator.navigate("forum/it.data")
                                     }
 
                                     HistoryUtil.TYPE_THREAD -> {
                                         val extra =
                                             if (it.extras != null) it.extras.fromJson<ThreadHistoryInfoBean>() else null
-                                        navigator.navigate(
-                                            ThreadPageDestination(
-                                                it.data.toLong(),
-                                                postId = extra?.pid?.toLongOrNull() ?: 0L,
-                                                seeLz = extra?.isSeeLz ?: false,
-                                                from = ThreadPageFrom.FROM_HISTORY
-                                            )
-                                        )
+                                        navigator.navigate("thread/it.data.toLong()")
                                     }
                                 }
                             }

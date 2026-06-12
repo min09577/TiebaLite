@@ -159,7 +159,7 @@ fun SearchPage(
 
     MyBackHandler(
         enabled = !isKeywordEmpty,
-        currentScreen = SearchPageDestination
+        currentScreenRoute = "search"
     ) {
         viewModel.send(SearchUiIntent.SubmitKeyword(""))
     }

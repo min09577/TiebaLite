@@ -178,7 +178,7 @@ fun MoreSettingsPage(
                     enabled = true,
                     title = stringResource(id = R.string.title_about),
                     onClick = {
-                        navigator.navigate(AboutPageDestination)
+                        navigator.navigate("settings/about")
                     },
                     summary = stringResource(id = R.string.tip_about, BuildConfig.VERSION_NAME)
                 )

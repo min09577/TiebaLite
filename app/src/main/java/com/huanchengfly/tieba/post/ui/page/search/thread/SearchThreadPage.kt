@@ -134,21 +134,14 @@ fun SearchThreadPage(
                     data = data,
                     lazyListState = lazyListState,
                     onItemClick = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                threadId = it.tid.toLong()
-                            )
+                        navigator.navigate("thread/threadId = it.tid.toLong(")
                         )
                     },
                     onItemUserClick = {
-                        navigator.navigate(UserProfilePageDestination(it.userId.toLong()))
+                        navigator.navigate("user/it.userId.toLong("))
                     },
                     onItemForumClick = {
-                        navigator.navigate(
-                            ForumPageDestination(
-                                it.forumName
-                            )
-                        )
+                        navigator.navigate("forum/it.forumName")
                     },
                     searchKeyword = keyword,
                 )

@@ -280,7 +280,7 @@ fun UserPage(
                         modifier = Modifier
                             .padding(top = 8.dp)
                             .clickable {
-                                navigator.navigate(UserProfilePageDestination(account!!.uid.toLong()))
+                                navigator.navigate("user/account!!.uid.toLong("))
                             }
                             .padding(horizontal = 16.dp, vertical = 16.dp),
                         userName = account!!.nameShow ?: account!!.name,
@@ -321,7 +321,7 @@ fun UserPage(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_favorite),
                         text = stringResource(id = R.string.title_my_collect),
                         onClick = {
-                            navigator.navigate(ThreadStorePageDestination)
+                            navigator.navigate("favorite")
                         }
                     )
                 }
@@ -329,14 +329,14 @@ fun UserPage(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_outline_watch_later_24),
                     text = stringResource(id = R.string.title_history),
                     onClick = {
-                        navigator.navigate(HistoryPageDestination)
+                        navigator.navigate("history")
                     }
                 )
                 ListMenuItem(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_brush_24),
                     text = stringResource(id = R.string.title_theme),
                     onClick = {
-                        navigator.navigate(AppThemePageDestination)
+                        navigator.navigate("settings/theme")
                     }
                 ) {
                     Text(
@@ -361,11 +361,7 @@ fun UserPage(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_help_outline_black_24),
                         text = stringResource(id = R.string.my_info_service_center),
                         onClick = {
-                            navigator.navigate(
-                                WebViewPageDestination(
-                                    initialUrl = "https://tieba.baidu.com/mo/q/hybrid-main-service/uegServiceCenter?cuid=${CuidUtils.getNewCuid()}&cuid_galaxy2=${CuidUtils.getNewCuid()}&cuid_gid=&timestamp=${System.currentTimeMillis()}&_client_version=12.52.1.0&nohead=1"
-                                )
-                            )
+                            navigator.navigate("webview/initialUrl = "https://tieba.baidu.com/mo/q/hybrid-main-service/uegServiceCenter?cuid=${CuidUtils.getNewCuid()}&cuid_galaxy2=${CuidUtils.getNewCuid()}&cuid_gid=&timestamp=${System.currentTimeMillis()}&_client_version=12.52.1.0&nohead=1"")
                         },
                     )
                 }
@@ -375,12 +371,12 @@ fun UserPage(
                 ListMenuItem(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_settings_24),
                     text = stringResource(id = R.string.my_info_settings),
-                    onClick = { navigator.navigate(SettingsPageDestination) },
+                    onClick = { navigator.navigate("settings") },
                 )
                 ListMenuItem(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_info_black_24),
                     text = stringResource(id = R.string.my_info_about),
-                    onClick = { navigator.navigate(AboutPageDestination) },
+                    onClick = { navigator.navigate("settings/about") },
                 )
             }
 

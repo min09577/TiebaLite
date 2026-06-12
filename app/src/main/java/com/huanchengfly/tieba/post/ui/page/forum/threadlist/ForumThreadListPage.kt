@@ -386,22 +386,10 @@ fun ForumThreadListPage(
                     state = lazyListState,
                     items = threadList,
                     onItemClicked = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                it.threadId,
-                                forumId = it.forumId,
-                                threadInfo = it
-                            )
-                        )
+                        navigator.navigate("thread/it.threadId")
                     },
                     onItemReplyClicked = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                it.threadId,
-                                forumId = it.forumId,
-                                scrollToReply = true
-                            )
-                        )
+                        navigator.navigate("thread/it.threadId")
                     },
                     onAgree = {
                         viewModel.send(
@@ -417,14 +405,9 @@ fun ForumThreadListPage(
                         navigator.navigate("Routes.FORUM_RULE/$forumId")
                     },
                     onOriginThreadClicked = {
-                        navigator.navigate(
-                            ThreadPageDestination(
-                                threadId = it.tid.toLong(),
-                                forumId = it.fid,
-                            )
-                        )
+                        navigator.navigate("thread/threadId = it.tid.toLong()")
                     }
-                ) { navigator.navigate(UserProfilePageDestination(it.id)) }
+                ) { navigator.navigate("user/it.id") }
             }
         }
 

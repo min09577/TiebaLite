@@ -60,7 +60,7 @@ fun NowAccountItem(
             title = stringResource(id = R.string.title_account_manage),
             summary = stringResource(id = R.string.summary_now_account, account.nameShow ?: account.name),
             enabled = true,
-            onClick = { navigator.navigate(AccountManagePageDestination) },
+            onClick = { navigator.navigate("settings/account") },
             leadingIcon = {
                 LeadingIcon {
                     Avatar(
@@ -77,7 +77,7 @@ fun NowAccountItem(
             title = stringResource(id = R.string.title_account_manage),
             summary = stringResource(id = R.string.summary_not_logged_in),
             enabled = true,
-            onClick = { navigator.navigate(LoginPageDestination) },
+            onClick = { navigator.navigate("login") },
             leadingIcon = {
                 LeadingIcon {
                     AvatarIcon(
@@ -140,7 +140,7 @@ fun SettingsPage(
                             }
                         },
                         darkenOnDisable = false,
-                        onClick = { navigator.navigate(BlockSettingsPageDestination) }
+                        onClick = { navigator.navigate("settings/block") }
                     )
                 }
                 prefsItem {
@@ -157,7 +157,7 @@ fun SettingsPage(
                             }
                         },
                         darkenOnDisable = false,
-                        onClick = { navigator.navigate(CustomSettingsPageDestination) }
+                        onClick = { navigator.navigate("settings/custom") }
                     )
                 }
                 prefsItem {
@@ -174,7 +174,7 @@ fun SettingsPage(
                             }
                         },
                         darkenOnDisable = false,
-                        onClick = { navigator.navigate(HabitSettingsPageDestination) }
+                        onClick = { navigator.navigate("settings/habit") }
                     )
                 }
                 prefsItem {
@@ -192,7 +192,7 @@ fun SettingsPage(
                         },
                         darkenOnDisable = false,
                         onClick = {
-                            navigator.navigate(OKSignSettingsPageDestination)
+                            navigator.navigate("settings/oksign")
                         }
                     )
                 }
@@ -211,7 +211,7 @@ fun SettingsPage(
                         },
                         darkenOnDisable = false,
                         onClick = {
-                            navigator.navigate(MoreSettingsPageDestination)
+                            navigator.navigate("settings/more")
                         }
                     )
                 }

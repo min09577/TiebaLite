@@ -348,7 +348,7 @@ internal fun ReplyPageContent(
 
     MyBackHandler(
         enabled = curKeyboardType != NONE,
-        currentScreen = ReplyPageDestination.takeUnless { isDialog }
+        currentScreenRoute = "reply/{threadId}"
     ) {
         switchToPanel(NONE)
     }

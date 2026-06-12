@@ -403,17 +403,16 @@ fun ForumSearchPostPage(
                                     lazyListState = lazyListState,
                                     onItemClick = {
                                         if (it.postInfo != null) {
-                                            navigator.navigate(
-                                                navigator.navigate("subposts/0") /* SubPostsPage(
+                                            navigator.navigate((
                                                     threadId = it.tid.toLong(),
                                                     subPostId = it.cid.toLong(),
                                                     loadFromSubPost = true
                                                 )
                                             )
                                         } else if (it.mainPost != null) {
-                                            navigator.navigate("thread/threadId = it.tid.toLong()")
+                                            navigator.navigate("thread/${it.tid.toLong()}")
                                         } else {
-                                            navigator.navigate("thread/threadId = it.tid.toLong(")
+                                            navigator.navigate("thread/${it.tid.toLong()}")
                                             )
                                         }
                                     },

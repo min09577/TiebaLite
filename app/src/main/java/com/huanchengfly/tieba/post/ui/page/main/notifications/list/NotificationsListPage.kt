@@ -119,8 +119,7 @@ fun NotificationsListPage(
                                 modifier = Modifier
                                     .clickable {
                                         if (info.isFloor == "1") {
-                                            navigator.navigate(
-                                                navigator.navigate("subposts/0") /* SubPostsPage(
+                                            navigator.navigate((
                                                     threadId = info.threadId!!.toLong(),
                                                     subPostId = info.postId!!.toLong(),
                                                     loadFromSubPost = true
@@ -183,8 +182,7 @@ fun NotificationsListPage(
                                             .clip(RoundedCornerShape(6.dp))
                                             .clickable {
                                                 if ("1" == info.isFloor && info.quotePid != null) {
-                                                    navigator.navigate(
-                                                        navigator.navigate("subposts/0") /* SubPostsPage(
+                                                    navigator.navigate((
                                                             threadId = info.threadId!!.toLong(),
                                                             postId = info.quotePid.toLong(),
                                                             loadFromSubPost = true,

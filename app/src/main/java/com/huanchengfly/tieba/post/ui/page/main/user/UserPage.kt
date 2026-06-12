@@ -280,7 +280,7 @@ fun UserPage(
                         modifier = Modifier
                             .padding(top = 8.dp)
                             .clickable {
-                                navigator.navigate("user/account!!.uid.toLong("))
+                                navigator.navigate("user/${account!!.uid.toLong()}")
                             }
                             .padding(horizontal = 16.dp, vertical = 16.dp),
                         userName = account!!.nameShow ?: account!!.name,
@@ -361,7 +361,8 @@ fun UserPage(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_help_outline_black_24),
                         text = stringResource(id = R.string.my_info_service_center),
                         onClick = {
-                            navigator.navigate("webview/initialUrl = "https://tieba.baidu.com/mo/q/hybrid-main-service/uegServiceCenter?cuid=${CuidUtils.getNewCuid()}&cuid_galaxy2=${CuidUtils.getNewCuid()}&cuid_gid=&timestamp=${System.currentTimeMillis()}&_client_version=12.52.1.0&nohead=1"")
+                            val url = "https://tieba.baidu.com/mo/q/hybrid-main-service/uegServiceCenter?cuid=${CuidUtils.getNewCuid()}&cuid_galaxy2=${CuidUtils.getNewCuid()}&cuid_gid=&timestamp=${System.currentTimeMillis()}&_client_version=12.52.1.0&nohead=1"
+                            navigator.navigate("webview/${Uri.encode(url)}")
                         },
                     )
                 }

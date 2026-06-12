@@ -405,7 +405,7 @@ fun ForumThreadListPage(
                         navigator.navigate("Routes.FORUM_RULE/$forumId")
                     },
                     onOriginThreadClicked = {
-                        navigator.navigate("thread/threadId = it.tid.toLong()")
+                        navigator.navigate("thread/${it.tid.toLong()}")
                     }
                 ) { navigator.navigate("user/it.id") }
             }

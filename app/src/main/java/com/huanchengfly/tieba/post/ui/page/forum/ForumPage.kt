@@ -725,10 +725,7 @@ fun ForumPage(
                                         ForumHeader(
                                             forumInfoImmutableHolder = holder,
                                             onOpenForumInfo = {
-                                                navigator.navigate(
-                                                    ForumDetailPageDestination(
-                                                        forumId = holder.get { this.id })
-                                                )
+                                                navigator.navigate("forum_detail/${holder.get { this.id }}")
                                             },
                                             onBtnClick = {
                                                 val (forum) = holder
@@ -980,7 +977,7 @@ private fun ForumToolbar(
             if (forumId != null) {
                 IconButton(
                     onClick = {
-                        navigator.navigate("forum_search_post/forumName, forumId")
+                        navigator.navigate("forum_search_post/forumName/forumId")
                     }
                 ) {
                     Icon(

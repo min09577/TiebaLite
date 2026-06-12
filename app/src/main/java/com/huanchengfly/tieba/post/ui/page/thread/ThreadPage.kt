@@ -926,8 +926,7 @@ fun ThreadPage(
                 )
             },
             onReplyClick = {
-                navigator.navigate(
-                    navigator.navigate("reply/0") /* ReplyPage(
+                navigator.navigate((
                         forumId = curForumId ?: 0,
                         forumName = forum?.get { name } ?: "",
                         threadId = threadId,
@@ -940,8 +939,7 @@ fun ThreadPage(
                 )
             },
             onSubPostReplyClick = { post, subPost ->
-                navigator.navigate(
-                    navigator.navigate("reply/0") /* ReplyPage(
+                navigator.navigate((
                         forumId = curForumId ?: 0,
                         forumName = forum?.get { name } ?: "",
                         threadId = threadId,
@@ -956,8 +954,7 @@ fun ThreadPage(
             },
             onOpenSubPosts = {
                 if (curForumId != null) {
-                    navigator.navigate(
-                        navigator.navigate("subposts_sheet/0") /* SubPostsSheetPage(
+                    navigator.navigate((
                             forumId = curForumId,
                             threadId = threadId,
                             postId = item.get { id },
@@ -1103,8 +1100,7 @@ fun ThreadPage(
                     BottomBar(
                         user = user,
                         onClickReply = {
-                            navigator.navigate(
-                                navigator.navigate("reply/0") /* ReplyPage(
+                            navigator.navigate((
                                     forumId = curForumId ?: 0,
                                     forumName = forum?.get { name }.orEmpty(),
                                     threadId = threadId,
@@ -1328,8 +1324,7 @@ fun ThreadPage(
                                                         navigator.navigate("user/it.id")
                                                     },
                                                     onReplyClick = {
-                                                        navigator.navigate(
-                                                            navigator.navigate("reply/0") /* ReplyPage(
+                                                        navigator.navigate((
                                                                 forumId = curForumId ?: 0,
                                                                 forumName = forum?.get { name }
                                                                     .orEmpty(),

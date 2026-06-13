@@ -340,16 +340,26 @@ class MainActivityV2 : BaseComposeActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.setBackgroundColor(0)
         window.setBackgroundDrawable(ColorDrawable(0))
-        // Enable high refresh rate on supported devices
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val display = windowManager.defaultDisplay
-            val mode = display.supportedModes.maxByOrNull { it.refreshRate }
-            mode?.let { window.attributes.preferredDisplayModeId = it.modeId }
-        }
+        // Adaptive refresh rate
+        applyRefreshRate()
         launch {
             ClientUtils.setActiveTimestamp()
         }
         intent?.let { checkIntent(it) }
+    }
+
+    private fun applyRefreshRate() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return
+        val mode = appPreferences.refreshRateMode
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val display = windowManager.defaultDisplay
+            val supportedModes = display.supportedModes
+            when (mode) {
+                0 -> supportedModes.filter { it.refreshRate <= 30f }.maxByOrNull { it.refreshRate }
+                1 -> supportedModes.filter { it.refreshRate in 30f..60f }.maxByOrNull { it.refreshRate }
+                else -> supportedModes.maxByOrNull { it.refreshRate }
+            }?.let { window.attributes.preferredDisplayModeId = it.modeId }
+        }
     }
 
     override fun onCreateContent(systemUiController: SystemUiController) {

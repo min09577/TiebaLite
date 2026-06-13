@@ -37,14 +37,14 @@ wire {
 
 android {
     compileSdk = 36
-    ndk {
-        abiFilters += listOf("arm64-v8a", "armeabi-v7a")
-    }
     defaultConfig {
         applicationId = "com.huanchengfly.tieba.post"
         minSdk = 21
         //noinspection OldTargetApi
         targetSdk = 36
+        ndk {
+            abiFilters += listOf("arm64-v8a", "armeabi-v7a")
+        }
         versionCode = applicationVersionCode
         versionName = applicationVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

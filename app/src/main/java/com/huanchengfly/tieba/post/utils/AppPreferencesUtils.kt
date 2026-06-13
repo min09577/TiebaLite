@@ -209,6 +209,9 @@ open class AppPreferencesUtils private constructor(ctx: Context) {
 
     var translucentPrimaryColor by DataStoreDelegates.string(key = "translucent_primary_color")
 
+    // 0=30fps, 1=60fps, 2=Unlimited
+    var refreshRateMode by DataStoreDelegates.int(defaultValue = 2, key = "refresh_rate_mode")
+
     var useCustomTabs by DataStoreDelegates.boolean(
         defaultValue = true,
         key = "use_custom_tabs"

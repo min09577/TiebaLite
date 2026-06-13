@@ -29,6 +29,7 @@ import com.huanchengfly.tieba.post.R
 import com.huanchengfly.tieba.post.dataStore
 import com.huanchengfly.tieba.post.ui.common.prefs.PrefsScreen
 import com.huanchengfly.tieba.post.ui.common.prefs.dependNot
+import com.huanchengfly.tieba.post.ui.common.prefs.widgets.ListPref
 import com.huanchengfly.tieba.post.ui.common.prefs.widgets.SwitchPref
 import com.huanchengfly.tieba.post.ui.common.prefs.widgets.TextPref
 import com.huanchengfly.tieba.post.ui.page.settings.LeadingIcon
@@ -99,6 +100,30 @@ fun MoreSettingsPage(
                         summary = stringResource(id = R.string.tip_check_ci_update)
                     )
                 }
+            }
+            prefsItem {
+                ListPref(
+                    leadingIcon = {
+                        LeadingIcon {
+                            AvatarIcon(
+                                icon = ImageVector.vectorResource(id = R.drawable.ic_today),
+                                size = Sizes.Small,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    key = "refresh_rate_mode",
+                    title = "屏幕刷新率",
+                    defaultValue = "2",
+                    useSelectedAsSummary = true,
+                    summary = "设置屏幕帧率上限",
+                    entries = mapOf(
+                        "0" to "30 FPS - 省电模式",
+                        "1" to "60 FPS - 标准模式",
+                        "2" to "无上限 - 高刷模式",
+                    ),
+                    onValueChange = {},
+                )
             }
             prefsItem {
                 SwitchPref(

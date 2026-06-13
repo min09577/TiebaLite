@@ -2,11 +2,13 @@
 <!-- AI Iteration: Added network security config for SDK 35 compatibility -->
 <network-security-config>
     <base-config cleartextTrafficPermitted="false" />
-    <!-- Allow cleartext for local development only -->
+    <!-- Allow cleartext for local development and Baidu Tieba HTTP endpoints -->
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.0.0/8</domain>
         <domain includeSubdomains="true">172.16.0.0/12</domain>
         <domain includeSubdomains="true">192.168.0.0/16</domain>
         <domain includeSubdomains="true">localhost</domain>
+        <domain includeSubdomains="false">c.tieba.baidu.com</domain>
+        <domain includeSubdomains="true">baidu.com</domain>
     </domain-config>
 </network-security-config>

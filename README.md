@@ -1,23 +1,52 @@
-# <p align="center">Tieba Lite</p>
+# <p align="center">贴吧 Lite · TiebaLite</p>
+<p align="center"><strong>第三方百度贴吧 Android 客户端 | Jetpack Compose · Kotlin · 精简无广告</strong></p>
 <p align="center">
     <a href="https://github.com/min09577/TiebaLite/releases/latest">
-        <img alt="Latest Release" src="https://img.shields.io/github/v/release/min09577/TiebaLite?style=flat&label=Release&color=blue">
+        <img alt="Latest Release" src="https://img.shields.io/github/v/release/min09577/TiebaLite?style=flat&color=blue">
     </a>
     <a href="https://github.com/min09577/TiebaLite/actions/workflows/build.yml">
         <img alt="Build Status" src="https://github.com/min09577/TiebaLite/actions/workflows/build.yml/badge.svg?branch=4.0-dev">
     </a>
     <a href="https://t.me/tblite_discuss">
-        <img alt="Status" src="https://img.shields.io/badge/-Telegram-blue?logo=telegram&style=flat">
+        <img alt="Telegram" src="https://img.shields.io/badge/-Telegram-blue?logo=telegram&style=flat">
     </a>
+    <a href="https://github.com/min09577/TiebaLite/blob/4.0-dev/LICENSE">
+        <img alt="License" src="https://img.shields.io/badge/License-GPL%203.0-green.svg">
+    </a>
+    <img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen">
+    <img alt="Android" src="https://img.shields.io/badge/Android-16%20ready-blue">
 </p>
 
-贴吧 Lite 是一个**非官方**的贴吧客户端。
+---
 
-## 说明
+## ✨ 为什么选择贴吧 Lite / Why TiebaLite
 
-**本软件及源码仅供学习交流使用，严禁用于商业用途。**
+| 特性 | 说明 |
+|------|------|
+| 🚫 **零广告** | 无横幅、无推广、无信息流广告，纯粹浏览体验 |
+| 🎨 **Material Design** | Jetpack Compose 构建，原生 Material You 动态主题 |
+| ⚡ **轻量流畅** | APK 仅 ~10MB，无冗余功能，直击贴吧核心体验 |
+| 🔒 **隐私优先** | 无埋点跟踪，仅与百度贴吧 API 通信 |
+| 📱 **Android 16 适配** | 完整适配最新 Android 版本，16KB 页对齐 |
+| 🤖 **AI 持续迭代** | 原作者归档后由 AI 接管维护，依赖链保持最新 |
+| 🏗️ **现代技术栈** | Kotlin 2.0.21 + Compose BOM 2024.12 + Hilt + Protobuf |
+| 📦 **一键安装** | [Release 页面](https://github.com/min09577/TiebaLite/releases/latest) 直接下载 APK |
 
-## 友情链接
+---
+
+## 📖 简介
+
+贴吧 Lite 是一个**非官方**的百度贴吧 Android 客户端，使用 Kotlin 编写，UI 采用 Jetpack Compose 构建。本质是对百度贴吧 API 的逆向工程实现，目标是在不牺牲核心浏览体验的前提下，提供最轻量、最干净的贴吧客户端。
+
+> **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
+
+## 👨‍💻 原作者 / Original Author
+
+本项目由 **[HuanCheng65](https://github.com/HuanCheng65)** 原创开发并维护至 2024 年归档。
+
+> 🙏 **所有原始代码、架构设计和核心贡献均归原作者所有，我们对其辛勤工作表示由衷敬意。**
+
+## 🔗 友情链接
 
 + [Starry-OvO/aiotieba: Asynchronous I/O Client for Baidu Tieba](https://github.com/Starry-OvO/aiotieba)
 + [n0099/tbclient.protobuf: 百度贴吧客户端 Protocol Buffers 定义文件合集](https://github.com/n0099/tbclient.protobuf)

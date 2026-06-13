@@ -340,36 +340,19 @@ class MainActivityV2 : BaseComposeActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.setBackgroundColor(0)
         window.setBackgroundDrawable(ColorDrawable(0))
-        // Adaptive refresh rate
-        applyRefreshRate()
+        // Adaptive high refresh rate
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            try {
+                val modes = windowManager.defaultDisplay.supportedModes
+                modes?.maxByOrNull { it.refreshRate }?.let {
+                    window.attributes.preferredDisplayModeId = it.modeId
+                }
+            } catch (_: Exception) {}
+        }
         launch {
             ClientUtils.setActiveTimestamp()
         }
         intent?.let { checkIntent(it) }
-    }
-
-    private fun applyRefreshRate() {
-        try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return
-            val mode = appPreferences.refreshRateMode
-            if (mode !in 0..2) {
-                appPreferences.refreshRateMode = 2
-                return
-            }
-            val display = windowManager.defaultDisplay
-            val supportedModes = display.supportedModes ?: return
-            if (supportedModes.isEmpty()) return
-            val target = when (mode) {
-                0 -> supportedModes.filter { it.refreshRate in 1f..30f }.minByOrNull { it.refreshRate }
-                    ?: supportedModes.minByOrNull { it.refreshRate }
-                1 -> supportedModes.filter { it.refreshRate in 30f..61f }.maxByOrNull { it.refreshRate }
-                    ?: supportedModes.maxByOrNull { it.refreshRate }
-                else -> supportedModes.maxByOrNull { it.refreshRate }
-            }
-            target?.let { window.attributes.preferredDisplayModeId = it.modeId }
-        } catch (_: Exception) {
-            appPreferences.refreshRateMode = 2
-        }
     }
 
     override fun onCreateContent(systemUiController: SystemUiController) {

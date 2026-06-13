@@ -79,14 +79,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Create release if not exists
-          gh release view "${{ github.ref_name }}" 2>/dev/null || \
-            gh release create "${{ github.ref_name }}" \
-              --title "${{ github.ref_name }}: TiebaLite Build" \
-              --notes "Automated build from tag ${{ github.ref_name }}" \
-              --prerelease
-          # Upload APKs
-          gh release upload "${{ github.ref_name }}" \
+          TAG="${{ github.ref_name }}"
+          echo "Creating release for $TAG..."
+          # Delete existing release if any
+          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          # Recreate tag if deleted by cleanup
+          git push origin "refs/tags/$TAG" 2>/dev/null || true
+          # Create release
+          gh release create "$TAG" \
+            --title "$TAG: TiebaLite Build" \
+            --notes "Automated APK build. Download below." \
+            --prerelease \
             app/build/outputs/apk/debug/*.apk \
-            app/build/outputs/apk/release/*.apk \
-            --clobber
+            app/build/outputs/apk/release/*.apk

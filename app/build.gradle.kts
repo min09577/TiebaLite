@@ -36,7 +36,6 @@ wire {
 }
 
 android {
-    buildToolsVersion = "34.0.0"
     compileSdk = 36
     defaultConfig {
         applicationId = "com.huanchengfly.tieba.post"

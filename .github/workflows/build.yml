@@ -84,7 +84,7 @@ jobs:
         run: |
           TAG="${{ github.ref_name }}"
           echo "Deleting old release if exists..."
-          gh release delete "$TAG" --yes --cleanup-tag 2>/dev/null || true
+          gh release delete "$TAG" --yes 2>/dev/null || true
           echo "Creating release $TAG..."
           gh release create "$TAG" --title "$TAG" --notes "Automated APK build. Downloads below."
           echo "Uploading APKs..."

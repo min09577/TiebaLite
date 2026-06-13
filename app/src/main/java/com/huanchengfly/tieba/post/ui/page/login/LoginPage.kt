@@ -244,17 +244,26 @@ class LoginWebViewClient(
 
     override fun onPageFinished(view: WebView, url: String?) {
         super.onPageFinished(view, url)
+        android.util.Log.d("TiebaLite_Login", "onPageFinished: $url")
         if (url == null) {
+            android.util.Log.w("TiebaLite_Login", "onPageFinished: url is null")
             return
         }
         if (isLoadingAccount) {
+            android.util.Log.d("TiebaLite_Login", "onPageFinished: already loading, skip")
             return
         }
-        val cookieStr = CookieManager.getInstance().getCookie(url) ?: return
+        val cookieStr = CookieManager.getInstance().getCookie(url)
+        android.util.Log.d("TiebaLite_Login", "Cookie string: ${cookieStr?.take(300)}")
+        if (cookieStr.isNullOrEmpty()) {
+            android.util.Log.w("TiebaLite_Login", "onPageFinished: no cookies for $url")
+            return
+        }
         val cookies = parseCookie(cookieStr).mapKeys { it.key.uppercase() }
         val bduss = cookies["BDUSS"]
         val sToken = cookies["STOKEN"]
         val baiduId = cookies["BAIDUID"]
+        android.util.Log.d("TiebaLite_Login", "BDUSS: ${bduss?.take(10)}... STOKEN: ${sToken?.take(10)}...")
         if (url.startsWith("https://tieba.baidu.com/index/tbwise/") || url.startsWith("https://tiebac.baidu.com/index/tbwise/")) {
             if (bduss == null || sToken == null) {
                 return
@@ -273,6 +282,7 @@ class LoginWebViewClient(
             coroutineScope.launch {
                 AccountUtil.fetchAccountFlow(bduss, sToken, cookieStr)
                     .catch {
+                        android.util.Log.e("TiebaLite_Login", "fetchAccountFlow failed: ${it.message}", it)
                         coroutineScope.launch {
                             snackbarHostState.currentSnackbarData?.dismiss()
                             snackbarHostState.showSnackbar(
@@ -287,6 +297,7 @@ class LoginWebViewClient(
                     }
                     .flowOn(Dispatchers.Main)
                     .collect { account ->
+                        android.util.Log.d("TiebaLite_Login", "Account fetched: uid=${account.uid}, name=${account.name}")
                         isLoadingAccount = false
                         AccountUtil.newAccount(account.uid, account) {
                             if (it) {

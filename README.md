@@ -1,7 +1,10 @@
 # <p align="center">Tieba Lite</p>
 <p align="center">
-    <a href="https://github.com/HuanCheng65/TiebaLite/actions/workflows/build.yml">
-        <img alt="Build Status" src="https://github.com/HuanCheng65/TiebaLite/actions/workflows/build.yml/badge.svg?branch=4.0-dev">
+    <a href="https://github.com/min09577/TiebaLite/releases/latest">
+        <img alt="Latest Release" src="https://img.shields.io/github/v/release/min09577/TiebaLite?style=flat&label=Release&color=blue">
+    </a>
+    <a href="https://github.com/min09577/TiebaLite/actions/workflows/build.yml">
+        <img alt="Build Status" src="https://github.com/min09577/TiebaLite/actions/workflows/build.yml/badge.svg?branch=4.0-dev">
     </a>
     <a href="https://t.me/tblite_discuss">
         <img alt="Status" src="https://img.shields.io/badge/-Telegram-blue?logo=telegram&style=flat">
@@ -89,6 +92,9 @@ This is an **AI-assisted iterative upgrade version**, and all original disclaime
 | v4.0.0-ai.1 | 2026-06-09 | AI 迭代：文档完善、四国语言声明 / AI Iteration: documentation, 4-language declarations |
 | v4.0.0-ai.2 | 2026-06-09 | AI 迭代：安全修复、网络安全配置 / AI Iteration: security fixes, network security config |
 | v4.0.0-ai.3 | 2026-06-09 | AI 迭代：CI 修复、构建成功 / AI Iteration: CI fixes, build succeeded ✅ |
+| v4.0.0-ai.4 | 2026-06-12 | AI 迭代：AGP 8.5.2 + Gradle 8.7 + 源码修复 / AI Iteration: Build toolchain upgrade |
+| v4.0.0-ai.5 | 2026-06-13 | AI 迭代：compose-destinations 移除 + Kotlin 2.0.21 + 全面依赖升级 / AI Iteration: navigation refactor + full dependency upgrade |
+| [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---
 

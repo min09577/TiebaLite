@@ -45,7 +45,9 @@ import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
-@OptIn(ExperimentalMaterialApi::class)
+import androidx.compose.ui.ExperimentalComposeUiApi
+
+@OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
 @Composable
 fun MoreSettingsPage(
     navigator: NavHostController,

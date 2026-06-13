@@ -80,10 +80,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           TAG="${{ github.ref_name }}"
-          echo "Publishing APKs for tag $TAG"
-
-          # Upload APKs — gh release upload auto-creates release if needed
-          gh release upload "$TAG" \
+          echo "Creating release $TAG..."
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --notes "Automated APK build. Downloads below." \
+            --prerelease \
             app/build/outputs/apk/debug/*.apk \
-            app/build/outputs/apk/release/*.apk \
-            --clobber
+            app/build/outputs/apk/release/*.apk

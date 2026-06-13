@@ -53,6 +53,10 @@ android {
     buildFeatures {
         compose = true
     }
+    composeCompiler {
+        enableStrongSkippingMode = true
+        includeSourceInformation = false
+    }
     signingConfigs {
         if (property.keystore.file.isNotBlank()) {
             create("config") {

@@ -1,1 +1,5 @@
 com.huanchengfly.tieba.post.api.models.protos.**
+com.huanchengfly.tieba.post.api.models.web.**
+com.huanchengfly.tieba.post.models.**
+com.huanchengfly.tieba.post.ui.models.**
+com.huanchengfly.tieba.post.ui.widgets.compose.states.**

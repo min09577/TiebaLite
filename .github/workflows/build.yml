@@ -76,9 +76,17 @@ jobs:
       # 自动发布 APK 到 GitHub Release（仅 tag 触发时）
       - name: Publish to GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            app/build/outputs/apk/debug/*.apk
-            app/build/outputs/apk/release/*.apk
-          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create release if not exists
+          gh release view "${{ github.ref_name }}" 2>/dev/null || \
+            gh release create "${{ github.ref_name }}" \
+              --title "${{ github.ref_name }}: TiebaLite Build" \
+              --notes "Automated build from tag ${{ github.ref_name }}" \
+              --prerelease
+          # Upload APKs
+          gh release upload "${{ github.ref_name }}" \
+            app/build/outputs/apk/debug/*.apk \
+            app/build/outputs/apk/release/*.apk \
+            --clobber

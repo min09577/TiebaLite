@@ -75,10 +75,10 @@ jobs:
 
       # 自动发布 APK 到 GitHub Release（仅 tag 触发时）
       - name: Publish to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/v') && env.HAS_KEYSTORE == 'true'
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            app/build/outputs/apk/release/*.apk
             app/build/outputs/apk/debug/*.apk
-          generate_release_notes: true
+            app/build/outputs/apk/release/*.apk
+          generate_release_notes: false

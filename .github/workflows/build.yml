@@ -84,7 +84,7 @@ jobs:
         run: |
           TAG="${{ github.ref_name }}"
           echo "Creating release $TAG..."
-          gh release create "$TAG" --title "$TAG" --notes "Automated APK build. Downloads below." --prerelease --draft=false
+          gh release create "$TAG" --title "$TAG" --notes "Automated APK build. Downloads below."
           echo "Uploading APKs..."
           gh release upload "$TAG" \
             app/build/outputs/apk/debug/*.apk \

@@ -50,7 +50,7 @@ plugins:
   com.autonomousapps.dependency-analysis:
     version: 1.29.0
   com.android.application:
-    version: 8.5.2
+    version: 8.7.3
   org.jetbrains.kotlin.android:
     alias: kotlin-android
     version-ref: kotlin

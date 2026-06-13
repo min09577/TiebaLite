@@ -37,12 +37,12 @@ wire {
 
 android {
     buildToolsVersion = "34.0.0"
-    compileSdk = 34
+    compileSdk = 36
     defaultConfig {
         applicationId = "com.huanchengfly.tieba.post"
         minSdk = 21
         //noinspection OldTargetApi
-        targetSdk = 34
+        targetSdk = 36
         versionCode = applicationVersionCode
         versionName = applicationVersionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

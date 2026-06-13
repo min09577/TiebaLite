@@ -340,6 +340,12 @@ class MainActivityV2 : BaseComposeActivity() {
         super.onCreate(savedInstanceState)
         window.decorView.setBackgroundColor(0)
         window.setBackgroundDrawable(ColorDrawable(0))
+        // Enable high refresh rate on supported devices
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val display = windowManager.defaultDisplay
+            val mode = display.supportedModes.maxByOrNull { it.refreshRate }
+            mode?.let { window.attributes.preferredDisplayModeId = it.modeId }
+        }
         launch {
             ClientUtils.setActiveTimestamp()
         }

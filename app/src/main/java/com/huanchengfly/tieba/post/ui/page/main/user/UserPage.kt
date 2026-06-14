@@ -385,9 +385,14 @@ fun UserPage(
                     ListMenuItem(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_today),
                         text = "${stringResource(id = R.string.title_my_drafts)} ($draftCount)",
-                        summary = "回帖内容已自动保存",
                         onClick = {},
-                    )
+                    ) {
+                        Text(
+                            text = "回帖内容已自动保存",
+                            color = ExtendedTheme.colors.textSecondary,
+                            fontSize = 12.sp,
+                        )
+                    }
                 }
                 ListMenuItem(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_brush_24),

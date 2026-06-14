@@ -289,10 +289,10 @@ fun UserPage(
                 if (account != null) {
                     val allAccounts = AllAccounts.current
                     var showAccountMenu by remember { mutableStateOf(false) }
-    var draftCount by remember { mutableStateOf(0) }
-    LaunchedEffect(Unit) {
-        draftCount = LitePal.count(Draft::class.java)
-    }
+                    var draftCount by remember { mutableStateOf(0) }
+                    LaunchedEffect(Unit) {
+                        draftCount = LitePal.count(Draft::class.java)
+                    }
                     Box {
                         InfoCard(
                             modifier = Modifier

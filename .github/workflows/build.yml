@@ -44,6 +44,24 @@ jobs:
           echo keystore.key.alias="${{ vars.RELEASE_KEY_ALIAS }}" >> keystore.properties
           echo keystore.key.password="${{ secrets.RELEASEKEYPASSWORD }}" >> keystore.properties
 
+      - name: Generate consistent debug keystore
+        if: env.HAS_KEYSTORE != 'true'
+        run: |
+          KEYSTORE_FILE=app/tblite_debug.jks
+          if [ ! -f "$KEYSTORE_FILE" ]; then
+            keytool -genkeypair -v \
+              -keystore "$KEYSTORE_FILE" \
+              -keyalg RSA -keysize 2048 -validity 36500 \
+              -dname "CN=TiebaLite" \
+              -storepass tiebalite \
+              -keypass tiebalite \
+              -alias tiebalite
+          fi
+          echo keystore.file="$KEYSTORE_FILE" > keystore.properties
+          echo keystore.password=tiebalite >> keystore.properties
+          echo keystore.key.alias=tiebalite >> keystore.properties
+          echo keystore.key.password=tiebalite >> keystore.properties
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         with:

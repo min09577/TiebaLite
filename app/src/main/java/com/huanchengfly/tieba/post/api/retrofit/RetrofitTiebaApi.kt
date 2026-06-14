@@ -16,8 +16,6 @@ import com.huanchengfly.tieba.post.api.retrofit.interceptors.AddWebCookieInterce
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.CommonHeaderInterceptor
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.CommonParamInterceptor
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.ConnectivityInterceptor
-import com.huanchengfly.tieba.post.api.retrofit.interceptors.RateLimitInterceptor
-import com.huanchengfly.tieba.post.api.retrofit.interceptors.RetryInterceptor
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.CookieInterceptor
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.DropInterceptor
 import com.huanchengfly.tieba.post.api.retrofit.interceptors.FailureResponseInterceptor
@@ -384,8 +382,6 @@ object RetrofitTiebaApi {
             addInterceptor(ForceLoginInterceptor)
             addInterceptor(sortAndSignInterceptor)
             addInterceptor(ConnectivityInterceptor)
-            addInterceptor(RetryInterceptor)
-            addInterceptor(RateLimitInterceptor)
             connectionPool(connectionPool)
         }.build())
         .build()
@@ -413,8 +409,6 @@ object RetrofitTiebaApi {
             addInterceptor(CookieInterceptor)
             addInterceptor(sortAndSignInterceptor)
             addInterceptor(ConnectivityInterceptor)
-            addInterceptor(RetryInterceptor)
-            addInterceptor(RateLimitInterceptor)
             connectionPool(connectionPool)
         }.build())
         .build()

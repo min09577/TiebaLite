@@ -134,7 +134,7 @@ class SingleAccountSigner(
             Log.i(TAG, "oneKeySignIn: signed=$oneKeySigned, unsigned=$oneKeyUnsigned")
         } catch (_: Exception) {}
 
-        if (oneKeySigned > 0) {
+        if (oneKeySigned > 0 || oneKeyUnsigned > 0) {
             totalCount = oneKeySigned + oneKeyUnsigned
             successCount = oneKeySigned
             withContext(Dispatchers.Main) {

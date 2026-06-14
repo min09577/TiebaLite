@@ -421,10 +421,11 @@ interface MiniTiebaApi {
             ?.sToken
     ): Call<CheckReportBean>
 
+    @POST
     @Headers("${Header.NO_COMMON_PARAMS}: BDUSS")
-    @POST("/tbmall/onekeySignin1")
     @FormUrlEncoded
     fun oneKeySignIn(
+        @Url url: String = "http://tieba.baidu.com/tbmall/onekeySignin1",
         @Field("BDUSS") bduss: String = AccountUtil.getBduss()!!,
         @Field("ie") ie: String = "utf-8",
         @Field("tbs") tbs: String = AccountUtil.getLoginInfo()!!.tbs

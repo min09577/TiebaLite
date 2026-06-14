@@ -238,9 +238,7 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
                                     ImageUtil.download(
                                         this@PhotoViewActivity,
                                         items[index].originUrl
-                                    ) { _ ->
-                                        toastShort(R.string.toast_pic_saved)
-                                    }
+                                    )
                                 }) {
                                     Icon(
                                         imageVector = Icons.Rounded.Download,

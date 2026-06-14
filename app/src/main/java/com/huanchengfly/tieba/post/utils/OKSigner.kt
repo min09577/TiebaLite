@@ -183,10 +183,14 @@ class SingleAccountSigner(
                 withContext(Dispatchers.Main) {
                     if (signed == 0) mProgressListener?.onStart(totalCount)
                 }
-                if (useMSign) {
+                if (useMSign && signData.isNotEmpty()) {
                     val mSignData = signData.filter { it.canUseMSign }
-                    TiebaApi.getInstance().mSign(mSignData.joinToString(",") { it.forumId }, tbs)
-                        .map { it.info }
+                    if (mSignData.isNotEmpty()) {
+                        TiebaApi.getInstance().mSign(mSignData.joinToString(",") { it.forumId }, tbs)
+                            .map { it.info }
+                    } else {
+                        flow { emit(emptyList<MSignBean.Info>()) }
+                    }
                 } else {
                     flow { emit(emptyList<MSignBean.Info>()) }
                 }

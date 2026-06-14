@@ -128,18 +128,35 @@ class SingleAccountSigner(
                 val useMSign = context.appPreferences.oksignUseOfficialOksign
                 val mSignLevel = getForumListBean.level.toInt()
                 val mSignMax = getForumListBean.msignStepNum.toInt()
-                signData.addAll(
-                    forumRecommendBean.likeForum
-                        .filter { it.isSign != "1" }
-                        .map {
-                            SignDataBean(
-                                it.forumName,
-                                it.forumId,
-                                userName,
-                                tbs,
-                                it.levelId.toInt() >= mSignLevel && signData.size < mSignMax
-                            )
+                // Merge both data sources: likeForum (from forumRecommend) + forumInfo (from getForumList)
+                val seenIds = mutableSetOf<String>()
+                val mergedForums = mutableListOf<Pair<String, String>>()
+                // Priority 1: likeForum (has levelId for mSign eligibility)
+                forumRecommendBean.likeForum
+                    .filter { it.isSign != "1" }
+                    .forEach {
+                        if (seenIds.add(it.forumId)) {
+                            mergedForums.add(it.forumId to it.forumName)
                         }
+                    }
+                // Priority 2: forumInfo from getForumList (more complete list)
+                getForumListBean.forumInfo
+                    .filter { it.isSignIn != "1" }
+                    .forEach {
+                        if (seenIds.add(it.forumId)) {
+                            mergedForums.add(it.forumId to it.forumName)
+                        }
+                    }
+                signData.addAll(
+                    mergedForums.mapIndexed { index, (forumId, forumName) ->
+                        SignDataBean(
+                            forumName,
+                            forumId,
+                            userName,
+                            tbs,
+                            index < mSignMax
+                        )
+                    }
                 )
                 totalCount = signData.size
                 mSignCount = 0

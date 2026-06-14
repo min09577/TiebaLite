@@ -51,6 +51,10 @@
 - 💾 离线缓存 — 断网时自动加载历史帖子
 - 🚀 Compose 性能优化 — Strong Skipping + 稳定性标记
 - 🔧 ProGuard R8 全模式 + ABI 精简
+- 🛡️ API 稳定性增强 — 请求重试 + 频率控制
+- 🖼️ 图片下载提示 — 保存到相册
+- ✍️ 草稿提醒 — 未发送回帖数量显示
+- 🔧 ProGuard R8 全模式 + ABI 精简
 
 ## 👨‍💻 原作者 / Original Author
 

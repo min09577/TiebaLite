@@ -173,7 +173,7 @@ class SingleAccountSigner(
             mProgressListener?.onStart(totalCount)
         }
 
-        // Sign each forum
+        // Sign each forum — handle individual failures without stopping
         signData.asFlow()
             .onEach { data ->
                 position = signData.indexOf(data)
@@ -181,26 +181,18 @@ class SingleAccountSigner(
                     mProgressListener?.onProgressStart(data, position, totalCount)
                 }
             }
-            .flatMapConcat { signFlow(it) }
-            .catch { e ->
-                result = false
-                lastFailure = e
-                withContext(Dispatchers.Main) {
-                    mProgressListener?.onFailure(
-                        position, totalCount,
-                        e.getErrorCode(), e.getErrorMessage()
-                    )
-                }
-                delay(getSignDelay())
-            }
-            .onCompletion {
-                withContext(Dispatchers.Main) {
-                    mProgressListener?.onFinish(
-                        successCount == totalCount,
-                        successCount,
-                        totalCount
-                    )
-                }
+            .flatMapConcat { data ->
+                signFlow(data)
+                    .catch { e ->
+                        lastFailure = e
+                        withContext(Dispatchers.Main) {
+                            mProgressListener?.onFailure(
+                                signData.indexOf(data), totalCount,
+                                e.getErrorCode(), e.getErrorMessage()
+                            )
+                        }
+                        delay(getSignDelay())
+                    }
             }
             .collect {
                 result = true
@@ -212,6 +204,14 @@ class SingleAccountSigner(
                 }
                 delay(getSignDelay())
             }
+
+        withContext(Dispatchers.Main) {
+            mProgressListener?.onFinish(
+                successCount == totalCount,
+                successCount,
+                totalCount
+            )
+        }
 
         return result
     }

@@ -120,129 +120,112 @@ class SingleAccountSigner(
             .flatMapConcat { account ->
                 userName = account.name
                 tbs = account.tbs
-                TiebaApi.getInstance().getForumListFlow()
-            }
-            .zip(
-                TiebaApi.getInstance().forumRecommendFlow()
-            ) { getForumListBean, forumRecommendBean ->
-                val useMSign = context.appPreferences.oksignUseOfficialOksign
-                val mSignLevel = getForumListBean.level.toInt()
-                val mSignMax = getForumListBean.msignStepNum.toInt()
-                // Merge both data sources: likeForum (from forumRecommend) + forumInfo (from getForumList)
-                val seenIds = mutableSetOf<String>()
-                val mergedForums = mutableListOf<Pair<String, String>>()
-                // Priority 1: likeForum (has levelId for mSign eligibility)
-                forumRecommendBean.likeForum
-                    .filter { it.isSign != "1" }
-                    .forEach {
-                        if (seenIds.add(it.forumId)) {
-                            mergedForums.add(it.forumId to it.forumName)
-                        }
-                    }
-                // Priority 2: forumInfo from getForumList (more complete list)
-                getForumListBean.forumInfo
-                    .filter { it.isSignIn != "1" }
-                    .forEach {
-                        if (seenIds.add(it.forumId)) {
-                            mergedForums.add(it.forumId to it.forumName)
-                        }
-                    }
-                signData.addAll(
-                    mergedForums.mapIndexed { index, (forumId, forumName) ->
-                        SignDataBean(
-                            forumName,
-                            forumId,
-                            userName,
-                            tbs,
-                            index < mSignMax
-                        )
-                    }
-                )
-                totalCount = signData.size
-                mSignCount = 0
-                (if (useMSign) {
-                    val mSignData = signData.filter { it.canUseMSign }
-                    TiebaApi.getInstance().mSign(mSignData.joinToString(",") { it.forumId }, tbs)
-                        .map { it.info }
-                } else {
-                    flow { emit(emptyList()) }
-                })
-                    .onStart {
-                        withContext(Dispatchers.Main) {
-                            mProgressListener?.onStart(totalCount)
-                        }
-                    }
-                    .catch { emit(emptyList()) }
-            }
-            .flattenConcat()
-            .flatMapConcat { mSignInfo ->
-                val newSignData = if (mSignInfo.isNotEmpty()) {
-                    val mSignInfoMap = mutableMapOf<String, MSignBean.Info>()
-                    mSignInfo.forEach {
-                        mSignInfoMap[it.forumId] = it
-                    }
-                    val signedCount = mSignInfo.filter { it.signed == "1" }.size
-                    successCount += signedCount
-                    signData
-                        .filter { !it.canUseMSign || mSignInfoMap[it.forumId]?.signed != "1" }
-                } else {
-                    signData.toList()
+                // Layer 1: Official one-key sign-in (server-side full coverage)
+                flow {
+                    val oneKeyResult = runCatching {
+                        TiebaApi.getInstance().oneKeySignIn().execute()
+                    }.getOrNull()?.body()
+                    val signed = oneKeyResult?.data?.signedForumAmount?.toIntOrNull() ?: 0
+                    val unsigned = oneKeyResult?.data?.unsignedForumAmount?.toIntOrNull() ?: 0
+                    totalCount = signed + unsigned
+                    successCount = signed
+                    Log.i(TAG, "oneKeySignIn: signed=$signed, unsigned=$unsigned")
+                    emit(signed to unsigned)
                 }
-                mSignCount = totalCount - newSignData.size
-                newSignData
-                    .asFlow()
-                    .onEach {
-                        position = signData.indexOf(it)
-                        withContext(Dispatchers.Main) {
-                            mProgressListener?.onProgressStart(
-                                it,
-                                position,
-                                signData.size
-                            )
-                        }
-                    }
-                    .onEmpty {
-                        withContext(Dispatchers.Main) {
-                            mProgressListener?.onFinish(
-                                successCount == totalCount,
-                                successCount,
-                                totalCount
-                            )
-                        }
-                        result = true
-                    }
-                    .flatMapConcat { signFlow(it) }
             }
-            .catch { e ->
-                result = false
-                lastFailure = e
-                mProgressListener?.onFailure(
-                    position,
-                    totalCount,
-                    e.getErrorCode(),
-                    e.getErrorMessage()
-                )
-                delay(getSignDelay())
-            }
-            .onCompletion {
+            .flatMapConcat { (signed, unsigned) ->
                 withContext(Dispatchers.Main) {
-                    mProgressListener?.onFinish(
-                        successCount == totalCount,
-                        successCount,
-                        totalCount
-                    )
+                    mProgressListener?.onStart(totalCount)
                 }
-            }
-            .collect {
-                result = true
-                successCount += 1
-                mProgressListener?.onProgressFinish(
-                    signData[position],
-                    it,
-                    position,
-                    totalCount
-                )
-                delay(getSignDelay())
+                if (unsigned == 0 && signed > 0) {
+                    // All done! Layer 1 handled everything
+                    withContext(Dispatchers.Main) {
+                        mProgressListener?.onFinish(true, signed, totalCount)
+                    }
+                    result = true
+                    flow { }
+                } else {
+                    // Layer 2: Fallback to existing forum list sign-in
+                    TiebaApi.getInstance().getForumListFlow()
+                        .zip(
+                            TiebaApi.getInstance().forumRecommendFlow()
+                        ) { getForumListBean, forumRecommendBean ->
+                            val useMSign = context.appPreferences.oksignUseOfficialOksign
+                            val mSignMax = getForumListBean.msignStepNum.toInt()
+                            val seenIds = mutableSetOf<String>()
+                            val mergedForums = mutableListOf<Pair<String, String>>()
+                            forumRecommendBean.likeForum
+                                .filter { it.isSign != "1" }
+                                .forEach {
+                                    if (seenIds.add(it.forumId)) {
+                                        mergedForums.add(it.forumId to it.forumName)
+                                    }
+                                }
+                            getForumListBean.forumInfo
+                                .filter { it.isSignIn != "1" }
+                                .forEach {
+                                    if (seenIds.add(it.forumId)) {
+                                        mergedForums.add(it.forumId to it.forumName)
+                                    }
+                                }
+                            signData.addAll(
+                                mergedForums.mapIndexed { index, (forumId, forumName) ->
+                                    SignDataBean(forumName, forumId, userName, tbs, index < mSignMax)
+                                }
+                            )
+                            val remaining = signData.size
+                            totalCount = signed + remaining
+                            mSignCount = 0
+                            if (useMSign) {
+                                val mSignData = signData.filter { it.canUseMSign }
+                                TiebaApi.getInstance().mSign(mSignData.joinToString(",") { it.forumId }, tbs)
+                                    .map { it.info }
+                            } else {
+                                flow { emit(emptyList<MSignBean.Info>()) }
+                            }
+                        }
+                        .flattenConcat()
+                        .flatMapConcat { mSignInfo ->
+                            val newSignData = if (mSignInfo.isNotEmpty()) {
+                                val mSignInfoMap = mutableMapOf<String, MSignBean.Info>()
+                                mSignInfo.forEach { mSignInfoMap[it.forumId] = it }
+                                successCount += mSignInfo.filter { it.signed == "1" }.size
+                                signData.filter { !it.canUseMSign || mSignInfoMap[it.forumId]?.signed != "1" }
+                            } else signData.toList()
+                            mSignCount = totalCount - newSignData.size
+                            newSignData.asFlow()
+                                .onEach {
+                                    position = signData.indexOf(it)
+                                    withContext(Dispatchers.Main) {
+                                        mProgressListener?.onProgressStart(it, position + signed, totalCount)
+                                    }
+                                }
+                                .onEmpty {
+                                    withContext(Dispatchers.Main) {
+                                        mProgressListener?.onFinish(successCount >= totalCount, successCount, totalCount)
+                                    }
+                                    result = true
+                                }
+                                .flatMapConcat { signFlow(it) }
+                        }
+                        .catch { e ->
+                            result = false
+                            lastFailure = e
+                            mProgressListener?.onFailure(position, totalCount, e.getErrorCode(), e.getErrorMessage())
+                            delay(getSignDelay())
+                        }
+                        .onCompletion {
+                            withContext(Dispatchers.Main) {
+                                mProgressListener?.onFinish(successCount >= totalCount, successCount, totalCount)
+                            }
+                        }
+                        .collect {
+                            result = true
+                            successCount += 1
+                            mProgressListener?.onProgressFinish(signData[position], it, position + signed, totalCount)
+                            delay(getSignDelay())
+                        }
+                }
             }
         return result
     }

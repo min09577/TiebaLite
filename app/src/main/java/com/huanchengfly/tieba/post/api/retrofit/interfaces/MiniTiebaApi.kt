@@ -420,4 +420,13 @@ interface MiniTiebaApi {
         @Field("stoken") stoken: String? = AccountUtil.getLoginInfo()
             ?.sToken
     ): Call<CheckReportBean>
+
+    @Headers("${Header.NO_COMMON_PARAMS}: BDUSS")
+    @POST("/tbmall/onekeySignin1")
+    @FormUrlEncoded
+    fun oneKeySignIn(
+        @Field("BDUSS") bduss: String = AccountUtil.getBduss()!!,
+        @Field("ie") ie: String = "utf-8",
+        @Field("tbs") tbs: String = AccountUtil.getLoginInfo()!!.tbs
+    ): Call<OneKeySignInBean>
 }

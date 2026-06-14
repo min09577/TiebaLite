@@ -1279,6 +1279,9 @@ interface ITiebaApi {
         tbs: String
     ): Flow<MSignBean>
 
+    /** 官方一键全量签到 */
+    fun oneKeySignIn(): Call<OneKeySignInBean>
+
     /**
      * 关注动态
      *

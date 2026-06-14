@@ -967,6 +967,9 @@ object MixedTiebaApiImpl : ITiebaApi {
     ): Flow<MSignBean> =
         RetrofitTiebaApi.OFFICIAL_TIEBA_API.mSignFlow(forumIds, tbs)
 
+    override fun oneKeySignIn() =
+        RetrofitTiebaApi.MINI_TIEBA_API.oneKeySignIn()
+
     override fun userLikeFlow(
         pageTag: String,
         lastRequestUnix: Long,

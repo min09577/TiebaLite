@@ -37,6 +37,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import org.litepal.LitePal
+import com.huanchengfly.tieba.post.models.database.Draft
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -286,6 +288,10 @@ fun UserPage(
                 if (account != null) {
                     val allAccounts = AllAccounts.current
                     var showAccountMenu by remember { mutableStateOf(false) }
+    var draftCount by remember { mutableStateOf(0) }
+    LaunchedEffect(Unit) {
+        draftCount = LitePal.count(Draft::class.java)
+    }
                     Box {
                         InfoCard(
                             modifier = Modifier
@@ -375,6 +381,14 @@ fun UserPage(
                         navigator.navigate("history")
                     }
                 )
+                if (account != null && draftCount > 0) {
+                    ListMenuItem(
+                        icon = ImageVector.vectorResource(id = R.drawable.ic_today),
+                        text = "${stringResource(id = R.string.title_my_drafts)} ($draftCount)",
+                        summary = "回帖内容已自动保存",
+                        onClick = {},
+                    )
+                }
                 ListMenuItem(
                     icon = ImageVector.vectorResource(id = R.drawable.ic_brush_24),
                     text = stringResource(id = R.string.title_theme),

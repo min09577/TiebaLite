@@ -46,6 +46,7 @@
     <string name="tip_jump_page">当前 %1$d/%2$d 页</string>
     <string name="title_default">贴吧 Lite</string>
     <string name="title_my_collect">我的收藏</string>
+    <string name="title_my_drafts">未发送草稿</string>
     <string name="title_at_me">提到我的</string>
     <string name="text_message_list_item_reply_my_thread">回复我的主题：%1$s</string>
     <string name="title_reply_me">回复我的</string>
@@ -190,6 +191,8 @@
     <string name="subtitle_quick_preview_thread">来自%1$s吧，共 %2$s 条回复</string>
     <string name="subtitle_link">网页链接</string>
     <string name="toast_preparing_share_pic">下载图片中…</string>
+    <string name="toast_preparing_download">保存图片中…</string>
+    <string name="toast_pic_saved">已保存到相册</string>
     <string name="title_select_pic">选择背景图片</string>
     <string name="title_translucent_theme_alpha">透明度</string>
     <string name="title_translucent_theme_blur">模糊度</string>

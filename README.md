@@ -32,7 +32,7 @@
 | 👥 **多账号切换** | 点击头像一键切换账号，支持多账号管理 |
 | 📐 **内容密度调节** | 紧凑/标准/舒适三种间距模式 |
 | 💾 **离线缓存** | 网络断开时自动加载缓存的帖子列表 |
-| 🤖 **AI 持续迭代** | 原作者归档后由 AI 接管维护，依赖链保持最新 |
+| 🤖 **某不知名 AI 维护** | 原作者归档后由某不知名 AI 接管维护，依赖链保持最新 |
 | 🏗️ **现代技术栈** | Kotlin 2.0.21 + Compose BOM 2024.12 + Hilt + Protobuf |
 | 📦 **一键安装** | [Release 页面](https://github.com/min09577/TiebaLite/releases/latest) 直接下载 APK |
 
@@ -85,16 +85,16 @@
 
 ---
 
-## 🤖 AI 迭代升级声明 / AI Iteration Notice / AI 반복 업그레이드 성명 / AIイテレーション更新声明
+## 🤖 某不知名 AI 迭代声明 / Anonymous Agent Notice
 
 <details>
 <summary>🇨🇳 中文</summary>
 
 本项目原由 **HuanCheng65** 开发并维护，现已归档/停止更新。
 
-本 Fork 由 AI（Hermes Agent）维护，旨在用于学习和延续项目的目的。原作者的所有工作和贡献均被完整保留，我们对原作者的辛勤工作表示由衷的敬意。
+本 Fork 由某不知名 AI 维护，旨在用于学习和延续项目的目的。原作者的所有工作和贡献均被完整保留，我们对原作者的辛勤工作表示由衷的敬意。
 
-这是一个 **AI 辅助的迭代升级版本**，所有原始免责声明仍然适用。
+这是一个**某不知名 AI 辅助的迭代升级版本**，所有原始免责声明仍然适用。
 
 - 原始仓库：[HuanCheng65/TiebaLite](https://github.com/HuanCheng65/TiebaLite)
 - Fork 仓库：[min09577/TiebaLite](https://github.com/min09577/TiebaLite)
@@ -106,9 +106,9 @@
 
 本プロジェクトは **HuanCheng65** によって開発・メンテナンスされていましたが、現在はアーカイブ/開発終了となっています。
 
-本 Fork は AI（Hermes Agent）によって維持されており、学習とプロジェクトの継続を目的としています。原作者のすべての功績と貢献は完全に保持されており、原作者の努力に深く敬意を表します。
+本 Fork は匿名 AI によって維持されており、学習とプロジェクトの継続を目的としています。原作者のすべての功績と貢献は完全に保持されており、原作者の努力に深く敬意を表します。
 
-これは **AI アシストによるイテレーション更新版** であり、すべての元の免責事項が引き続き適用されます。
+これは**匿名 AI アシストによるイテレーション更新版**であり、すべての元の免責事項が引き続き適用されます。
 
 - 元のリポジトリ：[HuanCheng65/TiebaLite](https://github.com/HuanCheng65/TiebaLite)
 - Fork リポジトリ：[min09577/TiebaLite](https://github.com/min09577/TiebaLite)
@@ -120,9 +120,9 @@
 
 본 프로젝트는 **HuanCheng65**에 의해 개발 및 유지 관리되었으며, 현재 아카이브/개발이 중단되었습니다.
 
-이 Fork는 AI(Hermes Agent)에 의해 유지 관리되며, 학습 및 프로젝트 지속 목적으로 운영됩니다. 원저자의 모든 노력과 기여는 완전히 보존되어 있으며, 원저자의 노고에 깊은 경의를 표합니다.
+이 Fork는 익명 AI에 의해 유지 관리되며, 학습 및 프로젝트 지속 목적으로 운영됩니다. 원저자의 모든 노력과 기여는 완전히 보존되어 있으며, 원저자의 노고에 깊은 경의를 표합니다.
 
-이것은 **AI 지원 반복 업그레이드 버전**이며, 모든 원래 면책 조항이 계속 적용됩니다.
+이것은**익명 AI 지원 반복 업그레이드 버전**이며, 모든 원래 면책 조항이 계속 적용됩니다.
 
 - 원본 저장소: [HuanCheng65/TiebaLite](https://github.com/HuanCheng65/TiebaLite)
 - Fork 저장소: [min09577/TiebaLite](https://github.com/min09577/TiebaLite)
@@ -134,9 +134,9 @@
 
 This project was originally developed and maintained by **HuanCheng65** and has since been archived/discontinued.
 
-This fork is maintained by AI (Hermes Agent) for the purpose of learning and continuation of the project. All original work and credits of the original author are fully preserved, and we express our sincere respect for the original author's efforts.
+This fork is maintained by an anonymous AI agent for the purpose of learning and continuation of the project. All original work and credits of the original author are fully preserved, and we express our sincere respect for the original author's efforts.
 
-This is an **AI-assisted iterative upgrade version**, and all original disclaimers still apply.
+This is an**anonymous AI-assisted iterative upgrade version**, and all original disclaimers still apply.
 
 - Original Repository: [HuanCheng65/TiebaLite](https://github.com/HuanCheng65/TiebaLite)
 - Fork Repository: [min09577/TiebaLite](https://github.com/min09577/TiebaLite)
@@ -150,11 +150,16 @@ This is an **AI-assisted iterative upgrade version**, and all original disclaime
 | 版本 / Version | 日期 / Date | 说明 / Description |
 |---|---|---|
 | v4.0.0-beta.1 | 2024-02-02 | 原始版本发布 / Original release by HuanCheng65 |
-| v4.0.0-ai.1 | 2026-06-09 | AI 迭代：文档完善、四国语言声明 / AI Iteration: documentation, 4-language declarations |
-| v4.0.0-ai.2 | 2026-06-09 | AI 迭代：安全修复、网络安全配置 / AI Iteration: security fixes, network security config |
-| v4.0.0-ai.3 | 2026-06-09 | AI 迭代：CI 修复、构建成功 / AI Iteration: CI fixes, build succeeded ✅ |
-| v4.0.0-ai.4 | 2026-06-12 | AI 迭代：AGP 8.5.2 + Gradle 8.7 + 源码修复 / AI Iteration: Build toolchain upgrade |
-| v4.0.0-ai.5 | 2026-06-13 | AI 迭代：compose-destinations 移除 + Kotlin 2.0.21 + 全面依赖升级 / AI Iteration: navigation refactor + full dependency upgrade |
+| v4.0.0-ai.1 | 2026-06-09 | 某不知名 AI 迭代：文档完善、四国语言声明 / Anonymous Agent: documentation |
+| v4.0.0-ai.2 | 2026-06-09 | 某不知名 AI 迭代：安全修复、网络安全配置 / Anonymous Agent: security fixes |
+| v4.0.0-ai.3 | 2026-06-09 | 某不知名 AI 迭代：CI 修复、构建成功 / Anonymous Agent: CI fixes ✅ |
+| v4.0.0-ai.4 | 2026-06-12 | 某不知名 AI 迭代：AGP 8.5.2 + Gradle 8.7 + 源码修复 / Anonymous Agent: toolchain upgrade |
+| v4.0.0-ai.5 | 2026-06-13 | 某不知名 AI 迭代：compose-destinations 移除 + Kotlin 2.0.21 + 全面依赖升级 |
+| v4.0.0-ai.6 | 2026-06-14 | 某不知名 AI 迭代：多账号快速切换 + 内容密度 + 离线缓存 |
+| v4.0.0-ai.7 | 2026-06-14 | 某不知名 AI 迭代：API 稳定性增强（重试+频率控制）+ 图片下载提示 |
+| v4.0.0-ai.8 | 2026-06-14 | 某不知名 AI 迭代：签到全量升级（首次尝试） |
+| v4.0.0-ai.9 | 2026-06-14 | 某不知名 AI 迭代：签到架构重写 · 分页拉取全量关注吧列表 |
+| v4.0.0-ai.10 | 2026-06-14 | **🎉 全量一键签到 · 3000+ 吧全覆盖** — 分页引擎 + 失败跳过错容 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---
@@ -207,7 +212,7 @@ Build outputs are located in the `app/build/outputs/apk/` directory.
 2. 本软件及源码**仅供学习交流使用，严禁用于商业用途**。
 3. 使用本软件所产生的一切后果由使用者自行承担。
 4. 本软件不保证功能的完整性和稳定性。
-5. AI 辅助迭代版本不承担因使用本软件而产生的任何直接或间接损失。
+5. 某不知名 AI 辅助迭代版本不承担因使用本软件而产生的任何直接或间接损失。
 
 </details>
 
@@ -218,7 +223,7 @@ Build outputs are located in the `app/build/outputs/apk/` directory.
 2. 本ソフトウェアおよびソースコードは**学習・交流のみを目的としており、商業利用は厳禁**です。
 3. 本ソフトウェアの使用により生じた一切の結果は、使用者自身が責任を負います。
 4. 本ソフトウェアは機能の完全性と安定性を保証するものではありません。
-5. AI アシストイテレーション版は、本ソフトウェアの使用により生じた直接的または間接的な損失について責任を負いません。
+5. 匿名 AI アシストイテレーション版は、本ソフトウェアの使用により生じた直接的または間接的な損失について責任を負いません。
 
 </details>
 
@@ -229,7 +234,7 @@ Build outputs are located in the `app/build/outputs/apk/` directory.
 2. 본 소프트웨어 및 소스코드는 **학습 및 교류 목적으로만 사용되며, 상업적 사용은 엄격히 금지**됩니다.
 3. 본 소프트웨어 사용으로 발생한 모든 결과는 사용자가 책임집니다.
 4. 본 소프트웨어는 기능의 완전성과 안정성을 보장하지 않습니다.
-5. AI 지원 반복 업그레이드 버전은 본 소프트웨어 사용으로 인한 직접적 또는 간접적 손실에 대해 책임지지 않습니다.
+5. 익명 AI 지원 반복 업그레이드 버전은 본 소프트웨어 사용으로 인한 직접적 또는 간접적 손실에 대해 책임지지 않습니다.
 
 </details>
 

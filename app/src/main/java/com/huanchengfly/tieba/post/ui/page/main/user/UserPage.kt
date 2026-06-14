@@ -21,6 +21,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -32,6 +34,9 @@ import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,6 +66,8 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.Switch
 import com.huanchengfly.tieba.post.ui.widgets.compose.VerticalDivider
 import com.huanchengfly.tieba.post.ui.widgets.compose.rememberDialogState
 import com.huanchengfly.tieba.post.utils.CuidUtils
+import com.huanchengfly.tieba.post.utils.AccountUtil
+import com.huanchengfly.tieba.post.utils.AccountUtil.AllAccounts
 import com.huanchengfly.tieba.post.utils.StringUtil
 import com.huanchengfly.tieba.post.utils.ThemeUtil
 import com.huanchengfly.tieba.post.utils.appPreferences
@@ -277,17 +284,52 @@ fun UserPage(
                     .fillMaxSize()
             ) {
                 if (account != null) {
-                    InfoCard(
-                        modifier = Modifier
-                            .padding(top = 8.dp)
-                            .clickable {
+                    val allAccounts = AllAccounts.current
+                    var showAccountMenu by remember { mutableStateOf(false) }
+                    Box {
+                        InfoCard(
+                            modifier = Modifier
+                                .padding(top = 8.dp)
+                                .clickable {
+                                    if (allAccounts.size > 1) {
+                                        showAccountMenu = true
+                                    } else {
+                                        navigator.navigate("user/${account!!.uid.toLong()}")
+                                    }
+                                }
+                                .padding(horizontal = 16.dp, vertical = 16.dp),
+                            userName = account!!.nameShow ?: account!!.name,
+                            userIntro = account!!.intro ?: stringResource(id = R.string.tip_no_intro),
+                            avatar = StringUtil.getAvatarUrl(account!!.portrait),
+                        )
+                        DropdownMenu(
+                            expanded = showAccountMenu,
+                            onDismissRequest = { showAccountMenu = false },
+                        ) {
+                            DropdownMenuItem(onClick = {
+                                showAccountMenu = false
                                 navigator.navigate("user/${account!!.uid.toLong()}")
+                            }) {
+                                Text("查看个人主页")
                             }
-                            .padding(horizontal = 16.dp, vertical = 16.dp),
-                        userName = account!!.nameShow ?: account!!.name,
-                        userIntro = account!!.intro ?: stringResource(id = R.string.tip_no_intro),
-                        avatar = StringUtil.getAvatarUrl(account!!.portrait),
-                    )
+                            allAccounts.filter { it.id != account!!.id }.forEach { other ->
+                                DropdownMenuItem(onClick = {
+                                    showAccountMenu = false
+                                    AccountUtil.switchAccount(context, other.id)
+                                }) {
+                                    Text(
+                                        "切换到: ${other.nameShow ?: other.name}"
+                                    )
+                                }
+                            }
+                            DropdownMenuItem(onClick = {
+                                showAccountMenu = false
+                                navigator.navigate("login")
+                            }) {
+                                Text(stringResource(id = R.string.title_new_account))
+                            }
+                        }
+                    }
                     StatCard(
                         account = account!!,
                         modifier = Modifier

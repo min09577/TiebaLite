@@ -6,7 +6,11 @@ import com.huanchengfly.tieba.post.api.models.protos.frsPage.FrsPageResponse
 import com.huanchengfly.tieba.post.api.models.protos.threadList.ThreadListResponse
 import com.huanchengfly.tieba.post.api.retrofit.exception.TiebaUnknownException
 import com.huanchengfly.tieba.post.utils.appPreferences
+import com.huanchengfly.tieba.post.utils.AppCache
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -28,6 +32,7 @@ object FrsPageRepository {
             return flowOf(lastResponse!!)
         }
         lastHash = hash
+        val cacheKey = "frs_$hash"
         return TiebaApi.getInstance().frsPage(forumName, page, loadType, sortType, goodClassifyId)
             .map { response ->
                 if (response.data_ == null) throw TiebaUnknownException
@@ -40,7 +45,13 @@ object FrsPageRepository {
                     .filter { it.ala_info == null } // 去他妈的直播
                 response.copy(data_ = response.data_.copy(thread_list = threadList))
             }
-            .onEach { lastResponse = it }
+            .onEach { response ->
+                lastResponse = response
+                AppCache.put(App.INSTANCE, cacheKey, response.toString())
+            }
+            .catch {
+                lastResponse?.let { emit(it) } ?: throw it
+            }
     }
 
     fun threadList(

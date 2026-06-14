@@ -57,6 +57,9 @@ open class AppPreferencesUtils private constructor(ctx: Context) {
         key = AppIconUtil.PREF_KEY_APP_ICON
     )
 
+    // 0=紧凑 1=标准 2=舒适
+    var contentDensity by DataStoreDelegates.int(defaultValue = 1, key = "content_density")
+
     var useThemedIcon by DataStoreDelegates.boolean(defaultValue = false)
 
     var autoSign by DataStoreDelegates.boolean(defaultValue = false, key = "auto_sign")

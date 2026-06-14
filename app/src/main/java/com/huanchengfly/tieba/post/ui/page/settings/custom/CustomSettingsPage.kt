@@ -237,6 +237,30 @@ fun CustomSettingsPage(
                 }
             }
             prefsItem {
+                ListPref(
+                    key = "content_density",
+                    title = "内容密度",
+                    defaultValue = "1",
+                    useSelectedAsSummary = true,
+                    summary = "调整页面间距和内容密度",
+                    leadingIcon = {
+                        LeadingIcon {
+                            AvatarIcon(
+                                icon = Icons.Outlined.ViewAgenda,
+                                size = Sizes.Small,
+                                contentDescription = null,
+                            )
+                        }
+                    },
+                    entries = mapOf(
+                        "0" to "紧凑 - 更多内容",
+                        "1" to "标准 - 默认",
+                        "2" to "舒适 - 宽松间距",
+                    ),
+                    onValueChange = {},
+                )
+            }
+            prefsItem {
                 SwitchPref(
                     key = "status_bar_darker",
                     title = stringResource(id = R.string.title_settings_status_bar_darker),

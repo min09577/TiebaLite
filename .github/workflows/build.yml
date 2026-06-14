@@ -86,7 +86,20 @@ jobs:
           echo "Deleting old release if exists..."
           gh release delete "$TAG" --yes 2>/dev/null || true
           echo "Creating release $TAG..."
-          gh release create "$TAG" --title "$TAG" --notes "Automated APK build. Downloads below."
+          DESC="## $TAG
+          
+          ### ⚡ 全量一键签到 · 3000 吧全覆盖
+          智能分页引擎拉取所有关注的贴吧，通知栏实时显示进度。
+          
+          > 🔋 **首次签到请关闭电池优化策略，避免后台被杀。**
+          
+          ---
+          | APK | 适用场景 |
+          |------|------|
+          | release | 正式使用（已混淆优化，## 10MB） |
+          | debug | 测试调试（保留完整日志）
+          "
+          gh release create "$TAG" --title "$TAG" --notes "$DESC"
           echo "Uploading APKs..."
           gh release upload "$TAG" \
             app/build/outputs/apk/debug/*.apk \

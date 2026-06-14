@@ -1,5 +1,5 @@
 # <p align="center">贴吧 Lite · TiebaLite</p>
-<p align="center"><strong>第三方百度贴吧 Android 客户端 | Jetpack Compose · Kotlin · 精简无广告</strong></p>
+<p align="center"><strong>第三方百度贴吧 Android 客户端 | 全量一键签到 · 3000+ 吧全覆盖 | Compose · Kotlin · 无广告</strong></p>
 <p align="center">
     <a href="https://github.com/min09577/TiebaLite/releases/latest">
         <img alt="Latest Release" src="https://img.shields.io/github/v/release/min09577/TiebaLite?style=flat&color=blue">
@@ -23,6 +23,7 @@
 
 | 特性 | 说明 |
 |------|------|
+| 📝 **全量一键签到** | 智能分页拉取所有关注贴吧，单次签到覆盖 3000+ 吧，通知栏实时进度 |
 | 🚫 **零广告** | 无横幅、无推广、无信息流广告，纯粹浏览体验 |
 | 🎨 **Material Design** | Jetpack Compose 构建，原生 Material You 动态主题 |
 | ⚡ **轻量流畅** | APK 仅 ~10MB，自适应高刷，无冗余功能 |
@@ -43,9 +44,19 @@
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 
-## 🆕 v4.0.0-ai.8 更新内容
+## 🆕 v4.0.0-ai.10 — 全量签到纪元
 
-- 📋 签到全量升级 — 接入官方 `onekeySignin1` 接口，覆盖所有关注贴吧
+> ### ⚡ 全量一键签到
+> 智能分页引擎逐一拉取你所关注的每一个贴吧，**单次运行最高覆盖 3000 个吧**。
+> 告别「官方客户端仅签到前 100 个」的限制，每一个吧都不会被遗漏。
+>
+> ### 🔋 ⚠️ 重要：请关闭电池优化！
+> 签到过程需要在后台持续运行，**请务必将「贴吧 Lite」的电池优化策略设为「不限制」**，
+> 否则系统可能在签到中途强制休眠进程，导致签到中断。
+>
+> **设置路径：** 系统设置 → 应用 → 贴吧 Lite → 电池 → 不限制
+>
+> *(各品牌手机路径略有差异：小米-应用信息→省电策略→无限制 / 华为-应用启动管理→手动管理 / OPPO-vivo-耗电保护→允许后台运行)*
 
 ## 🆕 v4.0.0-ai.5 更新内容
 

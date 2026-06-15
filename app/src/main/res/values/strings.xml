@@ -368,6 +368,9 @@
     <string name="block_type_user">用户</string>
     <string name="tip_add_block">可用空格分隔多个关键词，含有全部关键词的内容将会被屏蔽</string>
     <string name="desc_download_pic">下载图片</string>
+    <string name="desc_batch_download">批量下载</string>
+    <string name="desc_select_mode">多选模式</string>
+    <string name="desc_cancel_select">取消多选</string>
     <string name="hot_topic_rank">话题榜</string>
     <string name="topic_tag_hot">热</string>
     <string name="topic_tag_new">新</string>

@@ -17,20 +17,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Download
+import androidx.compose.material.icons.rounded.DownloadDone
+import androidx.compose.material.icons.rounded.Layers
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -58,6 +67,7 @@ import kotlin.math.roundToInt
 private fun ViewPhoto(
     imageUri: String,
     modifier: Modifier = Modifier,
+    selected: Boolean = false,
     onTap: (offset: Offset) -> Unit = {},
 ) {
     Box(
@@ -83,6 +93,21 @@ private fun ViewPhoto(
             onTap = onTap,
             imageState = state,
         )
+        if (selected) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.CheckCircle,
+                    contentDescription = "已选择",
+                    tint = ExtendedTheme.colors.accent,
+                    modifier = Modifier.size(32.dp)
+                )
+            }
+        }
         if (showProgress) {
             Box(
                 contentAlignment = Alignment.Center
@@ -128,6 +153,10 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
             if (loaded) {
                 val pageCount by remember { derivedStateOf { items.size } }
 
+                var selectMode by remember { mutableStateOf(false) }
+                val selectedSet = remember { mutableStateMapOf<Int, Unit>() }
+                val selectedCount by remember { derivedStateOf { selectedSet.size } }
+
                 val pagerState = rememberPagerState(initialPage = initialIndex) { pageCount }
 
                 LaunchedEffect(initialIndex) {
@@ -165,8 +194,13 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
                         ViewPhoto(
                             imageUri = item.originUrl,
                             modifier = Modifier.fillMaxSize(),
+                            selected = selectMode && selectedSet.containsKey(it),
                             onTap = {
-                                finish()
+                                if (selectMode) {
+                                    val index = pagerState.currentPage
+                                    if (selectedSet.containsKey(index)) selectedSet.remove(index)
+                                    else selectedSet[index] = Unit
+                                } else finish()
                             },
                         )
                     }
@@ -193,7 +227,12 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 val index = pagerState.currentPage
-                                if (totalAmount > 1) {
+                                if (selectMode) {
+                                    Text(
+                                        text = "已选 $selectedCount 张",
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                } else if (totalAmount > 1) {
                                     val picIndex = items[index].overallIndex
                                     Text(
                                         text = "$picIndex / $totalAmount",
@@ -202,7 +241,41 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
                                 } else {
                                     Spacer(modifier = Modifier.weight(1f))
                                 }
-                                IconButton(onClick = {
+                                if (selectMode) {
+                                    IconButton(onClick = {
+                                        selectMode = false
+                                        selectedSet.clear()
+                                    }) {
+                                        Icon(Icons.Rounded.Layers, contentDescription = "取消多选")
+                                    }
+                                    if (selectedCount > 0) {
+                                        IconButton(onClick = {
+                                            val urls = items
+                                                .filterIndexed { i, _ -> selectedSet.containsKey(i) }
+                                                .map { it.originUrl }
+                                            urls.forEach { url ->
+                                                ImageUtil.download(this@PhotoViewActivity, url)
+                                            }
+                                            toastShort("已开始批量下载 $selectedCount 张")
+                                            selectMode = false
+                                            selectedSet.clear()
+                                        }) {
+                                            Icon(
+                                                imageVector = Icons.Rounded.DownloadDone,
+                                                contentDescription = "批量下载"
+                                            )
+                                        }
+                                    }
+                                } else {
+                                    IconButton(onClick = {
+                                        selectMode = true
+                                    }) {
+                                        Icon(
+                                            imageVector = Icons.Rounded.CheckCircle,
+                                            contentDescription = "多选模式"
+                                        )
+                                    }
+                                    IconButton(onClick = {
                                     toastShort(R.string.toast_preparing_share_pic)
                                     ImageUtil.download(
                                         this@PhotoViewActivity,

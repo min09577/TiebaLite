@@ -39,6 +39,8 @@ import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @Stable
@@ -73,10 +75,12 @@ class SubPostsViewModel @Inject constructor() :
         private fun SubPostsUiIntent.Load.producePartialChange(): Flow<SubPostsPartialChange.Load> =
             TiebaApi.getInstance()
                 .pbFloorFlow(threadId, postId, forumId, page, subPostId)
+                .retry(2) { delay(1000); true }
                 .map<PbFloorResponse, SubPostsPartialChange.Load> { response ->
-                    val post = checkNotNull(response.data_?.post)
-                    val page = checkNotNull(response.data_?.page)
-                    val forum = checkNotNull(response.data_?.forum)
+                    val data = response.data_ ?: error("服务器无响应")
+                    val post = data.post ?: error("数据异常: post")
+                    val page = data.page ?: error("数据异常: page")
+                    val forum = data.forum ?: error("数据异常: forum")
                     val thread = checkNotNull(response.data_?.thread)
                     val anti = checkNotNull(response.data_?.anti)
                     val subPosts = response.data_?.subpost_list.orEmpty().map {
@@ -104,8 +108,9 @@ class SubPostsViewModel @Inject constructor() :
         private fun SubPostsUiIntent.LoadMore.producePartialChange(): Flow<SubPostsPartialChange.LoadMore> =
             TiebaApi.getInstance()
                 .pbFloorFlow(threadId, postId, forumId, page, subPostId)
+                .retry(2) { delay(1000); true }
                 .map<PbFloorResponse, SubPostsPartialChange.LoadMore> { response ->
-                    val page = checkNotNull(response.data_?.page)
+                    val page = response.data_?.page ?: error("数据异常: page")
                     val subPosts = response.data_?.subpost_list.orEmpty().map {
                         SubPostItemData(
                             it.wrapImmutable(),

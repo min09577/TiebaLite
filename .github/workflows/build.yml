@@ -66,10 +66,10 @@ jobs:
         if: env.HAS_KEYSTORE != 'true'
         run: |
           KEYSTORE_FILE=app/tblite_debug.jks
-          if [ -f "$KEYSTORE_FILE" ] && ! git ls-files --error-unmatch "$KEYSTORE_FILE" 2>/dev/null; then
+          if [ -f "$KEYSTORE_FILE" ] && [ -z "$(git ls-files "$KEYSTORE_FILE")" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add "$KEYSTORE_FILE"
+            git add --force "$KEYSTORE_FILE"
             git commit -m "chore: add consistent signing keystore [skip ci]"
             git push
           fi

@@ -650,18 +650,46 @@ class MainActivityV2 : BaseComposeActivity() {
                             // === 帖子子页面 ===
                             composable(
                                 route = Routes.SUB_POSTS,
-                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                                arguments = listOf(
+                                    navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
+                                    navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.SUB_POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                )
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                SubPostsPage(threadId = threadId, navigator = navController)
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
+                                val subPostId = backStackEntry.arguments?.getLong(Routes.Args.SUB_POST_ID) ?: 0L
+                                SubPostsPage(
+                                    threadId = threadId,
+                                    forumId = forumId,
+                                    postId = postId,
+                                    subPostId = subPostId,
+                                    navigator = navController
+                                )
                             }
 
                             composable(
                                 route = Routes.SUB_POSTS_SHEET,
-                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                                arguments = listOf(
+                                    navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
+                                    navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.SUB_POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                )
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                SubPostsSheetPage(navigator = navController, threadId = threadId)
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
+                                val subPostId = backStackEntry.arguments?.getLong(Routes.Args.SUB_POST_ID) ?: 0L
+                                SubPostsSheetPage(
+                                    navigator = navController,
+                                    threadId = threadId,
+                                    forumId = forumId,
+                                    postId = postId,
+                                    subPostId = subPostId
+                                )
                             }
 
                             composable(

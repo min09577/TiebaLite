@@ -318,6 +318,7 @@ class PhotoViewActivity : BaseComposeActivityWithParcelable<PhotoViewData>() {
                                         contentDescription = stringResource(id = R.string.desc_download_pic)
                                     )
                                 }
+                                } // closes else (selectMode = false)
                             }
                         }
                     }

@@ -2,6 +2,7 @@ package com.huanchengfly.tieba.post.ui.page.main.user
 
 import android.graphics.Typeface
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -387,7 +388,7 @@ fun UserPage(
                     ListMenuItem(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_today),
                         text = "${stringResource(id = R.string.title_my_drafts)} ($draftCount)",
-                        onClick = { toastShort("$draftCount 条草稿已自动保存") },
+                        onClick = { Toast.makeText(context, "$draftCount 条草稿已自动保存", Toast.LENGTH_SHORT).show() },
                     ) {
                         Text(
                             text = "回帖内容已自动保存",

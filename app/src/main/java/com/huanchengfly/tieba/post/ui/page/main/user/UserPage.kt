@@ -387,7 +387,7 @@ fun UserPage(
                     ListMenuItem(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_today),
                         text = "${stringResource(id = R.string.title_my_drafts)} ($draftCount)",
-                        onClick = {},
+                        onClick = { toastShort("$draftCount 条草稿已自动保存") },
                     ) {
                         Text(
                             text = "回帖内容已自动保存",

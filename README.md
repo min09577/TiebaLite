@@ -1,5 +1,5 @@
 # <p align="center">贴吧 Lite · TiebaLite</p>
-<p align="center"><strong>第三方百度贴吧 Android 客户端 | 全量一键签到 · 3000+ 吧全覆盖 | Compose · Kotlin · 无广告</strong></p>
+<p align="center"><strong>第三方百度贴吧 Android 客户端 | 全量一键签到 · 3000+ 吧全覆盖 | Android 5.0 → 16 全世代兼容 | Compose · Kotlin · 无广告</strong></p>
 <p align="center">
     <a href="https://github.com/min09577/TiebaLite/releases/latest">
         <img alt="Latest Release" src="https://img.shields.io/github/v/release/min09577/TiebaLite?style=flat&color=blue">
@@ -28,7 +28,7 @@
 | 🎨 **Material Design** | Jetpack Compose 构建，原生 Material You 动态主题 |
 | ⚡ **轻量流畅** | APK 仅 ~10MB，自适应高刷，无冗余功能 |
 | 🔒 **隐私优先** | 无埋点跟踪，仅与百度贴吧 API 通信 |
-| 📱 **Android 16 适配** | 完整适配最新 Android 版本，16KB 页对齐 |
+| 📱 **超长世代兼容** | 横跨 Android 5.0 (API 21) 至 Android 16 (API 36)，11 年系统全面覆盖，16KB 页对齐 |
 | 👥 **多账号切换** | 点击头像一键切换账号，支持多账号管理 |
 | 📐 **内容密度调节** | 紧凑/标准/舒适三种间距模式 |
 | 💾 **离线缓存** | 网络断开时自动加载缓存的帖子列表 |
@@ -40,7 +40,7 @@
 
 ## 📖 简介
 
-贴吧 Lite 是一个**非官方**的百度贴吧 Android 客户端，使用 Kotlin 编写，UI 采用 Jetpack Compose 构建。本质是对百度贴吧 API 的逆向工程实现，目标是在不牺牲核心浏览体验的前提下，提供最轻量、最干净的贴吧客户端。
+贴吧 Lite 是一个**非官方**的百度贴吧 Android 客户端，使用 Kotlin 编写，UI 采用 Jetpack Compose 构建。支持从 **Android 5.0 到 Android 16** 超长世代覆盖，完美适配 16KB 页面对齐。本质是对百度贴吧 API 的逆向工程实现，目标是在不牺牲核心浏览体验的前提下，提供最轻量、最干净的贴吧客户端。
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 

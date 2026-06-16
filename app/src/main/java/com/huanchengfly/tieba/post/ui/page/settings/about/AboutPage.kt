@@ -1,11 +1,9 @@
 package com.huanchengfly.tieba.post.ui.page.settings.about
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,8 +27,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
-import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material.icons.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -41,7 +39,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -49,6 +46,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
@@ -66,9 +64,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
-import androidx.navigation.NavHostController
 
-// GitHub Release data class for update check
 data class GithubRelease(
     @SerializedName("tag_name") val tagName: String = "",
     @SerializedName("html_url") val htmlUrl: String = "",
@@ -98,7 +94,6 @@ fun AboutPage(
     var updateState by remember { mutableStateOf<UpdateState>(UpdateState.Idle) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-
     val currentVersion = BuildConfig.VERSION_NAME
 
     fun checkUpdate() {
@@ -126,12 +121,6 @@ fun AboutPage(
             }
         }
     }
-@Composable
-fun AboutPage(
-    navigator: NavHostController,
-) {
-    var lastClickTime by remember { mutableLongStateOf(0L) }
-    var clickCount by remember { mutableIntStateOf(0) }
 
     MyScaffold(
         backgroundColor = Color.Transparent,
@@ -169,7 +158,6 @@ fun AboutPage(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // App Name
             Text(
                 text = stringResource(id = R.string.app_name),
                 style = MaterialTheme.typography.h6,
@@ -179,7 +167,6 @@ fun AboutPage(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Current Version
             Text(
                 text = currentVersion,
                 style = MaterialTheme.typography.body2,
@@ -223,9 +210,9 @@ fun AboutPage(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     when (val state = updateState) {
-                        is UpdateState.Idle -> {
+                        UpdateState.Idle -> {
                             Text(
-                                text = "检查是否有新版本",
+                                "检查是否有新版本",
                                 color = ExtendedTheme.colors.textSecondary,
                                 fontSize = 14.sp
                             )
@@ -247,8 +234,7 @@ fun AboutPage(
                                 Text("检查更新", fontWeight = FontWeight.Medium)
                             }
                         }
-
-                        is UpdateState.Checking -> {
+                        UpdateState.Checking -> {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(32.dp),
                                 strokeWidth = 3.dp,
@@ -261,7 +247,6 @@ fun AboutPage(
                                 fontSize = 14.sp
                             )
                         }
-
                         is UpdateState.Found -> {
                             Icon(
                                 Icons.Rounded.SystemUpdate,
@@ -301,11 +286,7 @@ fun AboutPage(
                                 }
                                 OutlinedButton(
                                     onClick = {
-                                        launchUrl(
-                                            context,
-                                            navigator,
-                                            state.release.htmlUrl
-                                        )
+                                        launchUrl(context, navigator, state.release.htmlUrl)
                                     },
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
@@ -319,8 +300,7 @@ fun AboutPage(
                                 }
                             }
                         }
-
-                        is UpdateState.UpToDate -> {
+                        UpdateState.UpToDate -> {
                             Icon(
                                 Icons.Rounded.CheckCircle,
                                 contentDescription = null,
@@ -335,7 +315,6 @@ fun AboutPage(
                                 color = ExtendedTheme.colors.text
                             )
                         }
-
                         is UpdateState.Error -> {
                             Text(
                                 state.message,
@@ -354,7 +333,7 @@ fun AboutPage(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // GitHub Repo
+            // GitHub Repo Card
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -396,7 +375,6 @@ fun AboutPage(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Original Author
             Text(
                 text = stringResource(id = R.string.tip_about, BuildConfig.VERSION_NAME),
                 style = MaterialTheme.typography.caption,

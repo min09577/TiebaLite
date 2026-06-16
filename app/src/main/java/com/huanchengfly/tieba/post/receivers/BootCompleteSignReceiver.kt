@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import com.huanchengfly.tieba.post.pendingIntentFlagMutable
 import com.huanchengfly.tieba.post.utils.TiebaUtil
 import com.huanchengfly.tieba.post.utils.Util
@@ -35,12 +36,16 @@ class BootCompleteSignReceiver : BroadcastReceiver() {
                         Intent(context, AutoSignAlarm::class.java),
                         pendingIntentFlagMutable()
                     )
-                    alarmManager.setRepeating(
-                        AlarmManager.RTC_WAKEUP,
-                        time,
-                        AlarmManager.INTERVAL_DAY,
-                        pendingIntent
-                    )
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP, time, pendingIntent
+                        )
+                    } else {
+                        alarmManager.setInexactRepeating(
+                            AlarmManager.RTC_WAKEUP, time,
+                            AlarmManager.INTERVAL_DAY, pendingIntent
+                        )
+                    }
                 }
             }
         }

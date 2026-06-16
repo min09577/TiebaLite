@@ -113,8 +113,8 @@ fun AboutPage(
                         name = name,
                         downloadUrl = downloadUrl
                     )
-                    val remoteTag = tagName.removePrefix("v")
-                    val localTag = currentVersion.removePrefix("v")
+                    val remoteTag = tagName.removePrefix("v").trim()
+                    val localTag = currentVersion.removePrefix("v").substringBefore("+").trim()
                     if (remoteTag != localTag && remoteTag.isNotEmpty()) {
                         UpdateState.Found(release)
                     } else {

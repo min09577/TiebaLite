@@ -10,6 +10,8 @@ class AutoSignAlarm : BroadcastReceiver() {
         runCatching {
             TiebaUtil.startSign(context)
         }
+        // Reschedule for next day since setExact works as one-shot
+        TiebaUtil.initAutoSign(context)
     }
 
     companion object {

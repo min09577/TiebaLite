@@ -132,7 +132,6 @@ jobs:
           gh release create "$TAG" --title "$TAG" --notes "$DESC"
           echo "Uploading APKs..."
           gh release upload "$TAG" \
-            app/build/outputs/apk/debug/*.apk \
             app/build/outputs/apk/release/*.apk \
             --clobber
           echo "Done!"

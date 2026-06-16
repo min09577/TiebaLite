@@ -1,5 +1,7 @@
 package com.huanchengfly.tieba.post.ui.page.settings.about
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -276,10 +278,15 @@ fun AboutPage(
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Button(
                                     onClick = {
-                                        val url = state.release.downloadUrl.ifEmpty {
-                                            state.release.htmlUrl
+                                        try {
+                                            val url = state.release.downloadUrl.ifEmpty {
+                                                state.release.htmlUrl
+                                            }
+                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                            context.startActivity(intent)
+                                        } catch (e: Exception) {
+                                            context.toastShort("无法打开链接")
                                         }
-                                        launchUrl(context, navigator, url)
                                     },
                                     shape = RoundedCornerShape(12.dp),
                                     colors = ButtonDefaults.buttonColors(
@@ -291,7 +298,12 @@ fun AboutPage(
                                 }
                                 OutlinedButton(
                                     onClick = {
-                                        launchUrl(context, navigator, state.release.htmlUrl)
+                                        try {
+                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(state.release.htmlUrl))
+                                            context.startActivity(intent)
+                                        } catch (e: Exception) {
+                                            context.toastShort("无法打开链接")
+                                        }
                                     },
                                     shape = RoundedCornerShape(12.dp)
                                 ) {
@@ -357,7 +369,12 @@ fun AboutPage(
                     Spacer(modifier = Modifier.height(8.dp))
                     TextButton(
                         onClick = {
-                            launchUrl(context, navigator, "https://github.com/min09577/TiebaLite")
+                            try {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/min09577/TiebaLite"))
+                                context.startActivity(intent)
+                            } catch (e: Exception) {
+                                context.toastShort("无法打开链接")
+                            }
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp)

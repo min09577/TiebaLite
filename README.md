@@ -44,6 +44,20 @@
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 
+## 🆕 v4.0.0-ai.19 — 智检更新 + 定时签到引擎
+
+> ### 🔍 智能版本检测
+> 内置 GitHub Release 巡检，一键比对云端最新版本。发现更新即提供**直链下载**与**仓库入口**双通道，已是最新版则优雅展示绿色确认。版本号智能清洗，精准识别 `+hash` 构建后缀。
+>
+> ### ⏰ 高优定时闹钟
+> 签到调度引擎全面升级：`AlarmManager.setRepeating` → `setExactAndAllowWhileIdle`（Android 12+）。
+> 系统即处于 Doze 深度休眠也能**准时唤醒**，不再依赖后台进程常驻。每次签到完毕自动重排次日闹钟，持久可靠。
+
+## 🆕 v4.0.0-ai.18 — 检查更新
+
+- 🔍 关于页新增「检查更新」按钮，直连 GitHub Releases API
+- 📦 发现新版本显示版本号 + 一键下载 + GitHub 跳转
+
 ## 🆕 v4.0.0-ai.17 — 草稿提示
 
 - 📝 用户页「未发送草稿」点击显示数量提示
@@ -195,6 +209,8 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.15 | 2026-06-15 | 某不知名 AI 迭代：keystore 白名单修复 · 覆盖安装启用 |
 | v4.0.0-ai.16 | 2026-06-15 | 🐛 楼中楼空白修复 · 路由参数补全 |
 | v4.0.0-ai.17 | 2026-06-15 | 某不知名 AI 迭代：草稿点击提示 · README 补全 |
+| v4.0.0-ai.18 | 2026-06-16 | **🔍 智能检查更新** — GitHub Release 巡检 · 直链下载 |
+| v4.0.0-ai.19 | 2026-06-16 | **⏰ 定时签到引擎升级** — setExact + 自动重排 · Doze 可唤醒 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---

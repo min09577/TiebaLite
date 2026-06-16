@@ -107,8 +107,18 @@ fun AboutPage(
                     val tagName = json.optString("tag_name", "")
                     val htmlUrl = json.optString("html_url", "")
                     val name = json.optString("name", "")
-                    val asset = json.optJSONArray("assets")?.optJSONObject(0)
-                    val downloadUrl = asset?.optString("browser_download_url", "") ?: ""
+                    val assets = json.optJSONArray("assets")
+                    var downloadUrl = ""
+                    if (assets != null) {
+                        for (i in 0 until assets.length()) {
+                            val a = assets.optJSONObject(i)
+                            val fileName = a?.optString("name", "") ?: ""
+                            if (fileName.contains("release-")) {
+                                downloadUrl = a.optString("browser_download_url", "")
+                                break
+                            }
+                        }
+                    }
                     val release = GithubRelease(
                         tagName = tagName,
                         htmlUrl = htmlUrl,

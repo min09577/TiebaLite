@@ -48,8 +48,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.huanchengfly.tieba.post.BuildConfig
 import com.huanchengfly.tieba.post.R
 import com.huanchengfly.tieba.post.toastShort
@@ -64,17 +62,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
+import org.json.JSONObject
 
 data class GithubRelease(
-    @SerializedName("tag_name") val tagName: String = "",
-    @SerializedName("html_url") val htmlUrl: String = "",
-    @SerializedName("name") val name: String = "",
-    @SerializedName("assets") val assets: List<GithubAsset>? = null,
-)
-
-data class GithubAsset(
-    @SerializedName("name") val name: String = "",
-    @SerializedName("browser_download_url") val browserDownloadUrl: String = "",
+    val tagName: String = "",
+    val htmlUrl: String = "",
+    val name: String = "",
+    val downloadUrl: String = "",
 )
 
 sealed class UpdateState {
@@ -107,8 +101,19 @@ fun AboutPage(
                     conn.connectTimeout = 10000
                     conn.readTimeout = 10000
                     val text = conn.inputStream.bufferedReader().readText()
-                    val release = Gson().fromJson(text, GithubRelease::class.java)
-                    val remoteTag = release.tagName.removePrefix("v")
+                    val json = JSONObject(text)
+                    val tagName = json.optString("tag_name", "")
+                    val htmlUrl = json.optString("html_url", "")
+                    val name = json.optString("name", "")
+                    val asset = json.optJSONArray("assets")?.optJSONObject(0)
+                    val downloadUrl = asset?.optString("browser_download_url", "") ?: ""
+                    val release = GithubRelease(
+                        tagName = tagName,
+                        htmlUrl = htmlUrl,
+                        name = name,
+                        downloadUrl = downloadUrl
+                    )
+                    val remoteTag = tagName.removePrefix("v")
                     val localTag = currentVersion.removePrefix("v")
                     if (remoteTag != localTag && remoteTag.isNotEmpty()) {
                         UpdateState.Found(release)
@@ -271,9 +276,9 @@ fun AboutPage(
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Button(
                                     onClick = {
-                                        val url = state.release.assets?.firstOrNull()
-                                            ?.browserDownloadUrl
-                                            ?: state.release.htmlUrl
+                                        val url = state.release.downloadUrl.ifEmpty {
+                                            state.release.htmlUrl
+                                        }
                                         launchUrl(context, navigator, url)
                                     },
                                     shape = RoundedCornerShape(12.dp),

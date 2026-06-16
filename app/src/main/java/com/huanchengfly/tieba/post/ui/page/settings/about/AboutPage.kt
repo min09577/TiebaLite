@@ -318,7 +318,7 @@ fun AboutPage(
                         is UpdateState.Error -> {
                             Text(
                                 state.message,
-                                color = ExtendedTheme.colors.error,
+                                color = MaterialTheme.colors.error,
                                 fontSize = 13.sp,
                                 textAlign = TextAlign.Center
                             )

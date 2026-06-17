@@ -1,5 +1,8 @@
 package com.huanchengfly.tieba.post.ui.page.settings.about
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -103,7 +106,12 @@ fun DraftPage(
                                     "reply/${draft.threadId}?forumId=${draft.forumId}&forumName=${draft.forumName ?: ""}&postId=${draft.postId}"
                                 )
                             } else {
-                                context.toastShort("草稿信息不完整")
+                                // 旧版草稿无元数据：复制到剪贴板
+                                draft.content?.let { content ->
+                                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                    clipboard.setPrimaryClip(ClipData.newPlainText("draft", content))
+                                    context.toastShort("草稿内容已复制到剪贴板")
+                                } ?: context.toastShort("草稿内容为空")
                             }
                         },
                         onDelete = {

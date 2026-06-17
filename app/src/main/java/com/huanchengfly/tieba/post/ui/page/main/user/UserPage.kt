@@ -255,7 +255,7 @@ fun UserPage(
 
     var draftCount by remember { mutableStateOf(0) }
     LaunchedEffect(Unit) {
-        draftCount = LitePal.count(Draft::class.java)
+        draftCount = try { LitePal.count(Draft::class.java) } catch (_: Exception) { 0 }
     }
 
     val switchToNightDialogState = rememberDialogState()

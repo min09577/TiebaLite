@@ -49,7 +49,12 @@ fun DraftPage(
     navigator: NavHostController,
 ) {
     val context = LocalContext.current
-    var drafts by remember { mutableStateOf(LitePal.order("createTime desc").find(Draft::class.java)) }
+    var drafts by remember {
+        mutableStateOf(
+            try { LitePal.order("createTime desc").find(Draft::class.java) }
+            catch (_: Exception) { emptyList() }
+        )
+    }
 
     MyScaffold(
         topBar = {
@@ -102,9 +107,13 @@ fun DraftPage(
                             }
                         },
                         onDelete = {
-                            LitePal.deleteAll(Draft::class.java, "hash = ?", draft.hash)
-                            drafts = LitePal.order("createTime desc").find(Draft::class.java)
-                            context.toastShort("已删除")
+                            try {
+                                LitePal.deleteAll(Draft::class.java, "hash = ?", draft.hash)
+                                drafts = LitePal.order("createTime desc").find(Draft::class.java)
+                                context.toastShort("已删除")
+                            } catch (_: Exception) {
+                                context.toastShort("删除失败")
+                            }
                         }
                     )
                 }

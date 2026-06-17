@@ -31,6 +31,7 @@ object Routes {
     const val BLOCK_SETTINGS = "settings/block"
     const val BLOCK_LIST = "settings/block/list"
     const val ABOUT = "settings/about"
+    const val DRAFT = "settings/drafts"
     const val HABIT = "settings/habit"
     const val MORE_SETTINGS = "settings/more"
     const val APP_THEME = "settings/theme"

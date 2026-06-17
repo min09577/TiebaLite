@@ -265,7 +265,16 @@ internal fun ReplyPageContent(
                 Log.i("ReplyPage", "collect: $it")
                 if (!replySuccess) {
                     thread {
-                        Draft(hash, it).saveOrUpdate("hash = ?", hash)
+                        val preview = it.take(100).replace("\n", " ").trim()
+                        Draft(
+                            hash = hash,
+                            content = it,
+                            threadId = threadId,
+                            forumId = forumId,
+                            forumName = forumName,
+                            postId = postId ?: 0L,
+                            contentPreview = preview,
+                        ).saveOrUpdate("hash = ?", hash)
                     }
                 }
             }

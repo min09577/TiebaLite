@@ -2,7 +2,6 @@ package com.huanchengfly.tieba.post.ui.page.main.user
 
 import android.graphics.Typeface
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -59,6 +58,7 @@ import com.huanchengfly.tieba.post.arch.collectPartialAsState
 import com.huanchengfly.tieba.post.arch.pageViewModel
 import com.huanchengfly.tieba.post.models.database.Account
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
+import com.huanchengfly.tieba.post.ui.page.Routes
 import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
 import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.widgets.compose.Avatar
@@ -388,7 +388,7 @@ fun UserPage(
                     ListMenuItem(
                         icon = ImageVector.vectorResource(id = R.drawable.ic_today),
                         text = "${stringResource(id = R.string.title_my_drafts)} ($draftCount)",
-                        onClick = { Toast.makeText(context, "$draftCount 条草稿已自动保存", Toast.LENGTH_SHORT).show() },
+                        onClick = { navigator.navigate(Routes.DRAFT) },
                     ) {
                         Text(
                             text = "回帖内容已自动保存",

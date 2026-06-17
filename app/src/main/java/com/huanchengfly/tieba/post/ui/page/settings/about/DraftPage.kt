@@ -89,7 +89,7 @@ fun DraftPage(
                     .fillMaxSize()
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
-                items(drafts, key = { it.hash ?: it.id }) { draft ->
+                items(drafts, key = { it.hash ?: it.hashCode().toString() }) { draft ->
                     DraftItem(
                         draft = draft,
                         onClick = {
@@ -134,9 +134,10 @@ private fun DraftItem(
                 .padding(16.dp)
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                if (!draft.forumName.isNullOrEmpty()) {
+                val forumNameValue = draft.forumName
+                if (!forumNameValue.isNullOrEmpty()) {
                     Text(
-                        draft.forumName,
+                        forumNameValue,
                         fontWeight = FontWeight.Medium,
                         fontSize = 14.sp,
                         color = ExtendedTheme.colors.accent

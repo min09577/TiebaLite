@@ -572,11 +572,22 @@ class MainActivityV2 : BaseComposeActivity() {
                             // === 有 deeplink 的页面 ===
                             composable(
                                 route = Routes.THREAD,
-                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType }),
+                                arguments = listOf(
+                                    navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
+                                    navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument("scrollToReply") { type = NavType.BoolType; defaultValue = false },
+                                ),
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://thread/{threadId}" })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                ThreadPage(navigator = navController, threadId = threadId)
+                                val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
+                                val scrollToReply = backStackEntry.arguments?.getBoolean("scrollToReply") ?: false
+                                ThreadPage(
+                                    navigator = navController,
+                                    threadId = threadId,
+                                    postId = postId,
+                                    scrollToReply = scrollToReply,
+                                )
                             }
 
                             composable(

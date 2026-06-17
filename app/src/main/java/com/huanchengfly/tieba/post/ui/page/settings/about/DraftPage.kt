@@ -105,7 +105,12 @@ fun DraftPage(
                         onClick = {
                             val hasMeta = draft.forumId > 0 && draft.threadId > 0
                             if (hasMeta) {
-                                navigator.navigate("thread/${draft.threadId}")
+                                val navigate = if (draft.postId > 0) {
+                                    "thread/${draft.threadId}?postId=${draft.postId}&scrollToReply=true"
+                                } else {
+                                    "thread/${draft.threadId}"
+                                }
+                                navigator.navigate(navigate)
                             } else {
                                 // 旧版草稿无元数据：复制到剪贴板
                                 val dbg = "fId=${draft.forumId} tId=${draft.threadId} pId=${draft.postId}"

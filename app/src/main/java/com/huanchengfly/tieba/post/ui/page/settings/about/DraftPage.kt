@@ -105,13 +105,11 @@ fun DraftPage(
                         onClick = {
                             val hasMeta = draft.forumId > 0 && draft.threadId > 0
                             if (hasMeta) {
-                                navigator.navigate(
-                                    "reply/${draft.threadId}?forumId=${draft.forumId}&forumName=${draft.forumName ?: ""}&postId=${draft.postId}"
-                                )
+                                navigator.navigate("thread/${draft.threadId}")
                             } else {
-                                // Debug: 显示草稿字段值帮助排查
+                                // 旧版草稿无元数据：复制到剪贴板
                                 val dbg = "fId=${draft.forumId} tId=${draft.threadId} pId=${draft.postId}"
-                                context.toastShort("草稿不含帖子上下文($dbg)，内容已复制")
+                                context.toastShort("旧草稿不含帖子上下文($dbg)，内容已复制")
                                 draft.content?.let { content ->
                                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     clipboard.setPrimaryClip(ClipData.newPlainText("draft", content))

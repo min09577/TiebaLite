@@ -143,8 +143,6 @@
 </p>
 
 > 提交时请携带**应用日志**（关于页 → 查看日志 → 复制），越详细修复越快。
->
-> 交流群 Telegram: [@tblite_discuss](https://t.me/tblite_discuss)
 
 
 

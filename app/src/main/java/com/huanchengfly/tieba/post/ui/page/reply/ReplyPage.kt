@@ -90,6 +90,7 @@ import com.huanchengfly.tieba.post.arch.onEvent
 import com.huanchengfly.tieba.post.arch.onGlobalEvent
 import com.huanchengfly.tieba.post.arch.pageViewModel
 import com.huanchengfly.tieba.post.models.database.Draft
+import com.huanchengfly.tieba.post.utils.AppLog
 import com.huanchengfly.tieba.post.pxToDpFloat
 import com.huanchengfly.tieba.post.toMD5
 import com.huanchengfly.tieba.post.toastShort
@@ -266,6 +267,7 @@ internal fun ReplyPageContent(
                 if (!replySuccess) {
                     thread {
                         val preview = it.take(100).replace("\n", " ").trim()
+                        AppLog.d("Reply", "saving draft: fId=$forumId tId=$threadId pId=${postId ?: 0}")
                         Draft(
                             hash = hash,
                             content = it,

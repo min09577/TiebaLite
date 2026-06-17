@@ -1,5 +1,6 @@
 package com.huanchengfly.tieba.post.ui.page.settings.about
 
+import com.huanchengfly.tieba.post.ui.page.Routes
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -405,6 +406,15 @@ fun AboutPage(
                 }
             }
 
+
+            TextButton(
+                onClick = { navigator.navigate(Routes.LOG) },
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+                shape = RoundedCornerShape(12.dp),
+            ) {
+                Text("查看日志", color = ExtendedTheme.colors.textSecondary, fontSize = 13.sp)
+            }
+            Spacer(modifier = Modifier.height(8.dp))
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(

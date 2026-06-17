@@ -102,6 +102,7 @@ import com.huanchengfly.tieba.post.ui.page.search.SearchPage
 import com.huanchengfly.tieba.post.ui.page.settings.SettingsPage
 import com.huanchengfly.tieba.post.ui.page.settings.about.AboutPage
 import com.huanchengfly.tieba.post.ui.page.settings.about.DraftPage
+import com.huanchengfly.tieba.post.ui.page.settings.about.LogPage
 import com.huanchengfly.tieba.post.ui.page.settings.account.AccountManagePage
 import com.huanchengfly.tieba.post.ui.page.settings.block.BlockSettingsPage
 import com.huanchengfly.tieba.post.ui.page.settings.block.blocklist.BlockListPage
@@ -715,6 +716,7 @@ class MainActivityV2 : BaseComposeActivity() {
                             composable(Routes.BLOCK_SETTINGS) { BlockSettingsPage(navigator = navController) }
                             composable(Routes.BLOCK_LIST) { BlockListPage(navigator = navController) }
                             composable(Routes.ABOUT) { AboutPage(navigator = navController) }
+                            composable(Routes.LOG) { LogPage(navigator = navController) }
                             composable(Routes.DRAFT) { DraftPage(navigator = navController) }
                             composable(Routes.HABIT) { HabitSettingsPage(navigator = navController) }
                             composable(Routes.MORE_SETTINGS) { MoreSettingsPage(navigator = navController) }

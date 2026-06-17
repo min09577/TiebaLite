@@ -1,5 +1,7 @@
 package com.huanchengfly.tieba.post.ui.page.settings.about
 
+import com.huanchengfly.tieba.post.utils.AppLog
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context

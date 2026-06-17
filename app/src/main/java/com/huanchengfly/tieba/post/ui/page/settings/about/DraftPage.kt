@@ -101,17 +101,19 @@ fun DraftPage(
                     DraftItem(
                         draft = draft,
                         onClick = {
-                            if (draft.forumId > 0 && draft.threadId > 0) {
+                            val hasMeta = draft.forumId > 0 && draft.threadId > 0
+                            if (hasMeta) {
                                 navigator.navigate(
                                     "reply/${draft.threadId}?forumId=${draft.forumId}&forumName=${draft.forumName ?: ""}&postId=${draft.postId}"
                                 )
                             } else {
-                                // 旧版草稿无元数据：复制到剪贴板
+                                // Debug: 显示草稿字段值帮助排查
+                                val dbg = "fId=${draft.forumId} tId=${draft.threadId} pId=${draft.postId}"
+                                context.toastShort("草稿不含帖子上下文($dbg)，内容已复制")
                                 draft.content?.let { content ->
                                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     clipboard.setPrimaryClip(ClipData.newPlainText("draft", content))
-                                    context.toastShort("草稿内容已复制到剪贴板")
-                                } ?: context.toastShort("草稿内容为空")
+                                }
                             }
                         },
                         onDelete = {

@@ -695,10 +695,19 @@ class MainActivityV2 : BaseComposeActivity() {
 
                             composable(
                                 route = Routes.REPLY,
-                                arguments = listOf(navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType })
+                                arguments = listOf(
+                                    navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
+                                    navArgument(Routes.Args.FORUM_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.FORUM_NAME) { type = NavType.StringType; defaultValue = "" },
+                                    navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                    navArgument(Routes.Args.SUB_POST_ID) { type = NavType.LongType; defaultValue = 0L },
+                                )
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
-                                ReplyPage(threadId = threadId, forumId = 0L, forumName = "", navigator = navController)
+                                val forumId = backStackEntry.arguments?.getLong(Routes.Args.FORUM_ID) ?: 0L
+                                val forumName = backStackEntry.arguments?.getString(Routes.Args.FORUM_NAME) ?: ""
+                                val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
+                                ReplyPage(threadId = threadId, forumId = forumId, forumName = forumName, postId = postId, navigator = navController)
                             }
 
                             // === 设置页 ===

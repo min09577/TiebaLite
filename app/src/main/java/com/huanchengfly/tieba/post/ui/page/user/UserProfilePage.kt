@@ -172,6 +172,7 @@ fun UserProfilePage(
                     showActionBtn = account != null,
                     disableButton = disableButton,
                     isSelf = isSelf,
+                    initialTab = initialTab,
                     onBack = { navigator.popBackStack() },
                     onFollow = {
                         viewModel.send(
@@ -201,6 +202,7 @@ private fun UserProfileContent(
     showActionBtn: Boolean,
     disableButton: Boolean,
     isSelf: Boolean,
+    initialTab: Int = 0,
     onBack: () -> Unit,
     onFollow: () -> Unit,
     onUnfollow: () -> Unit,
@@ -212,6 +214,7 @@ private fun UserProfileContent(
                 showActionBtn = showActionBtn,
                 disableButton = disableButton,
                 isSelf = isSelf,
+                initialTab = initialTab,
                 onBack = onBack,
                 onFollow = onFollow,
                 onUnfollow = onUnfollow
@@ -224,6 +227,7 @@ private fun UserProfileContent(
                 showActionBtn = showActionBtn,
                 disableButton = disableButton,
                 isSelf = isSelf,
+                initialTab = initialTab,
                 onBack = onBack,
                 onFollow = onFollow,
                 onUnfollow = onUnfollow
@@ -315,6 +319,7 @@ private fun UserProfileContentNormal(
     showActionBtn: Boolean,
     disableButton: Boolean,
     isSelf: Boolean,
+    initialTab: Int = 0,
     onBack: () -> Unit,
     onFollow: () -> Unit,
     onUnfollow: () -> Unit,
@@ -540,6 +545,7 @@ private fun UserProfileContentExpanded(
     showActionBtn: Boolean,
     disableButton: Boolean,
     isSelf: Boolean,
+    initialTab: Int = 0,
     onBack: () -> Unit,
     onFollow: () -> Unit,
     onUnfollow: () -> Unit,

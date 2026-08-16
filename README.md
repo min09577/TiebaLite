@@ -49,6 +49,18 @@
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 
+## 🆕 v4.0.0-ai.30 — 长按菜单闪退全清扫
+
+> ### 🔪 路由字面量陷阱收网
+> 此前若干次迭代零散埋下 `navigator.navigate("Routes.XXX/$it")` 的笔误——路由常量名被原样当文本拼进 URL，Compose 解析崩溃闪退。
+> 借由一次长按「复制」报错，全项目 grep 排查，**一次性收齐 5 处同类隐患**：
+> - `SubPostsPage.kt` × 2（楼中楼复制入口）
+> - `ThreadPage.kt` × 2（主楼/楼层复制入口）
+> - `ForumThreadListPage.kt` × 1（吧规入口）
+>
+> 全数改为 `navigator.navigate("copy_dialog/$it")` 等正确形式。
+> 「复制」从此稳稳落地，再无侧漏。
+
 ## 🆕 v4.0.0-ai.29 — 吧内搜索即时穿透
 
 > ### 🔎 侧漏修复：变量字面量陷阱
@@ -250,6 +262,7 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.22 | 2026-06-17 | **📦 Release 通道修正** — 程序内升级下载正式版 APK 而非 Debug 调试包 |
 | v4.0.0-ai.24 | 2026-06-17 | **📝 草稿箱完整实现** — Draft 模型扩展 · 列表浏览 · 点击跳转 |
 | v4.0.0-ai.27 | 2026-06-17 | **🎯 草稿定位 + 日志面板** — 点击直达对应楼层 · 关于页实时日志窗口 |
+| v4.0.0-ai.30 | 2026-08-16 | **🔪 路由字面量陷阱收网** — 全项目 grep 排查 5 处 Routes. 笔误 · 长按复制回归 |
 | v4.0.0-ai.29 | 2026-06-18 | 🐛 **吧内搜索闪退修复** — 变量插值补漏 · 一字修，全局稳 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 

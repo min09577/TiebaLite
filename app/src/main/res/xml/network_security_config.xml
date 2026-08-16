@@ -10,5 +10,6 @@
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="false">c.tieba.baidu.com</domain>
         <domain includeSubdomains="true">baidu.com</domain>
+        <domain includeSubdomains="true">bdstatic.com</domain>
     </domain-config>
 </network-security-config>

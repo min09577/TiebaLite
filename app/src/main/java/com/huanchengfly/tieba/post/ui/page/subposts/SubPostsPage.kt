@@ -309,7 +309,7 @@ internal fun SubPostsContent(
                     actions = {
                         if (!isSheet) {
                             IconButton(onClick = {
-                                navigator.navigate("thread/forumId = forumId")
+                                navigator.navigate("thread/$threadId")
                             }) {
                                 Icon(
                                     imageVector = Icons.Rounded.OpenInBrowser,

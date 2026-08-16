@@ -327,8 +327,13 @@ internal class DefaultVideoPlayerController(
                 }
 
                 is VideoPlayerSource.Network -> {
+                    // 贴吧视频链接多为 http 明文，升级为 https 避免被网络安全策略拦截
+                    val url = source.url.replaceFirst("http://", "https://")
+                    val mediaItem = MediaItem.Builder()
+                        .setUri(url)
+                        .build()
                     ProgressiveMediaSource.Factory(dataSourceFactory)
-                        .createMediaSource(MediaItem.fromUri(source.url))
+                        .createMediaSource(mediaItem)
                 }
             }
         }

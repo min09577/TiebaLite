@@ -654,10 +654,14 @@ class MainActivityV2 : BaseComposeActivity() {
 
                             composable(
                                 route = Routes.USER_PROFILE,
-                                arguments = listOf(navArgument(Routes.Args.UID) { type = NavType.LongType })
+                                arguments = listOf(
+                                    navArgument(Routes.Args.UID) { type = NavType.LongType },
+                                    navArgument("tab") { type = NavType.IntType; defaultValue = 0 },
+                                )
                             ) { backStackEntry ->
                                 val uid = backStackEntry.arguments?.getLong(Routes.Args.UID) ?: 0L
-                                UserProfilePage(uid = uid, navigator = navController)
+                                val tab = backStackEntry.arguments?.getInt("tab") ?: 0
+                                UserProfilePage(uid = uid, navigator = navController, initialTab = tab)
                             }
 
                             // === 帖子子页面 ===

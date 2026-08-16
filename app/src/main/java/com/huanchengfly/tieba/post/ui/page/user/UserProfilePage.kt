@@ -119,6 +119,7 @@ import kotlin.math.min
 fun UserProfilePage(
     uid: Long,
     navigator: NavHostController,
+    initialTab: Int = 0,
     viewModel: UserProfileViewModel = pageViewModel(),
 ) {
     val account = LocalAccount.current
@@ -458,7 +459,7 @@ private fun UserProfileContentNormal(
                             ),
                         ).toImmutableList()
                     }
-                    val pagerState = rememberPagerState { pages.size }
+                    val pagerState = rememberPagerState(initialPage = initialTab) { pages.size }
 
                     val containerHeight by remember {
                         derivedStateOf {
@@ -622,7 +623,7 @@ private fun UserProfileContentExpanded(
                             ),
                         ).toImmutableList()
                     }
-                    val pagerState = rememberPagerState { pages.size }
+                    val pagerState = rememberPagerState(initialPage = initialTab) { pages.size }
 
                     UserProfileDetail(
                         user = user,

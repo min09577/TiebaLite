@@ -19,7 +19,7 @@ object Routes {
     const val FORUM_DETAIL = "forum_detail/{forumId}?forumName={forumName}"
     const val FORUM_RULE = "forum_rule/{forumId}"
     const val FORUM_SEARCH_POST = "forum_search_post/{forumName}/{forumId}"
-    const val USER_PROFILE = "user/{uid}"
+    const val USER_PROFILE = "user/{uid}?tab={tab}"
 
     // 帖子子页面
     const val SUB_POSTS = "subposts/{threadId}?forumId={forumId}&postId={postId}&subPostId={subPostId}&anchor={anchor}"

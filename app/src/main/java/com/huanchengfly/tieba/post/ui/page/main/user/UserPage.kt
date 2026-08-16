@@ -352,7 +352,7 @@ fun UserPage(
                             .background(color = ExtendedTheme.colors.chip)
                             .padding(vertical = 18.dp),
                         onClickPosts = {
-                            navigator.navigate("user/${account!!.id.toLong()}")
+                            navigator.navigate("user/${account!!.uid.toLong()}?tab=1")
                         }
                     )
                 } else if (isLoading) {

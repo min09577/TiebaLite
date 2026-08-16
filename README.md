@@ -7,15 +7,22 @@
     <a href="https://github.com/min09577/TiebaLite/actions/workflows/build.yml">
         <img alt="Build Status" src="https://github.com/min09577/TiebaLite/actions/workflows/build.yml/badge.svg?branch=4.0-dev">
     </a>
-    <a href="https://t.me/tblite_discuss">
-        <img alt="Telegram" src="https://img.shields.io/badge/-Telegram-blue?logo=telegram&style=flat">
-    </a>
     <a href="https://github.com/min09577/TiebaLite/blob/4.0-dev/LICENSE">
         <img alt="License" src="https://img.shields.io/badge/License-GPL%203.0-green.svg">
     </a>
     <img alt="API" src="https://img.shields.io/badge/API-21%2B-brightgreen">
     <img alt="Android" src="https://img.shields.io/badge/Android-16%20ready-blue">
 </p>
+
+> ### 👤 维护者近况 / Maintainer's Corner
+> 当你发现本仓库没有更新版本或修复 Bug 时，维护者大概率正在 **旅行、跑外卖、打游戏、写小说**，
+> 或是在 **美 / 韩 / 日 股市与外汇市场** 间辗转腾挪，亦或是在领取失业金——生活的剧本从不单一。
+>
+> 但请放心：**每一枚被提交的 Bug，都会被逐一排查、逐一修复。**
+>
+> - 📱 **测试设备**：三星 Galaxy S 系列旗舰 + Z Fold 系列（港版系统）
+> - 🚀 **规划中**：后续有望纳入 OPPO / vivo / 小米 真机覆盖
+> - 🐉 **鸿蒙现状**：暂未持有鸿蒙真机，鸿蒙端 Bug 短期内较难定位修复；如有鸿蒙设备的朋友，欢迎自行下载源码尝试修复
 
 ---
 
@@ -307,11 +314,11 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.22 | 2026-06-17 | **📦 Release 通道修正** — 程序内升级下载正式版 APK 而非 Debug 调试包 |
 | v4.0.0-ai.24 | 2026-06-17 | **📝 草稿箱完整实现** — Draft 模型扩展 · 列表浏览 · 点击跳转 |
 | v4.0.0-ai.27 | 2026-06-17 | **🎯 草稿定位 + 日志面板** — 点击直达对应楼层 · 关于页实时日志窗口 |
-| v4.0.0-ai.31 | 2026-08-16 | **🎬 视频播放修复** — bdstatic 白名单 + 播放器 http→https 双保险 |
-| v4.0.0-ai.33 | 2026-08-16 | **🔄 排序兜底贯通** — ThreadPage 10 处 forumId → curForumId · 倒序回归 |
-| v4.0.0-ai.32 | 2026-08-16 | **🎯 通知定位归位** — 「回复我的」改跳原帖 · 自动滚到对应楼层 |
+| v4.0.0-ai.29 | 2026-08-16 | 🐛 **吧内搜索闪退修复** — 变量插值补漏 · 一字修，全局稳 |
 | v4.0.0-ai.30 | 2026-08-16 | **🔪 路由字面量陷阱收网** — 全项目 grep 排查 5 处 Routes. 笔误 · 长按复制回归 |
-| v4.0.0-ai.29 | 2026-06-18 | 🐛 **吧内搜索闪退修复** — 变量插值补漏 · 一字修，全局稳 |
+| v4.0.0-ai.31 | 2026-08-16 | **🎬 视频播放修复** — bdstatic 白名单 + 播放器 http→https 双保险 |
+| v4.0.0-ai.32 | 2026-08-16 | **🎯 通知定位归位** — 「回复我的」改跳原帖 · 自动滚到对应楼层 |
+| v4.0.0-ai.33 | 2026-08-16 | **🔄 排序兜底贯通** — ThreadPage 10 处 forumId → curForumId · 倒序回归 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---

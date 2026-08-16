@@ -102,7 +102,8 @@ private fun StatCardPlaceholder(modifier: Modifier = Modifier) {
 @Composable
 private fun StatCard(
     account: Account,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickPosts: () -> Unit = {}
 ) {
     val postNum by animateIntAsState(targetValue = account.postNum?.toIntOrNull() ?: 0)
     val fansNum by animateIntAsState(targetValue = account.fansNum?.toIntOrNull() ?: 0)
@@ -123,7 +124,8 @@ private fun StatCard(
         HorizontalDivider(color = Color(if (ExtendedTheme.colors.isNightMode) 0xFF808080 else 0xFFDEDEDE))
         StatCardItem(
             statNum = postNum,
-            statText = stringResource(id = R.string.title_stat_posts_num)
+            statText = stringResource(id = R.string.title_stat_posts_num),
+            onClick = onClickPosts
         )
     }
 }
@@ -180,10 +182,13 @@ private fun InfoCard(
 @Composable
 private fun RowScope.StatCardItem(
     statNum: Int,
-    statText: String
+    statText: String,
+    onClick: (() -> Unit)? = null
 ) {
     Column(
-        modifier = Modifier.weight(1f),
+        modifier = Modifier
+            .weight(1f)
+            .let { if (onClick != null) it.clickable { onClick() } else it },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -345,7 +350,10 @@ fun UserPage(
                             .padding(16.dp)
                             .clip(RoundedCornerShape(8.dp))
                             .background(color = ExtendedTheme.colors.chip)
-                            .padding(vertical = 18.dp)
+                            .padding(vertical = 18.dp),
+                        onClickPosts = {
+                            navigator.navigate("user/${account!!.id.toLong()}")
+                        }
                     )
                 } else if (isLoading) {
                     InfoCard(

@@ -227,11 +227,8 @@ fun UserPostPage(
                         if (postId == null) {
                             navigator.navigate("thread/$threadId")
                         } else {
-                            if (isSubPost) {
-                                navigator.navigate("subposts/0")
-                            } else {
-                                navigator.navigate("thread/threadId")
-                            }
+                            // 楼层定位跳转：与点击主题贴效果一致，直达对应楼层
+                            navigator.navigate("thread/$threadId?postId=$postId&scrollToReply=true")
                         }
                     },
                     onAgreeItem = {

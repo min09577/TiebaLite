@@ -838,7 +838,7 @@ fun ThreadPage(
                         threadId,
                         page = 0,
                         postId = extra.maxPid,
-                        forumId = forumId,
+                        forumId = curForumId,
                         seeLz = seeLz,
                         sortType = sortType
                     )
@@ -887,7 +887,7 @@ fun ThreadPage(
             viewModel.send(
                 ThreadUiIntent.LoadFirstPage(
                     threadId,
-                    forumId,
+                    curForumId,
                     isSeeLz,
                     curSortType
                 )
@@ -1049,7 +1049,7 @@ fun ThreadPage(
                         threadId,
                         page = 0,
                         postId = postId,
-                        forumId = forumId,
+                        forumId = curForumId,
                         seeLz = seeLz,
                         sortType = sortType
                     )
@@ -1120,7 +1120,7 @@ fun ThreadPage(
                                 viewModel.send(
                                     ThreadUiIntent.LoadFirstPage(
                                         threadId,
-                                        forumId,
+                                        curForumId,
                                         !isSeeLz,
                                         curSortType
                                     )
@@ -1159,7 +1159,7 @@ fun ThreadPage(
                                     viewModel.send(
                                         ThreadUiIntent.LoadFirstPage(
                                             threadId,
-                                            forumId,
+                                            curForumId,
                                             true,
                                             curSortType
                                         )
@@ -1172,7 +1172,7 @@ fun ThreadPage(
                                 viewModel.send(
                                     ThreadUiIntent.LoadFirstPage(
                                         threadId,
-                                        forumId,
+                                        curForumId,
                                         isSeeLz,
                                         if (curSortType != ThreadSortType.SORT_TYPE_DESC) ThreadSortType.SORT_TYPE_DESC else ThreadSortType.SORT_TYPE_DEFAULT
                                     )
@@ -1237,7 +1237,7 @@ fun ThreadPage(
                                             threadId = threadId,
                                             page = if (curSortType == ThreadSortType.SORT_TYPE_DESC) totalPage - currentPageMax
                                             else currentPageMax + 1,
-                                            forumId = forumId,
+                                            forumId = curForumId,
                                             postId = nextPagePostId,
                                             seeLz = isSeeLz,
                                             sortType = curSortType,
@@ -1372,7 +1372,7 @@ fun ThreadPage(
                                                                 viewModel.send(
                                                                     ThreadUiIntent.LoadFirstPage(
                                                                         threadId = threadId,
-                                                                        forumId = forumId,
+                                                                        forumId = curForumId,
                                                                         seeLz = false,
                                                                         sortType = curSortType
                                                                     )
@@ -1397,7 +1397,7 @@ fun ThreadPage(
                                                                 viewModel.send(
                                                                     ThreadUiIntent.LoadFirstPage(
                                                                         threadId = threadId,
-                                                                        forumId = forumId,
+                                                                        forumId = curForumId,
                                                                         seeLz = true,
                                                                         sortType = curSortType
                                                                     )
@@ -1426,7 +1426,7 @@ fun ThreadPage(
                                                             ThreadUiIntent.LoadPrevious(
                                                                 threadId,
                                                                 max(currentPageMax - 1, 1),
-                                                                forumId,
+                                                                curForumId,
                                                                 postId = data
                                                                     .first()
                                                                     .post

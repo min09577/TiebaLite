@@ -69,7 +69,7 @@
 > - **网络配置层**：`network_security_config.xml` 加入 `bdstatic.com`，明文白名单扩域
 > - **播放器层**：`DefaultVideoPlayerController` 对网络视频源执行 http → https 自动升级
 >
-> 无论 http 还是 https 直链，皆能稳稳播放。Intel、小米、三星等设备的视频体验一并回归。
+> 无论 http 还是 https 直链，皆能稳稳播放。小米、红米、三星等主流设备的视频体验一并回归。
 
 ## 🆕 v4.0.0-ai.30 — 长按菜单闪退全清扫
 

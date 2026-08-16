@@ -49,6 +49,28 @@
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 
+## 🆕 v4.0.0-ai.32 — 消息回复定位归位
+
+> ### 🎯 通知直达原帖上下文
+> 「回复我的」点击通知后，原本尝试直跳楼中楼（SubPostsPage），但通知数据无 `forumId` 字段，
+> SubPostsPage API 调取失败 → 空白页。
+>
+> 修复方案：**改为跳转到原帖并自动滚动到对应楼层**。`thread/{threadId}?postId={postId}&scrollToReply=true`
+> 三参数齐备，复用 ai.27 已建好的定位能力，一击即中。
+>
+> 用户体验：通知点击 → 原帖 → 自动定位到被回复楼层 → 上下文一目了然，告别空白。
+
+## 🆕 v4.0.0-ai.31 — 视频播放链路重构
+
+> ### 🎬 双保险打通视频黑盒
+> 贴吧视频链接多为 http 明文，CDN 域名 `bdstatic.com` 未在网络安全白名单，系统层静默拦截 → 视频一片漆黑。
+>
+> **双保险修复：**
+> - **网络配置层**：`network_security_config.xml` 加入 `bdstatic.com`，明文白名单扩域
+> - **播放器层**：`DefaultVideoPlayerController` 对网络视频源执行 http → https 自动升级
+>
+> 无论 http 还是 https 直链，皆能稳稳播放。Intel、小米、三星等设备的视频体验一并回归。
+
 ## 🆕 v4.0.0-ai.30 — 长按菜单闪退全清扫
 
 > ### 🔪 路由字面量陷阱收网
@@ -262,6 +284,8 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.22 | 2026-06-17 | **📦 Release 通道修正** — 程序内升级下载正式版 APK 而非 Debug 调试包 |
 | v4.0.0-ai.24 | 2026-06-17 | **📝 草稿箱完整实现** — Draft 模型扩展 · 列表浏览 · 点击跳转 |
 | v4.0.0-ai.27 | 2026-06-17 | **🎯 草稿定位 + 日志面板** — 点击直达对应楼层 · 关于页实时日志窗口 |
+| v4.0.0-ai.31 | 2026-08-16 | **🎬 视频播放修复** — bdstatic 白名单 + 播放器 http→https 双保险 |
+| v4.0.0-ai.32 | 2026-08-16 | **🎯 通知定位归位** — 「回复我的」改跳原帖 · 自动滚到对应楼层 |
 | v4.0.0-ai.30 | 2026-08-16 | **🔪 路由字面量陷阱收网** — 全项目 grep 排查 5 处 Routes. 笔误 · 长按复制回归 |
 | v4.0.0-ai.29 | 2026-06-18 | 🐛 **吧内搜索闪退修复** — 变量插值补漏 · 一字修，全局稳 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |

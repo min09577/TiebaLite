@@ -119,7 +119,7 @@ fun NotificationsListPage(
                                 modifier = Modifier
                                     .clickable {
                                         if (info.isFloor == "1") {
-                                            navigator.navigate("subposts/${info.threadId!!.toLong()}?subPostId=${info.postId!!.toLong()}")
+                                            navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.postId!!.toLong()}&scrollToReply=true")
                                         } else {
                                             navigator.navigate("thread/${info.threadId!!.toLong()}")
                                         }
@@ -176,7 +176,7 @@ fun NotificationsListPage(
                                             .clip(RoundedCornerShape(6.dp))
                                             .clickable {
                                                 if ("1" == info.isFloor && info.quotePid != null) {
-                                                    navigator.navigate("subposts/${info.threadId!!.toLong()}?postId=${info.quotePid.toLong()}")
+                                                    navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.quotePid.toLong()}&scrollToReply=true")
                                                 } else {
                                                     navigator.navigate("thread/${info.threadId!!.toLong()}")
                                                 }

@@ -402,7 +402,7 @@ fun ForumThreadListPage(
                     },
                     forumRuleTitle = forumRuleTitle,
                     onOpenForumRule = {
-                        navigator.navigate("Routes.FORUM_RULE/$forumId")
+                        navigator.navigate("forum_rule/$forumId")
                     },
                     onOriginThreadClicked = {
                         navigator.navigate("thread/${it.tid.toLong()}")

@@ -436,7 +436,7 @@ internal fun SubPostsContent(
                                         )
                                     },
                                     onMenuCopyClick = {
-                                        navigator.navigate("Routes.COPY_DIALOG/$it")
+                                        navigator.navigate("copy_dialog/$it")
                                     },
                                 ) {
                                     deleteSubPost = null
@@ -501,7 +501,7 @@ internal fun SubPostsContent(
                                 )
                             },
                             onMenuCopyClick = {
-                                navigator.navigate("Routes.COPY_DIALOG/$it")
+                                navigator.navigate("copy_dialog/$it")
 //                                TiebaUtil.copyText(context, it)
                             },
                             onMenuDeleteClick = {

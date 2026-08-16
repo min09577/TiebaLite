@@ -937,7 +937,7 @@ fun ThreadPage(
                 }
             },
             onMenuCopyClick = {
-                navigator.navigate("Routes.COPY_DIALOG/$it")
+                navigator.navigate("copy_dialog/$it")
             },
             onMenuFavoriteClick = {
                 val isPostCollected =
@@ -1294,7 +1294,7 @@ fun ThreadPage(
                                                         navigator.navigate("reply/$threadId?forumId=${curForumId ?: 0}&forumName=${forum?.get { name }.orEmpty()}")
                                                     },
                                                     onMenuCopyClick = {
-                                                        navigator.navigate("Routes.COPY_DIALOG/$it")
+                                                        navigator.navigate("copy_dialog/$it")
                                                     },
                                                     onMenuFavoriteClick = {
                                                         viewModel.send(

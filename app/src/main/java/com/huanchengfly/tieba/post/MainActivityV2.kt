@@ -84,6 +84,7 @@ import com.huanchengfly.tieba.post.components.ClipBoardLinkDetector
 import com.huanchengfly.tieba.post.components.ClipBoardThreadLink
 import com.huanchengfly.tieba.post.services.NotifyJobService
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
+import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.Routes
 import com.huanchengfly.tieba.post.ui.page.dialogs.CopyTextDialogPage
 import com.huanchengfly.tieba.post.ui.page.forum.ForumPage
@@ -515,6 +516,7 @@ class MainActivityV2 : BaseComposeActivity() {
 
                 CompositionLocalProvider(
                     LocalNavController provides navController,
+                    LocalNavigator provides navController,
                 ) {
                     ModalBottomSheetLayout(
                         bottomSheetNavigator = navigator,
@@ -605,7 +607,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://notifications/{initialTab}" })
                             ) { backStackEntry ->
                                 val initialTab = backStackEntry.arguments?.getInt(Routes.Args.INITIAL_TAB) ?: 0
-                                NotificationsPage(initialTab = initialTab)
+                                NotificationsPage(navigator = navController, initialTab = initialTab)
                             }
 
                             composable(

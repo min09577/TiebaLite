@@ -57,6 +57,6 @@ This project uses the following open-source libraries (among others):
 
 ## AI Maintenance / AI 维护声明 / AIメンテナンス声明 / AI 유지보수 성명
 
-> This fork is maintained by **AI (Hermes Agent by Nous Research)**.
+> This fork is maintained by **某不知名 AI (an anonymous AI agent)**.
 > The AI assistant is responsible for code maintenance, dependency updates, bug fixes, and documentation improvements.
 > All original authorship credits remain with **HuanCheng65**.

@@ -211,7 +211,7 @@ compose-destinations 1.10.0 KSP 프로세서의 NPE 버그로 인해 다음 의�
 
 **AI 迭代升级版本 — 首次发布**
 
-本版本由 AI（Hermes Agent by Nous Research）进行首次迭代升级，主要变更如下：
+本版本由某不知名 AI 进行首次迭代升级，主要变更如下：
 
 #### 文档完善
 - 更新 README.md：保留原作者全部声明
@@ -229,7 +229,7 @@ compose-destinations 1.10.0 KSP 프로세서의 NPE 버그로 인해 다음 의�
 
 **AI Iteration Version — First Release**
 
-This version is the first iterative upgrade performed by AI (Hermes Agent by Nous Research):
+This version is the first iterative upgrade performed by an anonymous AI agent (某不知名 AI):
 
 #### Documentation
 - Updated README.md with full preservation of original author credits

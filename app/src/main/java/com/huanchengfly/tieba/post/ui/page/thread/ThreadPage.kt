@@ -480,6 +480,17 @@ fun ThreadPage(
     scrollToReply: Boolean = false,
     viewModel: ThreadViewModel = pageViewModel(),
 ) {
+    val appPreferences = LocalContext.current.appPreferences
+    val effectiveSeeLz =
+        if (from == ThreadPageFrom.FROM_STORE) appPreferences.collectThreadSeeLz else seeLz
+    val effectiveSortType =
+        if (from == ThreadPageFrom.FROM_STORE) {
+            if (appPreferences.collectThreadDescSort) {
+                ThreadSortType.SORT_TYPE_DESC
+            } else {
+                ThreadSortType.SORT_TYPE_DEFAULT
+            }
+        } else sortType
     LazyLoad(loaded = viewModel.initialized) {
         viewModel.send(
             ThreadUiIntent.Init(
@@ -487,8 +498,8 @@ fun ThreadPage(
                 forumId,
                 postId,
                 threadInfo,
-                seeLz,
-                sortType
+                effectiveSeeLz,
+                effectiveSortType
             )
         )
         viewModel.send(
@@ -497,8 +508,8 @@ fun ThreadPage(
                 page = 0,
                 postId = postId,
                 forumId = forumId,
-                seeLz = seeLz,
-                sortType = sortType,
+                seeLz = effectiveSeeLz,
+                sortType = effectiveSortType,
                 from = from
             )
         )
@@ -575,11 +586,11 @@ fun ThreadPage(
     )
     val isSeeLz by viewModel.uiState.collectPartialAsState(
         prop1 = ThreadUiState::seeLz,
-        initial = seeLz
+        initial = effectiveSeeLz
     )
     val curSortType by viewModel.uiState.collectPartialAsState(
         prop1 = ThreadUiState::sortType,
-        initial = sortType
+        initial = effectiveSortType
     )
     val isImmersiveMode by viewModel.uiState.collectPartialAsState(
         prop1 = ThreadUiState::isImmersiveMode,
@@ -807,7 +818,8 @@ fun ThreadPage(
                     forumId = forum?.get { id } ?: forumId,
                     page = it.toInt(),
                     seeLz = isSeeLz,
-                    sortType = curSortType
+                    sortType = curSortType,
+                    from = from
                 )
             )
         },
@@ -839,8 +851,9 @@ fun ThreadPage(
                         page = 0,
                         postId = extra.maxPid,
                         forumId = curForumId,
-                        seeLz = seeLz,
-                        sortType = sortType
+                        seeLz = isSeeLz,
+                        sortType = curSortType,
+                        from = from
                     )
                 )
             }
@@ -1050,8 +1063,9 @@ fun ThreadPage(
                         page = 0,
                         postId = postId,
                         forumId = curForumId,
-                        seeLz = seeLz,
-                        sortType = sortType
+                        seeLz = isSeeLz,
+                        sortType = curSortType,
+                        from = from
                     )
                 )
             }

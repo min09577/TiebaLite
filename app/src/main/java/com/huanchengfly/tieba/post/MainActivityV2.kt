@@ -84,6 +84,7 @@ import com.huanchengfly.tieba.post.components.ClipBoardLinkDetector
 import com.huanchengfly.tieba.post.components.ClipBoardThreadLink
 import com.huanchengfly.tieba.post.services.NotifyJobService
 import com.huanchengfly.tieba.post.ui.common.theme.compose.ExtendedTheme
+import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.page.Routes
 import com.huanchengfly.tieba.post.ui.page.dialogs.CopyTextDialogPage
 import com.huanchengfly.tieba.post.ui.page.forum.ForumPage
@@ -515,6 +516,7 @@ class MainActivityV2 : BaseComposeActivity() {
 
                 CompositionLocalProvider(
                     LocalNavController provides navController,
+                    LocalNavigator provides navController,
                 ) {
                     ModalBottomSheetLayout(
                         bottomSheetNavigator = navigator,
@@ -576,16 +578,19 @@ class MainActivityV2 : BaseComposeActivity() {
                                     navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
                                     navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
                                     navArgument("scrollToReply") { type = NavType.BoolType; defaultValue = false },
+                                    navArgument(Routes.Args.FROM) { type = NavType.StringType; defaultValue = "" },
                                 ),
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://thread/{threadId}" })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
                                 val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
                                 val scrollToReply = backStackEntry.arguments?.getBoolean("scrollToReply") ?: false
+                                val from = backStackEntry.arguments?.getString(Routes.Args.FROM) ?: ""
                                 ThreadPage(
                                     navigator = navController,
                                     threadId = threadId,
                                     postId = postId,
+                                    from = from,
                                     scrollToReply = scrollToReply,
                                 )
                             }
@@ -605,7 +610,7 @@ class MainActivityV2 : BaseComposeActivity() {
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://notifications/{initialTab}" })
                             ) { backStackEntry ->
                                 val initialTab = backStackEntry.arguments?.getInt(Routes.Args.INITIAL_TAB) ?: 0
-                                NotificationsPage(initialTab = initialTab)
+                                NotificationsPage(navigator = navController, initialTab = initialTab)
                             }
 
                             composable(

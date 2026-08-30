@@ -818,7 +818,8 @@ fun ThreadPage(
                     forumId = forum?.get { id } ?: forumId,
                     page = it.toInt(),
                     seeLz = isSeeLz,
-                    sortType = curSortType
+                    sortType = curSortType,
+                    from = from
                 )
             )
         },
@@ -851,7 +852,8 @@ fun ThreadPage(
                         postId = extra.maxPid,
                         forumId = curForumId,
                         seeLz = isSeeLz,
-                        sortType = curSortType
+                        sortType = curSortType,
+                        from = from
                     )
                 )
             }
@@ -1062,7 +1064,8 @@ fun ThreadPage(
                         postId = postId,
                         forumId = curForumId,
                         seeLz = isSeeLz,
-                        sortType = curSortType
+                        sortType = curSortType,
+                        from = from
                     )
                 )
             }

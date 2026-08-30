@@ -850,8 +850,8 @@ fun ThreadPage(
                         page = 0,
                         postId = extra.maxPid,
                         forumId = curForumId,
-                        seeLz = seeLz,
-                        sortType = sortType
+                        seeLz = isSeeLz,
+                        sortType = curSortType
                     )
                 )
             }
@@ -1061,8 +1061,8 @@ fun ThreadPage(
                         page = 0,
                         postId = postId,
                         forumId = curForumId,
-                        seeLz = seeLz,
-                        sortType = sortType
+                        seeLz = isSeeLz,
+                        sortType = curSortType
                     )
                 )
             }

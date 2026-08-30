@@ -60,6 +60,23 @@
 
 > **⚠️ 声明：** 本软件及源码仅供学习交流使用，严禁用于商业用途。与百度公司无关。
 
+## 🆕 v4.0.0-ai.38 — 启动稳定性重构 + 收藏偏好贯通
+
+> ### 🚀 冷启动闪退根治（社区贡献合入 · 致谢 @wufeng5702）
+> 红米 K50 / Note 11T Pro / Nothing Phone 2 等机型「点开即闪退」的顽疾尘埃落定：
+> 根因为 `LocalNavigator` 未在顶层组合作用域提供，导航上下文在部分启动路径下悬空。
+> 现于 `MainActivityV2` 顶层 `CompositionLocalProvider` 全局注入，
+> `NotificationsPage` 显式传参、`HotPage` 消除参数遮蔽，二十余处读取点全部兜底（#6 / #9 / #17）。
+>
+> ### 🧬 Java 21 API 前向兼容
+> `removeFirst()` / `removeLast()` 统一替换为 `removeAt()` 等价写法，
+> 规避高版本 JDK 编译产物在旧版 Android 运行时触发 `NoSuchMethodError` 的隐患。
+>
+> ### 🎛️ 收藏页浏览偏好全链路生效
+> 「从收藏进入默认只看楼主 / 默认倒序浏览」两个开关此前仅有定义、未参与初始化。
+> 现打通 `from=FROM_STORE` 路由传递链（Routes → MainActivity → 收藏页跳转），
+> 进帖即应用偏好；刷新 / 重试 / 续读全程携带收藏上下文不回退，手动切换依旧即时生效（#3）。
+
 ## 🆕 v4.0.0-ai.37 — 回帖直达自己主页
 
 > ### 🎯 个人中心回帖入口精准归位
@@ -365,6 +382,7 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.35 | 2026-08-16 | **🎯 回帖点击回归** — 个人中心入口启用 + 二级菜单回帖点击统一跳转 |
 | v4.0.0-ai.36 | 2026-08-16 | **🎯 回帖直达自己主页** — account.uid 修正 + user/{uid}?tab=1 定位 |
 | v4.0.0-ai.37 | 2026-08-16 | 🛠️ **编译修复** — initialTab 三级函数参数链补齐 |
+| v4.0.0-ai.38 | 2026-08-30 | 🚀 **启动稳定性重构** — LocalNavigator 顶层注入根治冷启动闪退 · 收藏偏好贯通 · 合入社区贡献 #15 |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---

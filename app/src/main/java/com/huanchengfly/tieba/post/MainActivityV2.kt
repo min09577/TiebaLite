@@ -578,16 +578,19 @@ class MainActivityV2 : BaseComposeActivity() {
                                     navArgument(Routes.Args.THREAD_ID) { type = NavType.LongType },
                                     navArgument(Routes.Args.POST_ID) { type = NavType.LongType; defaultValue = 0L },
                                     navArgument("scrollToReply") { type = NavType.BoolType; defaultValue = false },
+                                    navArgument(Routes.Args.FROM) { type = NavType.StringType; defaultValue = "" },
                                 ),
                                 deepLinks = listOf(navDeepLink { uriPattern = "tblite://thread/{threadId}" })
                             ) { backStackEntry ->
                                 val threadId = backStackEntry.arguments?.getLong(Routes.Args.THREAD_ID) ?: 0L
                                 val postId = backStackEntry.arguments?.getLong(Routes.Args.POST_ID) ?: 0L
                                 val scrollToReply = backStackEntry.arguments?.getBoolean("scrollToReply") ?: false
+                                val from = backStackEntry.arguments?.getString(Routes.Args.FROM) ?: ""
                                 ThreadPage(
                                     navigator = navController,
                                     threadId = threadId,
                                     postId = postId,
+                                    from = from,
                                     scrollToReply = scrollToReply,
                                 )
                             }

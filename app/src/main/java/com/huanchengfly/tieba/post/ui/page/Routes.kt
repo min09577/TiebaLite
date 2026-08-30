@@ -8,7 +8,7 @@ object Routes {
     const val MAIN = "main"
 
     // 有 deepLink 的页面
-    const val THREAD = "thread/{threadId}?postId={postId}&scrollToReply={scrollToReply}"  // deepLink: tblite://thread/{threadId}
+    const val THREAD = "thread/{threadId}?postId={postId}&scrollToReply={scrollToReply}&from={from}"  // deepLink: tblite://thread/{threadId}
     const val FORUM = "forum/{forumName}"                        // deepLink: tblite://forum/{forumName}
     const val NOTIFICATIONS = "notifications/{initialTab}"       // deepLink: tblite://notifications/{initialTab}
     const val HISTORY = "history"                                // deepLink: tblite://history

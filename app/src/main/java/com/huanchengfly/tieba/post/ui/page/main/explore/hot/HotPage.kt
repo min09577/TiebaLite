@@ -51,7 +51,6 @@ import com.huanchengfly.tieba.post.ui.common.theme.compose.RedA700
 import com.huanchengfly.tieba.post.ui.common.theme.compose.White
 import com.huanchengfly.tieba.post.ui.common.theme.compose.Yellow
 import com.huanchengfly.tieba.post.ui.common.theme.compose.pullRefreshIndicator
-import com.huanchengfly.tieba.post.ui.page.LocalNavigator
 import com.huanchengfly.tieba.post.ui.widgets.compose.Container
 import com.huanchengfly.tieba.post.ui.widgets.compose.FeedCard
 import com.huanchengfly.tieba.post.ui.widgets.compose.LazyLoad
@@ -77,7 +76,6 @@ fun HotPage(navigator: NavHostController,
     ) {
         viewModel.send(HotUiIntent.Load)
     }
-    val navigator = LocalNavigator.current
     val isLoading by viewModel.uiState.collectPartialAsState(
         prop1 = HotUiState::isRefreshing,
         initial = false

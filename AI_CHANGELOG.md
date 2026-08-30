@@ -5,6 +5,51 @@
 
 ---
 
+## v4.0.0-ai.38 (2026-08-30) 🚀 启动稳定性修复 + 收藏偏好贯通
+
+### 🇨🇳 中文
+
+**启动崩溃根治 + 个体贡献合入 + 收藏页浏览偏好全链路生效**
+
+#### 启动导航作用域修复（合入社区贡献 #15，感谢 @wufeng5702）
+- `MainActivityV2` 顶层 `CompositionLocalProvider` 全局提供 `LocalNavigator`，
+  根治部分机型冷启动即触发 `IllegalStateException: No navigator is available` 的闪退（#6 / #9 / #17）
+- `NotificationsPage` 改为显式注入 navigator，调用链清晰无歧义
+- `HotPage` 移除遮蔽函数参数的冗余局部变量，消除导航上下文歧义
+
+#### Java 21 API 前向兼容
+- `Extensions.kt` / `PbContentRender.kt` 中 `removeFirst()` / `removeLast()`
+  统一替换为 `removeAt()`，避免在高版本 JDK 编译产物上于旧版 Android 运行时触发 `NoSuchMethodError`
+
+#### 收藏页浏览偏好贯通（#3）
+- 打通 `from=FROM_STORE` 传递链：`Routes.THREAD` 路由新增 `from` 参数 →
+  `MainActivityV2` 解析注入 → 收藏页跳转携带标识
+- `ThreadPage` 初始化时读取「从收藏进入默认只看楼主 / 默认倒序浏览」设置并作为有效初始值，
+  两个此前「定义而未生效」的开关自此真正生效
+- 刷新 / 重试 / 续读路径统一取用运行时状态值，手动切换的浏览偏好在会话内稳定保持
+
+#### 构建产物
+- ✅ Debug + Release APK（CI 全量构建通过）
+
+### 🇺🇸 English
+
+**Startup crash fix + community contribution merged + collection browse preferences fully wired**
+
+#### Startup navigation scope fix (community PR #15 by @wufeng5702 merged with thanks)
+- `LocalNavigator` is now provided globally at the top-level `CompositionLocalProvider` in `MainActivityV2`,
+  eliminating the `IllegalStateException: No navigator is available` cold-start crash on affected devices (#6 / #9 / #17)
+- `NotificationsPage` now receives the navigator explicitly; `HotPage` drops the parameter-shadowing local
+
+#### Java 21 API forward compatibility
+- `removeFirst()` / `removeLast()` replaced with `removeAt()` in `Extensions.kt` / `PbContentRender.kt`
+
+#### Collection browse preferences wired end-to-end (#3)
+- The `from=FROM_STORE` chain now flows through `Routes.THREAD` → `MainActivityV2` → `ThreadStorePage`
+- `ThreadPage` reads the "default see-LZ / default descending" preferences as effective initial values;
+  refresh / retry / load-more paths consistently use runtime state so manual toggles persist
+
+---
+
 ## v4.0.0-ai.4 (2026-06-12) 🔧 构建链升级 + 源码修复
 
 ### 🇨🇳 中文

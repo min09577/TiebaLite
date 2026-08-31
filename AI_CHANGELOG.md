@@ -5,6 +5,56 @@
 
 ---
 
+## v4.0.0-ai.39 (2026-08-31) 🛡️ 特殊字符路由加固
+
+### 🇨🇳 中文
+
+**含链接内容复制 / 外链跳转闪退根治**
+
+#### 问题现象（#19）
+复制包含链接的回帖内容、或点击帖子内的网页链接（如网盘链接）时，
+应用在导航瞬间闪退；纯文本内容的复制则一切正常。
+
+#### 根因
+链接与特殊字符（`/` `?` `&` `:` 等）未经 URI 编码即被拼入导航路由，
+破坏了 Navigation 的路由匹配规则，触发 `IllegalArgumentException`。
+
+#### 修复内容
+- 复制对话框路由（`copy_dialog`）与网页路由（`webview`）的参数统一采用
+  `android.net.Uri.encode` 编码后传递，共加固 **5 处调用点**（楼层复制 ×2、
+  楼中楼复制 ×2、外链跳转 ×1），并同步覆盖视频卡片跳转等同族路径
+- 读取侧依赖 Navigation 框架的自动解码，往返无损——中文、空格、emoji、
+  全角符号、完整 URL 均原样还原
+- 排查期间另发现一处字符串插值笔误（分享链接场景），已记录待后续版本处理
+
+#### 验证
+- ✅ 复制纯文本 / 含特殊字符内容 → 对话框原文无损展示
+- ✅ 点击网盘类外链 → 内置 WebView 完整渲染
+- ✅ 视频卡片 → 内嵌播放器正常播放
+- ✅ 帖子详情、楼中楼全量回归通过
+
+### 🇺🇸 English
+
+**Crash fix for copying content with links / opening external URLs**
+
+#### Symptom (#19)
+Copying a reply containing links, or tapping an in-post URL (e.g. a netdisk link),
+crashed the app at navigation time; plain-text copying worked fine.
+
+#### Root cause
+Link and special characters (`/` `?` `&` `:` etc.) were concatenated into navigation
+routes without URI encoding, breaking Navigation's route matching and throwing
+`IllegalArgumentException`.
+
+#### Fix
+- All `copy_dialog` and `webview` route parameters are now passed through
+  `android.net.Uri.encode` — **5 call sites** hardened (thread copy ×2,
+  sub-post copy ×2, external link ×1), plus sibling paths such as video-card jumps
+- The reading side relies on Navigation's built-in auto-decoding; round-trips are
+  lossless for Chinese text, spaces, emoji, full-width symbols and full URLs
+
+---
+
 ## v4.0.0-ai.38 (2026-08-30) 🚀 启动稳定性修复 + 收藏偏好贯通
 
 ### 🇨🇳 中文

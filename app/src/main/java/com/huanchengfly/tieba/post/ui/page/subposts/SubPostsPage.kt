@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
+import androidx.compose.foundation.layout.safeGestures
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -374,7 +375,7 @@ internal fun SubPostsContent(
                         ) {
                             Spacer(
                                 modifier = Modifier
-                                    .windowInsetsBottomHeight(WindowInsets.navigationBars)
+                                    .windowInsetsBottomHeight(WindowInsets.navigationBars + WindowInsets.safeGestures)
                             )
                         }
                     }

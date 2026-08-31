@@ -7,6 +7,7 @@ import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.PersistableBundle
 import androidx.core.content.ContextCompat
@@ -137,7 +138,7 @@ object TiebaUtil {
             .checkReportPostAsync(postId)
             .doIfSuccess {
                 dialog.dismiss()
-                navigator.navigate("webview/it.data.url")
+                navigator.navigate("webview/${Uri.encode(it.data.url)}")
             }
             .doIfFailure {
                 dialog.dismiss()

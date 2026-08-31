@@ -195,7 +195,7 @@ fun launchUrl(
                 "ufosdk.baidu.com"
             ) || host.contains("m.help.baidu.com")
         if (isTiebaLink || context.appPreferences.useWebView) {
-            navigator.navigate("webview/$url")
+            navigator.navigate("webview/${Uri.encode(url)}")
         } else {
             if (context.appPreferences.useCustomTabs) {
                 val intentBuilder = CustomTabsIntent.Builder()

@@ -1,5 +1,6 @@
 package com.huanchengfly.tieba.post.ui.page.subposts
 
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -436,7 +437,7 @@ internal fun SubPostsContent(
                                         )
                                     },
                                     onMenuCopyClick = {
-                                        navigator.navigate("copy_dialog/$it")
+                                        navigator.navigate("copy_dialog/${Uri.encode(it)}")
                                     },
                                 ) {
                                     deleteSubPost = null
@@ -501,7 +502,7 @@ internal fun SubPostsContent(
                                 )
                             },
                             onMenuCopyClick = {
-                                navigator.navigate("copy_dialog/$it")
+                                navigator.navigate("copy_dialog/${Uri.encode(it)}")
 //                                TiebaUtil.copyText(context, it)
                             },
                             onMenuDeleteClick = {

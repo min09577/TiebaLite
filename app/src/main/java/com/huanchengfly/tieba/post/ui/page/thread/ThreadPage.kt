@@ -1,5 +1,6 @@
 package com.huanchengfly.tieba.post.ui.page.thread
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
@@ -950,7 +951,7 @@ fun ThreadPage(
                 }
             },
             onMenuCopyClick = {
-                navigator.navigate("copy_dialog/$it")
+                navigator.navigate("copy_dialog/${Uri.encode(it)}")
             },
             onMenuFavoriteClick = {
                 val isPostCollected =
@@ -1308,7 +1309,7 @@ fun ThreadPage(
                                                         navigator.navigate("reply/$threadId?forumId=${curForumId ?: 0}&forumName=${forum?.get { name }.orEmpty()}")
                                                     },
                                                     onMenuCopyClick = {
-                                                        navigator.navigate("copy_dialog/$it")
+                                                        navigator.navigate("copy_dialog/${Uri.encode(it)}")
                                                     },
                                                     onMenuFavoriteClick = {
                                                         viewModel.send(

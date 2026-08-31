@@ -25,6 +25,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
+import androidx.compose.foundation.layout.safeGestures
+import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
@@ -1662,7 +1664,7 @@ private fun BottomBar(
         ) {
             Spacer(
                 modifier = Modifier
-                    .windowInsetsBottomHeight(WindowInsets.navigationBars)
+                    .windowInsetsBottomHeight(WindowInsets.navigationBars.union(WindowInsets.safeGestures))
             )
         }
     }

@@ -375,7 +375,7 @@ internal fun SubPostsContent(
                         ) {
                             Spacer(
                                 modifier = Modifier
-                                    .windowInsetsBottomHeight(WindowInsets.navigationBars + WindowInsets.safeGestures)
+                                    .windowInsetsBottomHeight(WindowInsets.navigationBars.union(WindowInsets.safeGestures))
                             )
                         }
                     }

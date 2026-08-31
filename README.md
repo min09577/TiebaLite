@@ -68,7 +68,7 @@
 > 破坏路由匹配规则（#19）。
 >
 > ### 🔐 全链路编码，往返无损
-> 复制对话框与网页路由的参数统一经 `Uri.encode` 编码传递，五处调用点一次收口，
+> 复制对话框与网页路由的参数统一经 `Uri.encode` 编码传递，六处调用点一次收口，
 > 覆盖楼层复制、楼中楼复制、外链跳转及视频卡片等全部同族路径；
 > 读取侧由框架自动解码，中文、空格、emoji、完整 URL 均原样还原。
 
@@ -395,7 +395,7 @@ This is an**anonymous AI-assisted iterative upgrade version**, and all original 
 | v4.0.0-ai.36 | 2026-08-16 | **🎯 回帖直达自己主页** — account.uid 修正 + user/{uid}?tab=1 定位 |
 | v4.0.0-ai.37 | 2026-08-16 | 🛠️ **编译修复** — initialTab 三级函数参数链补齐 |
 | v4.0.0-ai.38 | 2026-08-30 | 🚀 **启动稳定性重构** — LocalNavigator 顶层注入根治冷启动闪退 · 收藏偏好贯通 · 合入社区贡献 #15 |
-| v4.0.0-ai.39 | 2026-08-31 | 🛡️ **特殊字符路由加固** — 复制含链接内容/外链跳转闪退根治 · 五处调用点统一 Uri.encode |
+| v4.0.0-ai.39 | 2026-08-31 | 🛡️ **特殊字符路由加固** — 复制含链接内容/外链跳转闪退根治 · 六处调用点统一 Uri.encode |
 | [▶ 最新 Release](https://github.com/min09577/TiebaLite/releases/latest) | | **← APK 下载点这里 / Download APK here** |
 
 ---

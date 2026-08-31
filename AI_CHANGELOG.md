@@ -5,6 +5,39 @@
 
 ---
 
+## v4.0.0-ai.40 (2026-08-31) 🧭 举报跳转修复 + 全面屏手势避让
+
+### 🇨🇳 中文
+
+**举报跳转修正 + 手势导航底栏避让加固**
+
+#### 举报成功跳转修正
+- 修复举报成功后跳转网页的字符串插值缺失问题，举报流程跳转恢复正常，
+  并按新规范对跳转地址进行 URI 编码处理
+
+#### 全面屏手势底栏避让（#20）
+- 修复全面屏手势导航下，帖子页底部点击会误触「只看楼主 / 收藏」等操作的问题
+- 根因：底栏避让高度此前仅覆盖系统导航条（三键导航），未覆盖全面屏手势热区，
+  两者现已同时避让（`navigationBars ∪ safeGestures`），手势与三键模式下均正常
+- 同步加固楼中楼页面的同一问题
+
+### 🇺🇸 English
+
+**Report-jump fix + gesture-navigation bottom-bar inset hardening**
+
+#### Report jump corrected
+- Fixed a missing string interpolation in the post-report success callback that
+  broke the follow-up web jump; the URL is now URI-encoded per the new convention
+
+#### Gesture bottom-bar inset (#20)
+- With gesture navigation, taps near the screen bottom could accidentally trigger
+  "See OP only / Favorite" actions: the bottom bar only reserved height for
+  navigation bars (3-button mode), not for the gesture hotspot
+- Now reserves `navigationBars ∪ safeGestures`, correct under both navigation modes;
+  the same fix is applied to the sub-posts (reply) page
+
+---
+
 ## v4.0.0-ai.39 (2026-08-31) 🛡️ 特殊字符路由加固
 
 ### 🇨🇳 中文
@@ -21,7 +54,7 @@
 
 #### 修复内容
 - 复制对话框路由（`copy_dialog`）与网页路由（`webview`）的参数统一采用
-  `android.net.Uri.encode` 编码后传递，共加固 **5 处调用点**（楼层复制 ×2、
+  `android.net.Uri.encode` 编码后传递，共加固 **6 处调用点**（楼层复制 ×2、
   楼中楼复制 ×2、外链跳转 ×1），并同步覆盖视频卡片跳转等同族路径
 - 读取侧依赖 Navigation 框架的自动解码，往返无损——中文、空格、emoji、
   全角符号、完整 URL 均原样还原
@@ -48,7 +81,7 @@ routes without URI encoding, breaking Navigation's route matching and throwing
 
 #### Fix
 - All `copy_dialog` and `webview` route parameters are now passed through
-  `android.net.Uri.encode` — **5 call sites** hardened (thread copy ×2,
+  `android.net.Uri.encode` — **6 call sites** hardened (thread copy ×2,
   sub-post copy ×2, external link ×1), plus sibling paths such as video-card jumps
 - The reading side relies on Navigation's built-in auto-decoding; round-trips are
   lossless for Chinese text, spaces, emoji, full-width symbols and full URLs

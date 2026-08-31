@@ -1,5 +1,6 @@
 package com.huanchengfly.tieba.post.ui.common
 
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
@@ -209,7 +210,7 @@ data class VideoContentRender(
                     contentDescription = stringResource(id = R.string.desc_video),
                     modifier = picModifier
                         .clickable {
-                            navigator.navigate("webview/$webUrl")
+                            navigator.navigate("webview/${Uri.encode(webUrl)}")
                         },
                     contentScale = ContentScale.Crop
                 )

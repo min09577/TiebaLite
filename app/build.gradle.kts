@@ -74,6 +74,16 @@ android {
             }
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+
+    defaultConfig {
+        buildConfigField("String", "SIGN_MAINTAINER", "\"min09577\"")
+        buildConfigField("String", "SIGN_REPO", "\"https://github.com/min09577/TiebaLite\"")
+        buildConfigField("String", "SIGN_PROFILE", "\"https://github.com/min09577\"")
+    }
+
     buildTypes {
         all {
             signingConfig =

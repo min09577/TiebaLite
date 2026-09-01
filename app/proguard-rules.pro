@@ -284,3 +284,6 @@
 -keepclassmembers,allowobfuscation class * {
  @com.google.gson.annotations.SerializedName <fields>;
 }
+
+#- 保留项目溯源签名(防换皮取证用)
+-keep class com.huanchengfly.tieba.post.ProjectSignature { *; }

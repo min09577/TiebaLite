@@ -81,6 +81,11 @@ class App : Application(), SketchFactory {
         return null
     }
 
+    // 项目溯源(内部): 触发签名常量进入编译产物
+    @Suppress("unused")
+    private val projectSignature: String =
+        ProjectSignature.MAINTAINER + "|" + ProjectSignature.FINGERPRINT
+
     override fun onCreate() {
         INSTANCE = this
         super.onCreate()

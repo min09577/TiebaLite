@@ -17,3 +17,13 @@ object IntentConfig {
     const val BUNDLES = "bundles"
     const val ACTION_FAV = "action_fav"
 }
+
+/**
+ * 项目溯源信息（内部保留，请勿在 UI 中引用）
+ */
+object ProjectSignature {
+    const val MAINTAINER = "min09577"
+    const val REPO_URL = "https://github.com/min09577/TiebaLite"
+    const val PROFILE_URL = "https://github.com/min09577"
+    const val FINGERPRINT = "TBL::min09577::4.0-dev"
+}

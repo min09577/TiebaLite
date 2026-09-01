@@ -5,7 +5,40 @@
 
 ---
 
-## v4.0.0-ai.40 (2026-08-31) 🧭 举报跳转修复 + 全面屏手势避让
+## v4.0.0-ai.41 (2026-09-01) 🖐️ 手势热区二次加固
+
+### 🇨🇳 中文
+
+**底栏手势热区确定性兜底 + 弹层避让补全**
+
+#### 背景
+ai.40 的避让修复在部分国产 ROM（ColorOS 16 等手势导航机型）上未完全生效：
+系统在手势模式下可能将 `navigationBars` 与 `safeGestures` 两个 inset 同时上报为 0，
+基于 inset 的避让在数学上等于没有生效。
+
+#### 修复内容
+- 新增统一的底栏安全区组件：inset 真实值优先，**两者均为 0 时以 28dp 手势热区高度确定性兜底**，
+  并在该区域内主动消费点击，杜绝触摸穿透
+- 「更多」底部弹层补齐底部避让——「只看楼主 / 收藏」等选项不再落入手势热区（#20）
+- 帖子页与楼中楼页同步应用
+
+### 🇺🇸 English
+
+**Deterministic gesture-hotspot fallback + bottom-sheet inset hardening**
+
+#### Background
+On some ROMs (e.g. ColorOS 16 gesture navigation), both `navigationBars` and
+`safeGestures` may be reported as 0, so the ai.40 inset-based avoidance was a no-op.
+
+#### Fix
+- New unified bottom-bar safety component: real insets first, **deterministic 28dp
+  fallback when both are 0**, plus click consumption inside the region
+- The "more" bottom sheet now also reserves gesture-hotspace height (#20)
+- Applied to both the thread page and the sub-posts page
+
+---
+
+## v4.0.0-ai.40 (2026-08-31) 🧭 举报跳转修正 + 全面屏手势避让
 
 ### 🇨🇳 中文
 

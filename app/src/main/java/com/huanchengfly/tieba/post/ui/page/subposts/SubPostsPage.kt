@@ -9,15 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
-import androidx.compose.foundation.layout.safeGestures
-import androidx.compose.foundation.layout.union
-import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -63,6 +58,7 @@ import com.huanchengfly.tieba.post.ui.page.reply.ReplyDialog
 import com.huanchengfly.tieba.post.ui.page.thread.PostAgreeBtn
 import com.huanchengfly.tieba.post.ui.page.thread.PostCard
 import com.huanchengfly.tieba.post.ui.page.thread.UserNameText
+import com.huanchengfly.tieba.post.ui.utils.bottomBarInsetsPadding
 import com.huanchengfly.tieba.post.ui.widgets.compose.Avatar
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockTip
 import com.huanchengfly.tieba.post.ui.widgets.compose.BlockableContent
@@ -376,7 +372,7 @@ internal fun SubPostsContent(
                         ) {
                             Spacer(
                                 modifier = Modifier
-                                    .windowInsetsBottomHeight(WindowInsets.navigationBars.union(WindowInsets.safeGestures))
+                                    .bottomBarInsetsPadding()
                             )
                         }
                     }

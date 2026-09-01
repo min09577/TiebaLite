@@ -52,6 +52,7 @@ fun NotificationsListPage(
     viewModel: NotificationsListViewModel = when (type) {
         NotificationsType.ReplyMe -> pageViewModel<NotificationsListUiIntent, ReplyMeListViewModel>()
         NotificationsType.AtMe -> pageViewModel<NotificationsListUiIntent, AtMeListViewModel>()
+        NotificationsType.AgreeMe -> pageViewModel<NotificationsListUiIntent, AgreeMeListViewModel>()
     }
 ) {
     LazyLoad(loaded = viewModel.initialized) {

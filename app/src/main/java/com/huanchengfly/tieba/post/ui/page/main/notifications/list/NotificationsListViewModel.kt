@@ -59,6 +59,15 @@ class AtMeListViewModel @Inject constructor() : NotificationsListViewModel() {
     }
 }
 
+@Stable
+@HiltViewModel
+class AgreeMeListViewModel @Inject constructor() : NotificationsListViewModel() {
+    override fun createPartialChangeProducer():
+            PartialChangeProducer<NotificationsListUiIntent, NotificationsListPartialChange, NotificationsListUiState> {
+        return NotificationsListPartialChangeProducer(NotificationsType.AgreeMe)
+    }
+}
+
 private class NotificationsListPartialChangeProducer(private val type: NotificationsType) : PartialChangeProducer<NotificationsListUiIntent, NotificationsListPartialChange, NotificationsListUiState> {
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun toPartialChangeFlow(intentFlow: Flow<NotificationsListUiIntent>): Flow<NotificationsListPartialChange> =
@@ -71,9 +80,14 @@ private class NotificationsListPartialChangeProducer(private val type: Notificat
         (when (type) {
             NotificationsType.ReplyMe -> TiebaApi.getInstance().replyMeFlow()
             NotificationsType.AtMe -> TiebaApi.getInstance().atMeFlow()
+            NotificationsType.AgreeMe -> TiebaApi.getInstance().agreeMeFlow()
         }).map<MessageListBean, NotificationsListPartialChange.Refresh> { messageListBean ->
             val data =
-                ((if (type == NotificationsType.ReplyMe) messageListBean.replyList else messageListBean.atList)
+                ((when (type) {
+                    NotificationsType.ReplyMe -> messageListBean.replyList
+                    NotificationsType.AtMe -> messageListBean.atList
+                    NotificationsType.AgreeMe -> messageListBean.agreeList
+                })
                     ?: emptyList()).fastMap {
                     MessageItemData(it)
                 }
@@ -89,9 +103,14 @@ private class NotificationsListPartialChangeProducer(private val type: Notificat
         (when (type) {
             NotificationsType.ReplyMe -> TiebaApi.getInstance().replyMeFlow(page = page)
             NotificationsType.AtMe -> TiebaApi.getInstance().atMeFlow(page = page)
+            NotificationsType.AgreeMe -> TiebaApi.getInstance().agreeMeFlow(page = page)
         }).map<MessageListBean, NotificationsListPartialChange.LoadMore> { messageListBean ->
             val data =
-                ((if (type == NotificationsType.ReplyMe) messageListBean.replyList else messageListBean.atList)
+                ((when (type) {
+                    NotificationsType.ReplyMe -> messageListBean.replyList
+                    NotificationsType.AtMe -> messageListBean.atList
+                    NotificationsType.AgreeMe -> messageListBean.agreeList
+                })
                     ?: emptyList()).fastMap {
                     MessageItemData(it)
                 }
@@ -106,7 +125,7 @@ private class NotificationsListPartialChangeProducer(private val type: Notificat
 }
 
 enum class NotificationsType {
-    ReplyMe, AtMe
+    ReplyMe, AtMe, AgreeMe
 }
 
 sealed interface NotificationsListUiIntent : UiIntent {

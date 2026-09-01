@@ -18,6 +18,11 @@ class MessageListBean : BaseBean() {
     @JsonAdapter(MessageListAdapter::class)
     @SerializedName("at_list")
     val atList: List<MessageInfoBean>? = null
+
+    // 字段名 agree_list 为推测值，待真机抓包验证（#16）
+    @JsonAdapter(MessageListAdapter::class)
+    @SerializedName("agree_list")
+    val agreeList: List<MessageInfoBean>? = null
     val page: PageInfoBean? = null
     val message: MessageBean? = null
 

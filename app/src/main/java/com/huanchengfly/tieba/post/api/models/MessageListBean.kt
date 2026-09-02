@@ -2,6 +2,7 @@ package com.huanchengfly.tieba.post.api.models
 
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
+import com.huanchengfly.tieba.post.api.adapters.AgreeMeListAdapter
 import com.huanchengfly.tieba.post.api.adapters.MessageListAdapter
 import com.huanchengfly.tieba.post.api.adapters.PortraitAdapter
 import com.huanchengfly.tieba.post.models.BaseBean
@@ -19,10 +20,10 @@ class MessageListBean : BaseBean() {
     @SerializedName("at_list")
     val atList: List<MessageInfoBean>? = null
 
-    // 字段名 agree_list 为推测值，待真机抓包验证（#16）
-    @JsonAdapter(MessageListAdapter::class)
+    // agree 接口空数据时服务端可能返回原始值，防御性解析避免崩溃
+    @JsonAdapter(AgreeMeListAdapter::class)
     @SerializedName("agree_list")
-    val agreeList: List<MessageInfoBean>? = null
+    val agreeList: List<AgreeBean>? = null
     val page: PageInfoBean? = null
     val message: MessageBean? = null
 
@@ -50,6 +51,46 @@ class MessageListBean : BaseBean() {
         val isFriend: String? = null,
         @SerializedName("is_fans")
         val isFans: String? = null,
+    )
+
+    data class AgreeerInfoBean(
+        val id: String? = null,
+        val name: String? = null,
+
+        @SerializedName("name_show")
+        val nameShow: String? = null,
+
+        @JsonAdapter(PortraitAdapter::class)
+        val portrait: String? = null,
+    )
+
+    data class AgreeBean(
+        @SerializedName("agreeer")
+        val agreeer: AgreeerInfoBean? = null,
+
+        @SerializedName("thread_info")
+        val threadInfo: ThreadInfoBean? = null,
+
+        @SerializedName("thread_id")
+        val threadId: String? = null,
+
+        @SerializedName("op_time")
+        val opTime: String? = null,
+
+        @SerializedName("is_del")
+        val isDel: String? = null,
+    )
+
+    data class ThreadInfoBean(
+        val title: String? = null,
+        val fname: String? = null,
+        val fid: String? = null,
+
+        @SerializedName("id")
+        val id: String? = null,
+
+        @SerializedName("target_scheme")
+        val targetScheme: String? = null,
     )
 
     data class MessageInfoBean(

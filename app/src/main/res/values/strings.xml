@@ -51,6 +51,7 @@
     <string name="text_message_list_item_reply_my_thread">回复我的主题：%1$s</string>
     <string name="title_reply_me">回复我的</string>
     <string name="title_agree_me">收到的赞</string>
+    <string name="agree_me_content">赞了你的帖子:%1$s</string>
     <string name="title_send_to_desktop">发送到桌面</string>
     <string name="toast_send_to_desktop_success">已尝试发送快捷方式</string>
     <string name="toast_send_to_desktop_failed">快捷方式创建失败：%1$s</string>

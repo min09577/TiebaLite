@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
@@ -25,6 +27,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.huanchengfly.tieba.post.R
 import com.huanchengfly.tieba.post.arch.collectPartialAsState
 import com.huanchengfly.tieba.post.arch.pageViewModel
@@ -40,6 +46,7 @@ import com.huanchengfly.tieba.post.ui.widgets.compose.LazyLoad
 import com.huanchengfly.tieba.post.ui.widgets.compose.LoadMoreLayout
 import com.huanchengfly.tieba.post.ui.widgets.compose.MyLazyColumn
 import com.huanchengfly.tieba.post.ui.widgets.compose.Sizes
+import com.huanchengfly.tieba.post.ui.widgets.compose.TipScreen
 import com.huanchengfly.tieba.post.ui.widgets.compose.UserHeader
 import com.huanchengfly.tieba.post.utils.DateTimeUtils
 import com.huanchengfly.tieba.post.utils.StringUtil
@@ -59,8 +66,6 @@ fun NotificationsListPage(
         viewModel.send(NotificationsListUiIntent.Refresh)
         viewModel.initialized = true
     }
-    val context = LocalContext.current
-    val navigator = LocalNavigator.current
     val isRefreshing by viewModel.uiState.collectPartialAsState(
         prop1 = NotificationsListUiState::isRefreshing,
         initial = false
@@ -99,100 +104,34 @@ fun NotificationsListPage(
                 contentPadding = PaddingValues(vertical = 4.dp),
                 state = lazyListState,
             ) {
+                if (data.isEmpty() && !isRefreshing) {
+                    item {
+                        TipScreen(
+                            title = { Text(text = stringResource(id = R.string.title_empty)) },
+                            image = {
+                                val composition by rememberLottieComposition(
+                                    LottieCompositionSpec.RawRes(R.raw.lottie_empty_box)
+                                )
+                                LottieAnimation(
+                                    composition = composition,
+                                    iterations = LottieConstants.IterateForever,
+                                    modifier = Modifier
+                                        .padding(vertical = 16.dp)
+                                        .fillMaxWidth()
+                                        .aspectRatio(2.5f)
+                                )
+                            },
+                            scrollable = false,
+                        )
+                    }
+                }
                 items(
                     items = data,
-                    key = { "${it.info.postId}_${it.info.replyer?.id}_${it.info.time}" },
-                ) { (info, blocked) ->
-                    Container {
-                        BlockableContent(
-                            blocked = blocked,
-                            blockedTip = {
-                                BlockTip {
-                                    Text(
-                                        text = stringResource(id = R.string.tip_blocked_message)
-                                    )
-                                }
-                            },
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp, vertical = 12.dp)
-                        ) {
-                            Column(
-                                modifier = Modifier
-                                    .clickable {
-                                        if (info.isFloor == "1") {
-                                            navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.postId!!.toLong()}&scrollToReply=true")
-                                        } else {
-                                            navigator.navigate("thread/${info.threadId!!.toLong()}")
-                                        }
-                                    }
-                                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                                verticalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                if (info.replyer != null) {
-                                    UserHeader(
-                                        avatar = {
-                                            Avatar(
-                                                data = StringUtil.getAvatarUrl(info.replyer.portrait),
-                                                size = Sizes.Small,
-                                                contentDescription = null
-                                            )
-                                        },
-                                        name = {
-                                            Text(
-                                                text = info.replyer.nameShow ?: info.replyer.name
-                                                ?: ""
-                                            )
-                                        },
-                                        onClick = {
-                                            navigator.navigate("user/${info.replyer.id!!.toLong()}")
-                                        },
-                                        desc = {
-                                            Text(
-                                                text = DateTimeUtils.getRelativeTimeString(
-                                                    LocalContext.current,
-                                                    info.time!!
-                                                )
-                                            )
-                                        },
-                                    ) {}
-                                }
-                                EmoticonText(text = info.content ?: "")
-                                val quoteText = if (type == NotificationsType.ReplyMe) {
-                                    if ("1" == info.isFloor) {
-                                        info.quoteContent
-                                    } else {
-                                        stringResource(
-                                            id = R.string.text_message_list_item_reply_my_thread,
-                                            info.title ?: ""
-                                        )
-                                    }
-                                } else {
-                                    info.title
-                                }
-                                if (quoteText != null) {
-                                    EmoticonText(
-                                        text = quoteText,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .clip(RoundedCornerShape(6.dp))
-                                            .clickable {
-                                                if ("1" == info.isFloor && info.quotePid != null) {
-                                                    navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.quotePid.toLong()}&scrollToReply=true")
-                                                } else {
-                                                    navigator.navigate("thread/${info.threadId!!.toLong()}")
-                                                }
-                                            }
-                                            .background(
-                                                ExtendedTheme.colors.chip,
-                                                RoundedCornerShape(6.dp)
-                                            )
-                                            .padding(8.dp),
-                                        color = ExtendedTheme.colors.onChip,
-                                        fontSize = 12.sp,
-                                    )
-                                }
-                            }
-                        }
+                    key = { it.dedupeKey },
+                ) { item ->
+                    when (item) {
+                        is NotificationsListItem.MessageItem -> MessageItem(item, type)
+                        is NotificationsListItem.AgreeMeItem -> AgreeMeItem(item)
                     }
                 }
             }
@@ -205,5 +144,175 @@ fun NotificationsListPage(
             backgroundColor = ExtendedTheme.colors.pullRefreshIndicator,
             contentColor = ExtendedTheme.colors.primary,
         )
+    }
+}
+
+@Composable
+private fun MessageItem(
+    item: NotificationsListItem.MessageItem,
+    type: NotificationsType,
+) {
+    val navigator = LocalNavigator.current
+    val info = item.info
+    Container {
+        BlockableContent(
+            blocked = item.blocked,
+            blockedTip = {
+                BlockTip {
+                    Text(
+                        text = stringResource(id = R.string.tip_blocked_message)
+                    )
+                }
+            },
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .clickable {
+                        if (info.isFloor == "1") {
+                            navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.postId!!.toLong()}&scrollToReply=true")
+                        } else {
+                            navigator.navigate("thread/${info.threadId!!.toLong()}")
+                        }
+                    }
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (info.replyer != null) {
+                    UserHeader(
+                        avatar = {
+                            Avatar(
+                                data = StringUtil.getAvatarUrl(info.replyer.portrait),
+                                size = Sizes.Small,
+                                contentDescription = null
+                            )
+                        },
+                        name = {
+                            Text(
+                                text = info.replyer.nameShow ?: info.replyer.name
+                                ?: ""
+                            )
+                        },
+                        onClick = {
+                            navigator.navigate("user/${info.replyer.id!!.toLong()}")
+                        },
+                        desc = {
+                            Text(
+                                text = DateTimeUtils.getRelativeTimeString(
+                                    LocalContext.current,
+                                    info.time!!
+                                )
+                            )
+                        },
+                    ) {}
+                }
+                EmoticonText(text = info.content ?: "")
+                val quoteText = if (type == NotificationsType.ReplyMe) {
+                    if ("1" == info.isFloor) {
+                        info.quoteContent
+                    } else {
+                        stringResource(
+                            id = R.string.text_message_list_item_reply_my_thread,
+                            info.title ?: ""
+                        )
+                    }
+                } else {
+                    info.title
+                }
+                if (quoteText != null) {
+                    EmoticonText(
+                        text = quoteText,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(6.dp))
+                            .clickable {
+                                if ("1" == info.isFloor && info.quotePid != null) {
+                                    navigator.navigate("thread/${info.threadId!!.toLong()}?postId=${info.quotePid.toLong()}&scrollToReply=true")
+                                } else {
+                                    navigator.navigate("thread/${info.threadId!!.toLong()}")
+                                }
+                            }
+                            .background(
+                                ExtendedTheme.colors.chip,
+                                RoundedCornerShape(6.dp)
+                            )
+                            .padding(8.dp),
+                        color = ExtendedTheme.colors.onChip,
+                        fontSize = 12.sp,
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AgreeMeItem(item: NotificationsListItem.AgreeMeItem) {
+    val navigator = LocalNavigator.current
+    val info = item.info
+    Container {
+        BlockableContent(
+            blocked = item.blocked,
+            blockedTip = {
+                BlockTip {
+                    Text(
+                        text = stringResource(id = R.string.tip_blocked_message)
+                    )
+                }
+            },
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .clickable {
+                        info.threadId?.toLongOrNull()?.let { threadId ->
+                            navigator.navigate("thread/$threadId")
+                        }
+                    }
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (info.agreeer != null) {
+                    UserHeader(
+                        avatar = {
+                            Avatar(
+                                data = StringUtil.getAvatarUrl(info.agreeer.portrait),
+                                size = Sizes.Small,
+                                contentDescription = null
+                            )
+                        },
+                        name = {
+                            Text(
+                                text = info.agreeer.nameShow ?: info.agreeer.name
+                                ?: ""
+                            )
+                        },
+                        onClick = {
+                            info.agreeer?.id?.toLongOrNull()?.let { uid ->
+                                navigator.navigate("user/$uid")
+                            }
+                        },
+                        desc = {
+                            if (info.opTime != null) {
+                                Text(
+                                    text = DateTimeUtils.getRelativeTimeString(
+                                        LocalContext.current,
+                                        info.opTime
+                                    )
+                                )
+                            }
+                        },
+                    ) {}
+                }
+                EmoticonText(
+                    text = stringResource(
+                        id = R.string.agree_me_content,
+                        info.threadInfo?.title ?: ""
+                    ),
+                )
+            }
+        }
     }
 }

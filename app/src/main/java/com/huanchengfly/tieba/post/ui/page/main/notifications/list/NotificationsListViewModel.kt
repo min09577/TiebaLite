@@ -82,15 +82,17 @@ private class NotificationsListPartialChangeProducer(private val type: Notificat
             NotificationsType.AtMe -> TiebaApi.getInstance().atMeFlow()
             NotificationsType.AgreeMe -> TiebaApi.getInstance().agreeMeFlow()
         }).map<MessageListBean, NotificationsListPartialChange.Refresh> { messageListBean ->
-            val data =
-                ((when (type) {
-                    NotificationsType.ReplyMe -> messageListBean.replyList
-                    NotificationsType.AtMe -> messageListBean.atList
-                    NotificationsType.AgreeMe -> messageListBean.agreeList
-                })
-                    ?: emptyList()).fastMap {
-                    MessageItemData(it)
+            val data = when (type) {
+                NotificationsType.ReplyMe -> messageListBean.replyList.orEmpty().fastMap {
+                    NotificationsListItem.MessageItem(it)
                 }
+                NotificationsType.AtMe -> messageListBean.atList.orEmpty().fastMap {
+                    NotificationsListItem.MessageItem(it)
+                }
+                NotificationsType.AgreeMe -> messageListBean.agreeList.orEmpty().fastMap {
+                    NotificationsListItem.AgreeMeItem(it)
+                }
+            }
             NotificationsListPartialChange.Refresh.Success(
                 data = data,
                 hasMore = messageListBean.page?.hasMore == "1"
@@ -105,15 +107,17 @@ private class NotificationsListPartialChangeProducer(private val type: Notificat
             NotificationsType.AtMe -> TiebaApi.getInstance().atMeFlow(page = page)
             NotificationsType.AgreeMe -> TiebaApi.getInstance().agreeMeFlow(page = page)
         }).map<MessageListBean, NotificationsListPartialChange.LoadMore> { messageListBean ->
-            val data =
-                ((when (type) {
-                    NotificationsType.ReplyMe -> messageListBean.replyList
-                    NotificationsType.AtMe -> messageListBean.atList
-                    NotificationsType.AgreeMe -> messageListBean.agreeList
-                })
-                    ?: emptyList()).fastMap {
-                    MessageItemData(it)
+            val data = when (type) {
+                NotificationsType.ReplyMe -> messageListBean.replyList.orEmpty().fastMap {
+                    NotificationsListItem.MessageItem(it)
                 }
+                NotificationsType.AtMe -> messageListBean.atList.orEmpty().fastMap {
+                    NotificationsListItem.MessageItem(it)
+                }
+                NotificationsType.AgreeMe -> messageListBean.agreeList.orEmpty().fastMap {
+                    NotificationsListItem.AgreeMeItem(it)
+                }
+            }
             NotificationsListPartialChange.LoadMore.Success(
                 currentPage = page,
                 data = data,
@@ -152,7 +156,7 @@ sealed interface NotificationsListPartialChange : PartialChange<NotificationsLis
         data object Start : Refresh()
 
         data class Success(
-            val data: List<MessageItemData>,
+            val data: List<NotificationsListItem>,
             val hasMore: Boolean,
         ) : Refresh()
 
@@ -167,7 +171,7 @@ sealed interface NotificationsListPartialChange : PartialChange<NotificationsLis
                 Start -> oldState.copy(isLoadingMore = true)
                 is Success -> {
                     val uniqueData = data.filter { item ->
-                        oldState.data.none { it.info == item.info }
+                        oldState.data.none { it.dedupeKey == item.dedupeKey }
                     }
                     oldState.copy(
                         isLoadingMore = false,
@@ -184,7 +188,7 @@ sealed interface NotificationsListPartialChange : PartialChange<NotificationsLis
 
         data class Success(
             val currentPage: Int,
-            val data: List<MessageItemData>,
+            val data: List<NotificationsListItem>,
             val hasMore: Boolean,
         ) : LoadMore()
 
@@ -195,18 +199,34 @@ sealed interface NotificationsListPartialChange : PartialChange<NotificationsLis
     }
 }
 
-@Immutable
-data class MessageItemData(
-    val info: MessageListBean.MessageInfoBean,
-    val blocked: Boolean = info.shouldBlock(),
-)
+sealed interface NotificationsListItem {
+    val dedupeKey: String
+
+    @Immutable
+    data class MessageItem(
+        val info: MessageListBean.MessageInfoBean,
+        val blocked: Boolean = info.shouldBlock(),
+    ) : NotificationsListItem {
+        override val dedupeKey: String =
+            "${info.postId}_${info.replyer?.id}_${info.time}"
+    }
+
+    @Immutable
+    data class AgreeMeItem(
+        val info: MessageListBean.AgreeBean,
+        val blocked: Boolean = info.shouldBlock(),
+    ) : NotificationsListItem {
+        override val dedupeKey: String =
+            "${info.threadId}_${info.agreeer?.id}_${info.opTime}"
+    }
+}
 
 data class NotificationsListUiState(
     val isRefreshing: Boolean = true,
     val isLoadingMore: Boolean = false,
     val currentPage: Int = 1,
     val hasMore: Boolean = true,
-    val data: ImmutableList<MessageItemData> = persistentListOf(),
+    val data: ImmutableList<NotificationsListItem> = persistentListOf(),
 ) : UiState
 
 sealed interface NotificationsListUiEvent : UiEvent

@@ -82,4 +82,10 @@ object BlockManager {
             this.replyer?.id?.toLongOrNull() ?: -1,
             this.replyer?.name.orEmpty()
         )
+
+    fun MessageListBean.AgreeBean.shouldBlock(): Boolean =
+        shouldBlock(threadInfo?.title.orEmpty()) || shouldBlock(
+            agreeer?.id?.toLongOrNull() ?: -1,
+            agreeer?.name.orEmpty()
+        )
 }

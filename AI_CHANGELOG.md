@@ -5,6 +5,50 @@
 
 ---
 
+## v4.0.0-ai.42 (2026-09-02) 👍 点赞列表完整渲染
+
+### 🇨🇳 中文
+
+**「收到的赞」列表渲染修复与体验完善**
+
+- 修复「收到的赞」列表无法展示内容的问题：为点赞消息建立专用数据模型，完整解析点赞者信息与被赞帖子信息
+- 列表条目展示：点赞者头像与昵称、相对时间、「赞了你的帖子：帖子标题」
+- 交互完善：点击条目跳转对应帖子，点击点赞者头像进入其个人主页
+- 新增列表空态兜底展示；下拉刷新与分页加载增加去重处理
+- 空值防护加固：异常数据不再引发崩溃
+
+### 🇬🇧 English
+
+**Agree-me list rendering fix & polish**
+
+- Fixed the "Received Likes" list appearing blank: introduced a dedicated data model to fully parse liker info and liked-thread info
+- List items now show liker avatar & nickname, relative time, and "liked your thread: <title>"
+- Interaction: tap an item to open the thread; tap the avatar to visit the liker's profile
+- Added empty-state fallback; deduplication for pull-to-refresh and pagination
+- Hardened null-safety against malformed data
+
+### 🇯🇵 日本語
+
+**「いただいたいいね」リストの描画修正**
+
+- 「いただいたいいね」リストが空白になる問題を修正：いいね専用のデータモデルを導入し、いいねしたユーザーと対象スレッドの情報を完全に解析
+- リスト項目：いいねしたユーザーのアバター・ニックネーム・相対時間・「スレッドにいいねしました：<タイトル>」
+- 操作：項目をタップしてスレッドへ、アバターをタップしてプロフィールへ
+- 空状態のフォールバック表示を追加；更新・ページネーション時の重複排除
+- 異常データに対する null 安全性を強化
+
+### 🇰🇷 한국어
+
+**「받은 좋아요」목록 렌더링 수정**
+
+- "받은 좋아요" 목록이 비어 있는 문제 수정: 전용 데이터 모델을 도입하여 좋아요 사용자 및 대상 게시글 정보를 완전히 파싱
+- 목록 항목: 좋아요한 사용자 아바타·닉네임·상대 시간·"게시글에 좋아요를 눌렀습니다: <제목>"
+- 조작: 항목 탭하여 게시글로 이동, 아바타 탭하여 프로필로 이동
+- 빈 상태 폴백 표시 추가; 새로고침·페이지네이션 중복 제거
+- 비정상 데이터에 대한 null 안전성 강화
+
+---
+
 ## v4.0.0-ai.41 (2026-09-01) 🖐️ 手势热区二次加固
 
 ### 🇨🇳 中文
